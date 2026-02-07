@@ -1,0 +1,1 @@
+// db.js - Banco de dados local (IndexedDB)
