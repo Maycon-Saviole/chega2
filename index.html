@@ -157,7 +157,57 @@
             </button>
         </div>
     </div>
+    <!-- Menu de navegação completo -->
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 30px 0;">
+    <button onclick="window.location.href='trip.html'" class="nav-btn">
+        <span class="nav-icon">📍</span>
+        <span class="nav-text">Acompanhamento</span>
+    </button>
     
+    <button onclick="window.location.href='contacts.html'" class="nav-btn">
+        <span class="nav-icon">👥</span>
+        <span class="nav-text">Contatos</span>
+    </button>
+    
+    <button onclick="window.location.href='community.html'" class="nav-btn">
+        <span class="nav-icon">🤝</span>
+        <span class="nav-text">CHEGA+</span>
+    </button>
+    
+    <button onclick="window.location.href='about.html'" class="nav-btn">
+        <span class="nav-icon">ℹ️</span>
+        <span class="nav-text">Sobre/Doações</span>
+    </button>
+</div>
+
+<style>
+    .nav-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 20px 10px;
+        border-radius: 15px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s;
+    }
+    
+    .nav-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+    }
+    
+    .nav-icon {
+        font-size: 1.8em;
+    }
+    
+    .nav-text {
+        font-size: 0.9em;
+    }
+</style>
     <footer>
         <p>Desenvolvido com ❤️ por um pai e professor</p>
         <p>Gratuito • Seguro • Para todas</p>
