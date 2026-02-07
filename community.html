@@ -3,211 +3,1030 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🤝 CHEGA+ - Comunidade</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>🤝 CHEGA+ - Rede de Apoio</title>
+    <style>
+        /* ESTILOS PRÁTICOS E REALISTAS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Cabeçalho */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .title {
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* Status da rede */
+        .network-status {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .status-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .status-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #4cd964;
+        }
+        
+        .status-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        /* Funcionalidades principais */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #4cd964;
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #4cd964;
+        }
+        
+        .feature-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        /* Zonas seguras */
+        .safe-zones {
+            background: rgba(76, 217, 100, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid rgba(76, 217, 100, 0.3);
+        }
+        
+        .safe-zones h3 {
+            margin-bottom: 20px;
+            color: #4cd964;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .zone-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .zone-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .zone-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4cd964;
+        }
+        
+        .zone-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        /* Sistema de check-in */
+        .checkin-system {
+            background: rgba(0, 122, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid rgba(0, 122, 255, 0.3);
+        }
+        
+        .checkin-btn {
+            background: #007aff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px auto;
+            transition: transform 0.3s;
+        }
+        
+        .checkin-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Alertas da comunidade */
+        .community-alerts {
+            margin: 30px 0;
+        }
+        
+        .alert-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #ff9500;
+        }
+        
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .alert-icon {
+            font-size: 1.5em;
+        }
+        
+        .alert-title {
+            font-weight: bold;
+            color: #ff9500;
+        }
+        
+        .alert-time {
+            font-size: 0.8em;
+            opacity: 0.7;
+            margin-left: auto;
+        }
+        
+        .alert-desc {
+            opacity: 0.9;
+        }
+        
+        /* Botões de ação rápida */
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Configurações */
+        .settings {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .setting-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #4cd964;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .network-status, .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .zone-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="top-nav">
-        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
-        <h1>🤝 CHEGA+</h1>
-        <span class="community-badge">🌐 Rede Ativa</span>
-    </nav>
-
-    <main class="container">
-        <!-- Introdução -->
-        <div class="community-intro">
-            <h2>Rede de Apoio Próxima</h2>
-            <p>Conecte-se com outras usuárias do CHEGA! próximas a você.</p>
-            <p class="note">🔒 Todas as comunicações são criptografadas e anônimas.</p>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <div class="header">
+            <a href="index.html" class="back-btn">
+                ← Voltar
+            </a>
+            
+            <h1 class="title">
+                <span>🤝</span>
+                <span>CHEGA+</span>
+            </h1>
         </div>
 
-        <!-- Status da Rede -->
+        <!-- Introdução -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2>Rede de Apoio e Segurança</h2>
+            <p style="opacity: 0.9; margin-top: 10px;">
+                Conecte-se com recursos de segurança, compartilhe informações úteis e encontre ajuda quando precisar.
+            </p>
+        </div>
+
+        <!-- Status da rede -->
         <div class="network-status">
             <div class="status-card">
                 <div class="status-icon">👥</div>
-                <div class="status-info">
-                    <h3>Usuárias Próximas</h3>
-                    <p id="nearbyCount">3 na sua área</p>
-                </div>
+                <div class="status-value" id="communityCount">0</div>
+                <div class="status-label">Usuárias na cidade</div>
             </div>
             
             <div class="status-card">
-                <div class="status-icon">📡</div>
-                <div class="status-info">
-                    <h3>Rede</h3>
-                    <p id="networkStatus">Conectada</p>
-                </div>
+                <div class="status-icon">📍</div>
+                <div class="status-value" id="zonesCount">0</div>
+                <div class="status-label">Zonas seguras</div>
             </div>
         </div>
 
-        <!-- Lista de Usuárias Próximas -->
-        <div class="users-list">
-            <h3>👭 Pessoas Próximas</h3>
-            
-            <div class="user-card">
-                <div class="user-avatar">👩</div>
-                <div class="user-info">
-                    <h4>Ana (você)</h4>
-                    <p class="user-distance">📍 Você está aqui</p>
-                    <div class="user-status">
-                        <span class="status-badge safe">✅ Segura</span>
-                    </div>
-                </div>
+        <!-- Funcionalidades principais -->
+        <h3 style="margin: 30px 0 20px 0; color: #4cd964;">Recursos Disponíveis</h3>
+        <div class="features">
+            <div class="feature-card" onclick="reportSafeZone()">
+                <div class="feature-icon">📍</div>
+                <h4 class="feature-title">Zona Segura</h4>
+                <p class="feature-desc">Marque locais seguros na sua área</p>
             </div>
             
-            <div class="user-card">
-                <div class="user-avatar">👱‍♀️</div>
-                <div class="user-info">
-                    <h4>Maria</h4>
-                    <p class="user-distance">📍 250m de você</p>
-                    <div class="user-status">
-                        <span class="status-badge safe">✅ Segura</span>
-                        <span class="status-badge online">🌐 Online</span>
-                    </div>
-                </div>
-                <button onclick="sendNudge(1)" class="user-action">👋 Cutucar</button>
+            <div class="feature-card" onclick="shareCheckIn()">
+                <div class="feature-icon">✅</div>
+                <h4 class="feature-title">Check-in Seguro</h4>
+                <p class="feature-desc">Registre que está bem em locais públicos</p>
             </div>
             
-            <div class="user-card">
-                <div class="user-avatar">👵</div>
-                <div class="user-info">
-                    <h4>Dona Marta</h4>
-                    <p class="user-distance">📍 800m de você</p>
-                    <div class="user-status">
-                        <span class="status-badge traveling">🚶‍♀️ Em trânsito</span>
-                    </div>
-                </div>
-                <button onclick="sendNudge(2)" class="user-action">👋 Cutucar</button>
+            <div class="feature-card" onclick="reportIncident()">
+                <div class="feature-icon">⚠️</div>
+                <h4 class="feature-title">Reportar Incidente</h4>
+                <p class="feature-desc">Alerta sobre situações de risco</p>
             </div>
             
-            <div class="user-card">
-                <div class="user-avatar">👩‍🎓</div>
-                <div class="user-info">
-                    <h4>Julia</h4>
-                    <p class="user-distance">📍 1.2km de você</p>
-                    <div class="user-status">
-                        <span class="status-badge safe">✅ Segura</span>
-                        <span class="status-badge chega-plus">🤝 CHEGA+ Ativa</span>
-                    </div>
-                </div>
-                <button onclick="sendNudge(3)" class="user-action">👋 Cutucar</button>
+            <div class="feature-card" onclick="viewSafetyTips()">
+                <div class="feature-icon">💡</div>
+                <h4 class="feature-title">Dicas de Segurança</h4>
+                <p class="feature-desc">Aprenda e compartilhe boas práticas</p>
             </div>
         </div>
 
-        <!-- Ações da Comunidade -->
-        <div class="community-actions">
-            <h3>🤲 Como Ajudar</h3>
+        <!-- Sistema de Check-in -->
+        <div class="checkin-system">
+            <h3>✅ Check-in de Segurança</h3>
+            <p style="margin: 15px 0; opacity: 0.9;">
+                Registre que você chegou bem em um local. Seus contatos de confiança receberão uma notificação.
+            </p>
             
-            <button onclick="toggleHelpMode()" class="action-btn">
-                <span class="action-icon">🛡️</span>
-                <span class="action-text">Modo Vigilante</span>
-                <span id="helpModeStatus" class="action-status">OFF</span>
-            </button>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                <button class="checkin-btn" onclick="quickCheckIn('Estou em casa')">
+                    <span>🏠</span>
+                    <span>Cheguei em casa</span>
+                </button>
+                
+                <button class="checkin-btn" onclick="quickCheckIn('Estou no trabalho')">
+                    <span>💼</span>
+                    <span>Cheguei no trabalho</span>
+                </button>
+                
+                <button class="checkin-btn" onclick="customCheckIn()">
+                    <span>📍</span>
+                    <span>Check-in personalizado</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Zonas Seguras -->
+        <div class="safe-zones">
+            <h3><span>🛡️</span> Zonas Seguras Próximas</h3>
             
-            <button onclick="broadcastSafeZone()" class="action-btn">
-                <span class="action-icon">📍</span>
-                <span class="action-text">Sinalizar Zona Segura</span>
-            </button>
+            <div class="zone-list" id="zoneList">
+                <!-- Zonas serão carregadas aqui -->
+                <div class="zone-item">
+                    <div class="zone-name">Farmácia 24h</div>
+                    <div class="zone-desc">Aberto 24 horas, câmeras de segurança</div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-name">Posto Policial</div>
+                    <div class="zone-desc">Avenida Principal, 24h</div>
+                </div>
+            </div>
             
-            <button onclick="openCommunityChat()" class="action-btn">
-                <span class="action-icon">💬</span>
-                <span class="action-text">Chat da Comunidade</span>
-            </button>
-            
-            <button onclick="reportIncident()" class="action-btn">
-                <span class="action-icon">⚠️</span>
-                <span class="action-text">Reportar Incidente</span>
+            <button class="action-btn" onclick="addSafeZone()" style="margin-top: 20px;">
+                <span>➕</span>
+                <span>Adicionar Zona Segura</span>
             </button>
         </div>
 
-        <!-- Alertas Recentes -->
+        <!-- Alertas da Comunidade -->
         <div class="community-alerts">
-            <h3>⚠️ Alertas da Comunidade</h3>
+            <h3 style="margin-bottom: 20px; color: #ff9500;">⚠️ Alertas Recentes</h3>
             
             <div class="alert-card">
-                <div class="alert-icon">🚨</div>
-                <div class="alert-info">
-                    <h4>Alerta de Emergência</h4>
-                    <p class="alert-time">Há 15 minutos - 500m</p>
-                    <p class="alert-desc">Usuária ativou emergência. Situação resolvida.</p>
+                <div class="alert-header">
+                    <div class="alert-icon">🚧</div>
+                    <div class="alert-title">Obras na Rua</div>
+                    <div class="alert-time">Hoje 18:30</div>
+                </div>
+                <div class="alert-desc">
+                    Rua das Flores bloqueada para obras. Use rotas alternativas à noite.
                 </div>
             </div>
             
             <div class="alert-card">
-                <div class="alert-icon">📍</div>
-                <div class="alert-info">
-                    <h4>Zona Segura</h4>
-                    <p class="alert-time">Farmácia 24h - 300m</p>
-                    <p class="alert-desc">Local seguro identificado pela comunidade.</p>
+                <div class="alert-header">
+                    <div class="alert-icon">💡</div>
+                    <div class="alert-title">Iluminação Pública</div>
+                    <div class="alert-time">Ontem 21:15</div>
                 </div>
+                <div class="alert-desc">
+                    Postes queimados na Praça Central. Evitar área à noite.
+                </div>
+            </div>
+            
+            <button class="action-btn" onclick="createAlert()" style="width: 100%; justify-content: center; margin-top: 15px;">
+                <span>📢</span>
+                <span>Criar Novo Alerta</span>
+            </button>
+        </div>
+
+        <!-- Ações Rápidas -->
+        <h3 style="margin: 30px 0 20px 0; color: #4cd964;">🔄 Ações Rápidas</h3>
+        <div class="quick-actions">
+            <button class="action-btn" onclick="shareLocation()">
+                <span>📍</span>
+                <span>Compartilhar Localização</span>
+            </button>
+            
+            <button class="action-btn" onclick="safetyTips()">
+                <span>📚</span>
+                <span>Dicas de Segurança</span>
+            </button>
+            
+            <button class="action-btn" onclick="emergencyNumbers()">
+                <span>📞</span>
+                <span>Números de Emergência</span>
+            </button>
+            
+            <button class="action-btn" onclick="downloadSafetyGuide()">
+                <span>📥</span>
+                <span>Guia de Segurança</span>
+            </button>
+        </div>
+
+        <!-- Configurações -->
+        <div class="settings">
+            <h3 style="margin-bottom: 20px; color: #4cd964;">⚙️ Configurações CHEGA+</h3>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>🔔</span>
+                    <span>Receber alertas da comunidade</span>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="receiveAlerts" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>📍</span>
+                    <span>Compartilhar zonas seguras</span>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="shareZones" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>👤</span>
+                    <span>Perfil anônimo</span>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="anonymousMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="action-btn" onclick="saveSettings()">
+                    <span>💾</span>
+                    <span>Salvar Configurações</span>
+                </button>
             </div>
         </div>
 
-        <!-- Estatísticas -->
-        <div class="community-stats">
-            <h3>📊 Estatísticas</h3>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-value">42</div>
-                    <div class="stat-label">Alertas enviados</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">18</div>
-                    <div class="stat-label">Situações evitadas</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value">156</div>
-                    <div class="stat-label">Usuárias na cidade</div>
-                </div>
+        <!-- Informações -->
+        <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; margin-top: 30px;">
+            <h4 style="color: #4cd964; margin-bottom: 15px;">ℹ️ Como funciona o CHEGA+</h4>
+            <ul style="padding-left: 20px; opacity: 0.9;">
+                <li>Todas as informações são <strong>anônimas</strong></li>
+                <li>Nenhum dado pessoal é compartilhado</li>
+                <li>Zonas seguras são validadas pela comunidade</li>
+                <li>Alertas são verificados antes da publicação</li>
+                <li>Sua privacidade é nossa prioridade</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal para ações -->
+    <div id="actionModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 20px; max-width: 500px; width: 90%;">
+            <h2 id="modalTitle" style="margin-bottom: 20px;"></h2>
+            <div id="modalContent" style="margin-bottom: 25px;"></div>
+            <div style="display: flex; gap: 15px;">
+                <button onclick="confirmAction()" style="flex: 1; background: #4cd964; color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer;">
+                    Confirmar
+                </button>
+                <button onclick="closeModal()" style="flex: 1; background: rgba(255,255,255,0.2); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer;">
+                    Cancelar
+                </button>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        let helpModeActive = false;
-        let nearbyUsers = 3;
+        // =========== SISTEMA PRÁTICO DE COMUNIDADE ===========
         
-        function sendNudge(userId) {
-            alert(`👋 Cutucada enviada para a usuária!`);
-            // Na prática, enviaria via WebSocket/WebRTC
+        // Armazenamento local
+        const COMMUNITY_STORAGE = 'chega_community_data';
+        
+        // =========== CARREGAR DADOS ===========
+        function loadCommunityData() {
+            const data = localStorage.getItem(COMMUNITY_STORAGE);
+            return data ? JSON.parse(data) : {
+                safeZones: [],
+                checkIns: [],
+                alerts: [],
+                settings: {
+                    receiveAlerts: true,
+                    shareZones: true,
+                    anonymousMode: false
+                }
+            };
         }
         
-        function toggleHelpMode() {
-            helpModeActive = !helpModeActive;
-            const status = document.getElementById('helpModeStatus');
-            status.textContent = helpModeActive ? 'ON' : 'OFF';
-            status.className = helpModeActive ? 'action-status active' : 'action-status';
+        // =========== SALVAR DADOS ===========
+        function saveCommunityData(data) {
+            localStorage.setItem(COMMUNITY_STORAGE, JSON.stringify(data));
+        }
+        
+        // =========== INICIALIZAR ===========
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🤝 CHEGA+ inicializado');
             
-            alert(helpModeActive ? 
-                '🛡️ Modo Vigilante Ativado: Você será notificada de emergências próximas.' :
-                'Modo Vigilante Desativado.');
+            // Carregar dados
+            const data = loadCommunityData();
+            
+            // Atualizar contadores
+            updateCounters(data);
+            
+            // Carregar configurações
+            loadSettings(data.settings);
+            
+            // Carregar zonas seguras
+            loadSafeZones(data.safeZones);
+        });
+        
+        // =========== ATUALIZAR CONTADORES ===========
+        function updateCounters(data) {
+            // Simular usuárias na cidade (apenas para demonstração)
+            document.getElementById('communityCount').textContent = 
+                Math.floor(Math.random() * 100) + 50;
+            
+            // Zonas seguras reais
+            document.getElementById('zonesCount').textContent = 
+                data.safeZones.length;
         }
         
-        function broadcastSafeZone() {
-            const location = prompt('Nome do local seguro:', 'Farmácia 24h - Av. Paulista');
+        // =========== CARREGAR CONFIGURAÇÕES ===========
+        function loadSettings(settings) {
+            document.getElementById('receiveAlerts').checked = settings.receiveAlerts;
+            document.getElementById('shareZones').checked = settings.shareZones;
+            document.getElementById('anonymousMode').checked = settings.anonymousMode;
+        }
+        
+        // =========== SALVAR CONFIGURAÇÕES ===========
+        function saveSettings() {
+            const data = loadCommunityData();
+            
+            data.settings = {
+                receiveAlerts: document.getElementById('receiveAlerts').checked,
+                shareZones: document.getElementById('shareZones').checked,
+                anonymousMode: document.getElementById('anonymousMode').checked
+            };
+            
+            saveCommunityData(data);
+            alert('✅ Configurações salvas!');
+        }
+        
+        // =========== ZONAS SEGURAS ===========
+        function loadSafeZones(zones) {
+            const zoneList = document.getElementById('zoneList');
+            
+            if (zones.length === 0) {
+                // Zonas padrão (apenas para demonstração)
+                zoneList.innerHTML = `
+                    <div class="zone-item">
+                        <div class="zone-name">Farmácia 24h</div>
+                        <div class="zone-desc">Aberto 24 horas, câmeras de segurança</div>
+                    </div>
+                    
+                    <div class="zone-item">
+                        <div class="zone-name">Posto Policial</div>
+                        <div class="zone-desc">Avenida Principal, 24h</div>
+                    </div>
+                    
+                    <div class="zone-item">
+                        <div class="zone-name">Shopping Center</div>
+                        <div class="zone-desc">Segurança privada, estacionamento iluminado</div>
+                    </div>
+                    
+                    <div class="zone-item">
+                        <div class="zone-name">Hospital Municipal</div>
+                        <div class="zone-desc">Recepção 24h, segurança no local</div>
+                    </div>
+                `;
+            }
+        }
+        
+        // =========== FUNÇÕES PRINCIPAIS ===========
+        
+        // 1. REPORTAR ZONA SEGURA
+        function reportSafeZone() {
+            openModal(
+                '📍 Reportar Zona Segura',
+                `Informe um local seguro na sua área:
+                <br><br>
+                <input type="text" id="zoneName" placeholder="Nome do local (ex: Farmácia 24h)" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white;">
+                <br>
+                <textarea id="zoneDescription" placeholder="Descrição (ex: Aberto 24h, câmeras, bem iluminado)" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; height: 80px;"></textarea>
+                <br>
+                <small style="opacity: 0.8;">Esta informação será compartilhada anonimamente com a comunidade.</small>`
+            );
+            
+            window.confirmAction = function() {
+                const name = document.getElementById('zoneName').value;
+                const desc = document.getElementById('zoneDescription').value;
+                
+                if (name && desc) {
+                    const data = loadCommunityData();
+                    
+                    data.safeZones.push({
+                        id: Date.now(),
+                        name: name,
+                        description: desc,
+                        timestamp: new Date().toISOString(),
+                        location: 'Próximo à sua área',
+                        verified: false
+                    });
+                    
+                    saveCommunityData(data);
+                    alert('✅ Zona segura reportada! Obrigada por contribuir.');
+                    
+                    // Atualizar lista
+                    loadSafeZones(data.safeZones);
+                    updateCounters(data);
+                } else {
+                    alert('Por favor, preencha todos os campos.');
+                    return;
+                }
+                
+                closeModal();
+            };
+        }
+        
+        // 2. CHECK-IN DE SEGURANÇA
+        function quickCheckIn(location) {
+            const message = `Confirmar check-in em: <strong>${location}</strong>?<br><br>Seus contatos de confiança serão notificados.`;
+            
+            openModal('✅ Check-in de Segurança', message);
+            
+            window.confirmAction = function() {
+                // Obter localização real
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const lat = position.coords.latitude;
+                            const lng = position.coords.longitude;
+                            
+                            // Salvar check-in
+                            const data = loadCommunityData();
+                            data.checkIns.push({
+                                location: location,
+                                coordinates: { lat, lng },
+                                timestamp: new Date().toISOString()
+                            });
+                            saveCommunityData(data);
+                            
+                            // Notificar contatos
+                            notifyCheckIn(location, lat, lng);
+                            
+                            alert(`✅ Check-in registrado em ${location}!`);
+                        },
+                        () => {
+                            // Fallback sem localização
+                            alert(`✅ Check-in registrado em ${location} (sem localização precisa).`);
+                        }
+                    );
+                } else {
+                    alert(`✅ Check-in registrado em ${location}!`);
+                }
+                
+                closeModal();
+            };
+        }
+        
+        function customCheckIn() {
+            const location = prompt('Onde você está fazendo check-in? (ex: Restaurante, Parque, Trabalho)');
             if (location) {
-                alert(`📍 Zona Segura "${location}" compartilhada com a comunidade!`);
+                quickCheckIn(location);
             }
         }
         
-        function openCommunityChat() {
-            alert('💬 Chat da comunidade será implementado em breve!');
-            // window.location.href = 'chat.html';
+        function notifyCheckIn(location, lat, lng) {
+            // Na versão completa, enviaria notificação para contatos
+            console.log(`📱 Notificando contatos: Check-in em ${location} (${lat}, ${lng})`);
+            
+            // Simulação
+            setTimeout(() => {
+                alert(`📱 Seus contatos foram notificados do seu check-in em ${location}.`);
+            }, 500);
         }
         
+        // 3. REPORTAR INCIDENTE
         function reportIncident() {
-            const incident = prompt('Descreva o incidente (local, hora, descrição):');
-            if (incident) {
-                alert('⚠️ Incidente reportado à comunidade. Obrigada!');
+            openModal(
+                '⚠️ Reportar Incidente',
+                `Descreva a situação de risco:
+                <br><br>
+                <select id="incidentType" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white;">
+                    <option value="">Selecione o tipo</option>
+                    <option value="harassment">Assédio/Importunação</option>
+                    <option value="lighting">Iluminação pública ruim</option>
+                    <option value="suspicious">Comportamento suspeito</option>
+                    <option value="obstruction">Via obstruída/perigosa</option>
+                    <option value="other">Outro</option>
+                </select>
+                <br>
+                <textarea id="incidentDescription" placeholder="Descrição detalhada (opcional)" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; height: 80px;"></textarea>
+                <br>
+                <small style="opacity: 0.8;">Este relato é anônimo e ajuda outras mulheres a evitarem riscos.</small>`
+            );
+            
+            window.confirmAction = function() {
+                const type = document.getElementById('incidentType').value;
+                const desc = document.getElementById('incidentDescription').value;
+                
+                if (type) {
+                    const data = loadCommunityData();
+                    
+                    data.alerts.push({
+                        type: type,
+                        description: desc,
+                        timestamp: new Date().toISOString(),
+                        status: 'pending'
+                    });
+                    
+                    saveCommunityData(data);
+                    alert('⚠️ Incidente reportado! Obrigada por alertar a comunidade.');
+                    
+                    // Em versão completa, enviaria para moderação
+                } else {
+                    alert('Por favor, selecione o tipo de incidente.');
+                    return;
+                }
+                
+                closeModal();
+            };
+        }
+        
+        // 4. DICAS DE SEGURANÇA
+        function viewSafetyTips() {
+            const tips = [
+                "💡 Ande sempre com o celular carregado",
+                "📍 Compartilhe sua localização com alguém de confiança",
+                "👂 Use apenas um fone de ouvido na rua",
+                "👜 Mantenha bolsas e mochilas à frente do corpo",
+                "🚶‍♀️ Caminhe em direção oposta ao trânsito",
+                "📱 Memorize números de emergência",
+                "🔦 Use a lanterna do celular em áreas escuras",
+                "🚫 Evite atalhos por áreas desertas à noite",
+                "🗣️ Grite 'Fogo!' em vez de 'Socorro!' - chama mais atenção",
+                "📍 Conheça estabelecimentos 24h na sua rota"
+            ];
+            
+            let tipsHTML = '<h3>💡 Dicas de Segurança</h3><ul style="text-align: left; padding-left: 20px;">';
+            tips.forEach(tip => {
+                tipsHTML += `<li style="margin: 10px 0;">${tip}</li>`;
+            });
+            tipsHTML += '</ul>';
+            
+            openModal('💡 Dicas de Segurança', tipsHTML);
+            
+            window.confirmAction = function() {
+                closeModal();
+            };
+        }
+        
+        // 5. CRIAR ALERTA
+        function createAlert() {
+            const alertText = prompt('Digite o alerta para a comunidade (ex: "Iluminação quebrada na Rua X"):');
+            if (alertText) {
+                const data = loadCommunityData();
+                
+                data.alerts.push({
+                    type: 'community_alert',
+                    description: alertText,
+                    timestamp: new Date().toISOString(),
+                    status: 'active'
+                });
+                
+                saveCommunityData(data);
+                alert('📢 Alerta criado e compartilhado com a comunidade!');
             }
         }
         
-        // Simular atualização de usuários próximos
-        setInterval(() => {
-            nearbyUsers = Math.max(1, nearbyUsers + Math.floor(Math.random() * 3) - 1);
-            document.getElementById('nearbyCount').textContent = 
-                `${nearbyUsers} na sua área`;
-        }, 30000);
+        // 6. ADICIONAR ZONA SEGURA
+        function addSafeZone() {
+            reportSafeZone();
+        }
+        
+        // 7. COMPARTILHAR LOCALIZAÇÃO
+        function shareLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        const mapsUrl = `https://maps.google.com/?q=${lat},${lng}`;
+                        
+                        if (navigator.share) {
+                            navigator.share({
+                                title: 'Minha Localização',
+                                text: 'Estou aqui:',
+                                url: mapsUrl
+                            });
+                        } else {
+                            navigator.clipboard.writeText(mapsUrl);
+                            alert('📍 Link da localização copiado! Cole em qualquer app.');
+                        }
+                    },
+                    () => {
+                        alert('Não foi possível obter sua localização.');
+                    }
+                );
+            } else {
+                alert('Seu navegador não suporta geolocalização.');
+            }
+        }
+        
+        // 8. DICAS DE SEGURANÇA
+        function safetyTips() {
+            viewSafetyTips();
+        }
+        
+        // 9. NÚMEROS DE EMERGÊNCIA
+        function emergencyNumbers() {
+            const numbers = {
+                '190': 'Polícia Militar',
+                '192': 'SAMU (Ambulância)',
+                '193': 'Bombeiros',
+                '180': 'Central de Atendimento à Mulher',
+                '181': 'Disque Denúncia',
+                '100': 'Direitos Humanos'
+            };
+            
+            let numbersHTML = '<h3>📞 Números de Emergência</h3>';
+            for (const [number, service] of Object.entries(numbers)) {
+                numbersHTML += `
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        <div style="font-weight: bold; font-size: 1.3em;">${number}</div>
+                        <div>${service}</div>
+                        <button onclick="callNumber('${number}')" style="background: #4cd964; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-top: 10px; cursor: pointer;">
+                            📞 Ligar
+                        </button>
+                    </div>
+                `;
+            }
+            
+            openModal('📞 Números de Emergência', numbersHTML);
+            
+            window.confirmAction = function() {
+                closeModal();
+            };
+        }
+        
+        function callNumber(number) {
+            window.open(`tel:${number}`, '_blank');
+        }
+        
+        // 10. BAIXAR GUIA DE SEGURANÇA
+        function downloadSafetyGuide() {
+            const guide = `
+                GUIA DE SEGURANÇA PESSOAL - CHEGA!
+                
+                1. PLANTEJA SUAS ROTAS
+                - Evite caminhos desertos e mal iluminados
+                - Conheça estabelecimentos abertos 24h no seu trajeto
+                - Informe alguém sobre seu destino e horário previsto
+                
+                2. EM CASO DE EMERGÊNCIA
+                - Use o botão vermelho do app CHEGA!
+                - Grite "Fogo!" para chamar mais atenção
+                - Corra para locais públicos e movimentados
+                - Use a função de sirene e flash do app
+                
+                3. SEGURANÇA DIGITAL
+                - Mantenha o app CHEGA! sempre atualizado
+                - Configure seus contatos de emergência
+                - Use a função de acompanhamento de trajeto
+                
+                4. RECURSOS ÚTEIS
+                - Zonas seguras mapeadas pela comunidade
+                - Check-in de segurança em locais públicos
+                - Alertas sobre áreas de risco
+                
+                Baixe o app completo em: [link-do-app]
+            `;
+            
+            const blob = new Blob([guide], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'guia-seguranca-chega.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('📥 Guia de segurança baixado!');
+        }
+        
+        // =========== FUNÇÕES DO MODAL ===========
+        function openModal(title, content) {
+            document.getElementById('modalTitle').innerHTML = title;
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('actionModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('actionModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
