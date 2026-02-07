@@ -1,57 +1,64 @@
 {
   "name": "CHEGA! - Segurança Pessoal",
   "short_name": "CHEGA!",
-  "description": "Aplicativo de segurança pessoal para mulheres com alertas de emergência",
+  "description": "App de segurança para mulheres com alertas visuais e localização",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#764ba2",
-  "theme_color": "#007aff",
-  "orientation": "portrait",
+  "theme_color": "#ff3b30",
   "icons": [
     {
-      "src": "/icons/icon-72.png",
+      "src": "icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-96.png",
+      "src": "icons/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-128.png",
+      "src": "icons/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-144.png",
+      "src": "icons/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "pt-BR",
+  "categories": ["lifestyle", "health", "safety"],
   "shortcuts": [
     {
-      "name": "Modo Emergência",
+      "name": "Ativar Emergência",
       "short_name": "Emergência",
-      "description": "Ativar alerta de emergência",
-      "url": "/emergency.html"
-    },
-    {
-      "name": "Iniciar Trajeto",
-      "short_name": "Trajeto",
-      "description": "Acompanhamento de trajeto seguro",
-      "url": "/trip.html"
+      "description": "Ativar modo de emergência",
+      "url": "/emergency.html?quick=true",
+      "icons": [{ "src": "icons/emergency-96.png", "sizes": "96x96" }]
     }
   ]
 }
