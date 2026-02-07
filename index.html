@@ -2,390 +2,133 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>CHEGA! - Segurança Pessoal</title>
-    <style>
-        /* RESET COMPLETO - SEM ANIMAÇÕES AUTOMÁTICAS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            transition: background-color 0.5s; /* Transição suave apenas */
-        }
-        
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-        
-        .logo {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-        
-        .tagline {
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-        
-        /* BOTÃO SIMPLES E FUNCIONAL */
-        #emergencyBtn {
-            background: #ff0000;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 200px;
-            height: 200px;
-            font-size: 1.8em;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 30px auto;
-            display: block;
-            transition: transform 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        #emergencyBtn:hover {
-            transform: scale(1.05);
-        }
-        
-        #emergencyBtn:active {
-            transform: scale(0.95);
-        }
-        
-        .btn-text {
-            font-size: 1.5em;
-            margin-bottom: 5px;
-        }
-        
-        .btn-subtext {
-            font-size: 0.6em;
-            opacity: 0.8;
-        }
-        
-        /* Status */
-        .status {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-        
-        /* Botões de ação */
-        .action-btn {
-            background: #4cd964;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 10px;
-            display: inline-block;
-        }
-        
-        .test-btn {
-            background: #ff9500;
-        }
-        
-        footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-        
-        /* Para celular */
-        @media (max-width: 600px) {
-            #emergencyBtn {
-                width: 180px;
-                height: 180px;
-                font-size: 1.6em;
-            }
-        }
-    </style>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff3b30">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Ícone -->
+    <link rel="icon" href="icons/icon-96x96.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
 </head>
 <body>
+    <!-- Volume Feedback (hidden by default) -->
+    <div id="volumeFeedback" class="volume-feedback"></div>
+    
+    <!-- Main Container -->
     <div class="container">
-        <h1 class="logo">🚨 CHEGA!</h1>
-        <p class="tagline">Segurança pessoal para todos e sobretudo TODAS</p>
-        
-        <!-- BOTÃO PRINCIPAL - SIMPLES -->
-        <button id="emergencyBtn">
-            <div class="btn-text">CHEGA!</div>
-            <div class="btn-subtext">Clique para emergência</div>
-        </button>
-        
-        <p style="margin: 20px; opacity: 0.8;">
-            💡 Segure por 3 segundos para ativação rápida
-        </p>
-        
-        <!-- Status do sistema -->
-        <div class="status">
-            <div style="margin: 10px 0;">
-                <span>🔊 Som:</span>
-                <span id="soundStatus">✅ Pronto</span>
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="logo">CHEGA!</h1>
+            <p class="tagline">Segurança pessoal para mulheres</p>
+        </header>
+
+        <!-- Emergency Button -->
+        <section class="emergency-section">
+            <div class="emergency-btn-container">
+                <button id="emergencyBtn" class="emergency-btn" aria-label="Botão de emergência">
+                    <span class="btn-icon">🚨</span>
+                    <span class="btn-text">CHEGA!</span>
+                    <span class="btn-subtext">Segure 3 segundos ou pressione o botão de volume 3x</span>
+                </button>
+                
+                <div class="volume-instruction">
+                    <div class="instruction-icon">🔊</div>
+                    <p>Ou pressione o botão de volume 3 vezes rapidamente</p>
+                </div>
             </div>
-            <div style="margin: 10px 0;">
-                <span>💡 Flash:</span>
-                <span id="flashStatus">✅ Disponível</span>
+        </section>
+
+        <!-- Status -->
+        <div class="status-panel">
+            <div class="status-item">
+                <span class="status-label">📡 Detecção de Volume:</span>
+                <span id="volumeStatus" class="status-value status-active">Ativa</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">📍 Localização:</span>
+                <span id="locationStatus" class="status-value">Ativando...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">🔋 Bateria:</span>
+                <span id="batteryStatus" class="status-value">Carregando...</span>
             </div>
         </div>
-        
-      <!-- Menu de navegação completo -->
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 30px 0;">
-    <button onclick="window.location.href='trip.html'" class="nav-btn">
-        <span class="nav-icon">📍</span>
-        <span class="nav-text">Acompanhamento</span>
-    </button>
-    
-    <button onclick="window.location.href='contacts.html'" class="nav-btn">
-        <span class="nav-icon">👥</span>
-        <span class="nav-text">Contatos</span>
-    </button>
-    
-    <button onclick="window.location.href='community.html'" class="nav-btn">
-        <span class="nav-icon">🤝</span>
-        <span class="nav-text">CHEGA+</span>
-    </button>
-    
-    <button onclick="window.location.href='about.html'" class="nav-btn">
-        <span class="nav-icon">ℹ️</span>
-        <span class="nav-text">Sobre/Doações</span>
-    </button>
-</div>
 
-<style>
-    .nav-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 20px 10px;
-        border-radius: 15px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        transition: all 0.3s;
-    }
-    
-    .nav-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-3px);
-    }
-    
-    .nav-icon {
-        font-size: 1.8em;
-    }
-    
-    .nav-text {
-        font-size: 0.9em;
-    }
-</style>
-    <footer>
-        <p>Desenvolvido com ❤️ por um pai e professor</p>
-        <p>Gratuito • Seguro • Para todas</p>
-    </footer>
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <a href="settings.html#volume" class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Configurar Botões</h3>
+                <p>Ajuste sensibilidade e padrões</p>
+            </a>
+            
+            <a href="emergency-test.html" class="feature-card">
+                <div class="feature-icon">🧪</div>
+                <h3>Testar Emergência</h3>
+                <p>Simule sem alertar contatos</p>
+            </a>
+            
+            <a href="settings.html" class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Contatos</h3>
+                <p>Configure sua rede de apoio</p>
+            </a>
+            
+            <a href="history.html" class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Histórico</h3>
+                <p>Veja ativações anteriores</p>
+            </a>
+        </div>
 
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button id="testVolumeBtn" class="quick-btn">
+                <span>Testar Volume</span>
+            </button>
+            <button id="calibrateBtn" class="quick-btn">
+                <span>Calibrar</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Desenvolvido com ❤️ por um pai e professor</p>
+            <p>Use os botões de volume para emergência rápida</p>
+            <div class="footer-links">
+                <a href="about.html">Sobre</a> | 
+                <a href="privacy.html">Privacidade</a> | 
+                <a href="help.html">Ajuda</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Capacitor Runtime -->
+    <script type="module">
+        import { Capacitor } from './js/capacitor-runtime.js';
+    </script>
+    
+    <!-- App Scripts -->
+    <script src="js/app.js" type="module"></script>
+    <script src="js/volume-detection.js" type="module"></script>
+    
+    <!-- Service Worker Registration -->
     <script>
-        // =========== SISTEMA CONTROLADO ===========
-        
-        // Estado global para controlar tudo
-        window.chegaApp = {
-            emergencyActive: false,
-            audioContext: null,
-            oscillator: null,
-            flashInterval: null,
-            vibrationInterval: null
-        };
-        
-        // =========== BOTÃO DE EMERGÊNCIA ===========
-        document.getElementById('emergencyBtn').addEventListener('click', function() {
-            if (!window.chegaApp.emergencyActive) {
-                activateEmergency();
-            }
-        });
-        
-        // =========== FUNÇÃO PRINCIPAL ===========
-        function activateEmergency() {
-            if (window.chegaApp.emergencyActive) return;
-            
-            // Marcar como ativa
-            window.chegaApp.emergencyActive = true;
-            console.log('🚨 EMERGÊNCIA ATIVADA');
-            
-            // 1. EFEITO VISUAL RÁPIDO (flash uma vez)
-            flashScreen();
-            
-            // 2. TOCAR SIRENE (controlada)
-            playSiren();
-            
-            // 3. VIBRAR (se disponível)
-            vibrate();
-            
-            // 4. REDIRECIONAR PARA TELA DE EMERGÊNCIA
-            setTimeout(() => {
-                // PARAR TUDO antes de redirecionar
-                stopAllEffects();
-                
-                // Ir para tela de emergência
-                window.location.href = 'emergency.html?t=' + Date.now();
-            }, 1000);
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('Service Worker registrado:', reg))
+                    .catch(err => console.log('Service Worker falhou:', err));
+            });
         }
-        
-        // =========== FLASH DA TELA (UMA VEZ SÓ) ===========
-        function flashScreen() {
-            // Flash rápido (vermelho → branco → vermelho)
-            let flashCount = 0;
-            const maxFlash = 3; // Apenas 3 flashes
-            
-            function flash() {
-                if (flashCount >= maxFlash) {
-                    document.body.style.backgroundColor = '';
-                    return;
-                }
-                
-                if (flashCount % 2 === 0) {
-                    document.body.style.backgroundColor = '#ffffff';
-                } else {
-                    document.body.style.backgroundColor = '#ff0000';
-                }
-                
-                flashCount++;
-                setTimeout(flash, 200);
-            }
-            
-            flash();
-        }
-        
-        // =========== SIRENE REAL E CONTROLADA ===========
-        function playSiren() {
-            try {
-                // Criar contexto de áudio
-                window.chegaApp.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                window.chegaApp.oscillator = window.chegaApp.audioContext.createOscillator();
-                const gainNode = window.chegaApp.audioContext.createGain();
-                
-                // Conectar
-                window.chegaApp.oscillator.connect(gainNode);
-                gainNode.connect(window.chegaApp.audioContext.destination);
-                
-                // Configurar sirene
-                window.chegaApp.oscillator.type = 'sawtooth';
-                gainNode.gain.value = 0.2; // Volume baixo para teste
-                
-                // Frequência oscilante
-                let time = window.chegaApp.audioContext.currentTime;
-                window.chegaApp.oscillator.frequency.setValueAtTime(800, time);
-                window.chegaApp.oscillator.frequency.exponentialRampToValueAtTime(1600, time + 0.5);
-                window.chegaApp.oscillator.frequency.exponentialRampToValueAtTime(800, time + 1);
-                
-                // Iniciar sirene
-                window.chegaApp.oscillator.start();
-                
-                // Parar automaticamente após 3 segundos
-                window.chegaApp.oscillator.stop(time + 3);
-                
-                console.log('🔊 Sirene ativada por 3 segundos');
-                
-            } catch (error) {
-                console.log('Áudio não disponível:', error);
-                // Fallback: alerta sonoro do navegador
-                try {
-                    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
-                    audio.volume = 0.1;
-                    audio.play();
-                } catch (e) {
-                    console.log('Fallback de áudio também falhou');
-                }
-            }
-        }
-        
-        // =========== VIBRAÇÃO CONTROLADA ===========
-        function vibrate() {
-            if (navigator.vibrate) {
-                // Vibrar apenas por 2 segundos
-                navigator.vibrate(2000);
-                console.log('📳 Vibração ativada por 2 segundos');
-            }
-        }
-        
-        // =========== PARAR TODOS OS EFEITOS ===========
-        function stopAllEffects() {
-            console.log('🛑 Parando todos os efeitos...');
-            
-            // Parar sirene
-            if (window.chegaApp.oscillator) {
-                try {
-                    window.chegaApp.oscillator.stop();
-                } catch (e) {}
-            }
-            
-            if (window.chegaApp.audioContext) {
-                try {
-                    window.chegaApp.audioContext.close();
-                } catch (e) {}
-            }
-            
-            // Parar vibração
-            if (navigator.vibrate) {
-                navigator.vibrate(0);
-            }
-            
-            // Parar flashes
-            if (window.chegaApp.flashInterval) {
-                clearInterval(window.chegaApp.flashInterval);
-            }
-            
-            // Restaurar fundo
-            document.body.style.backgroundColor = '';
-            
-            // Resetar estado
-            window.chegaApp.emergencyActive = false;
-        }
-        
-        // =========== TESTE SEGURO ===========
-        function testEmergency() {
-            if (confirm('🧪 Testar sistema de emergência?\n\nIsto irá:\n• Piscar a tela 3x\n• Tocar sirene por 3 segundos\n• Vibrar (se suportado)\n\nÉ apenas um teste.')) {
-                activateEmergency();
-            }
-        }
-        
-        // =========== VERIFICAR SE VOLTOU DE EMERGÊNCIA ===========
-        window.addEventListener('load', function() {
-            // Verificar URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('cancelled') === 'true') {
-                alert('✅ Emergência cancelada com sucesso!');
-                
-                // Remover parâmetro da URL
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-            
-            // Garantir que não há efeitos ativos
-            stopAllEffects();
-        });
-        
-        // =========== DETECTAR SAÍDA DA PÁGINA ===========
-        window.addEventListener('beforeunload', function() {
-            stopAllEffects();
-        });
     </script>
 </body>
 </html>
