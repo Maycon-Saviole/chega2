@@ -4,131 +4,1024 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📍 Acompanhamento - CHEGA!</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* ESTILOS PRÁTICOS E FUNCIONAIS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Cabeçalho */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .title {
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* Status do trajeto */
+        .trip-status {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .status-indicator {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .status-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .status-active {
+            color: #4cd964;
+        }
+        
+        .status-inactive {
+            color: #ff9500;
+        }
+        
+        .status-finished {
+            color: #007aff;
+        }
+        
+        /* Controles principais */
+        .main-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .control-btn {
+            background: rgba(76, 217, 100, 0.3);
+            border: 2px solid #4cd964;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover:not(:disabled) {
+            background: #4cd964;
+            transform: translateY(-3px);
+        }
+        
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-danger {
+            background: rgba(255, 59, 48, 0.3);
+            border-color: #ff3b30;
+        }
+        
+        .btn-danger:hover:not(:disabled) {
+            background: #ff3b30;
+        }
+        
+        /* Informações do trajeto */
+        .trip-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .info-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .info-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #4cd964;
+        }
+        
+        .info-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        /* Contatos compartilhados */
+        .shared-contacts {
+            background: rgba(0, 122, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 2px solid rgba(0, 122, 255, 0.3);
+        }
+        
+        .contact-list {
+            margin-top: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+        
+        /* Mapa simplificado */
+        .map-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .map-placeholder {
+            padding: 20px;
+        }
+        
+        .coordinates {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        /* Notificações */
+        .notification {
+            background: rgba(255, 149, 0, 0.3);
+            border: 2px solid #ff9500;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .notification-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        /* Histórico de atualizações */
+        .updates-log {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .update-item {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .update-time {
+            font-size: 0.8em;
+            opacity: 0.7;
+            min-width: 60px;
+        }
+        
+        /* Modal de configuração */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-title {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .btn-confirm {
+            background: #4cd964;
+            color: white;
+        }
+        
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="top-nav">
-        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
-        <h1>📍 Acompanhamento</h1>
-    </nav>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <div class="header">
+            <a href="index.html" class="back-btn">
+                ← Voltar para Início
+            </a>
+            
+            <h1 class="title">
+                <span>📍</span>
+                <span>Acompanhamento de Trajeto</span>
+            </h1>
+        </div>
 
-    <main class="container">
-        <!-- Status do Trajeto -->
-        <div class="trip-status">
-            <h2>Trajeto Ativo</h2>
-            <div class="trip-info">
+        <!-- Status do trajeto -->
+        <div class="trip-status" id="tripStatus">
+            <div class="status-indicator">📍</div>
+            <div class="status-text" id="statusText">PRONTO PARA INICIAR</div>
+            <p id="statusDescription">Clique em "Iniciar Acompanhamento" para começar</p>
+        </div>
+
+        <!-- Controles principais -->
+        <div class="main-controls">
+            <button class="control-btn" id="startBtn" onclick="startTrip()">
+                <span>🚀</span>
+                <span>Iniciar Acompanhamento</span>
+            </button>
+            
+            <button class="control-btn" id="arriveBtn" onclick="arriveAtDestination()" disabled>
+                <span>🏁</span>
+                <span>Cheguei no Destino</span>
+            </button>
+            
+            <button class="control-btn btn-danger" id="cancelBtn" onclick="cancelTrip()" disabled>
+                <span>❌</span>
+                <span>Cancelar Acompanhamento</span>
+            </button>
+        </div>
+
+        <!-- Informações do trajeto -->
+        <div class="trip-info" id="tripInfo" style="display: none;">
+            <h3 style="margin-bottom: 20px; text-align: center; color: #4cd964;">
+                📊 Informações do Trajeto
+            </h3>
+            
+            <div class="info-grid">
                 <div class="info-item">
-                    <span class="label">⏱️ Duração:</span>
-                    <span id="tripDuration" class="value">00:15</span>
+                    <div class="info-value" id="tripDuration">00:00</div>
+                    <div class="info-label">Duração</div>
                 </div>
+                
                 <div class="info-item">
-                    <span class="label">📍 Distância:</span>
-                    <span id="tripDistance" class="value">1.2 km</span>
+                    <div class="info-value" id="tripDistance">0 km</div>
+                    <div class="info-label">Distância</div>
                 </div>
+                
                 <div class="info-item">
-                    <span class="label">👥 Compartilhado:</span>
-                    <span id="sharedWith" class="value">3 contatos</span>
+                    <div class="info-value" id="updatesCount">0</div>
+                    <div class="info-label">Atualizações</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-value" id="sharedCount">0</div>
+                    <div class="info-label">Contatos</div>
                 </div>
             </div>
         </div>
 
-        <!-- Mapa -->
+        <!-- Contatos compartilhados -->
+        <div class="shared-contacts" id="sharedContacts" style="display: none;">
+            <h3 style="margin-bottom: 15px; color: #007aff;">
+                👥 Contatos Notificados
+            </h3>
+            <p style="margin-bottom: 15px; opacity: 0.9;">
+                Estas pessoas receberão sua localização em tempo real:
+            </p>
+            
+            <div class="contact-list" id="contactList">
+                <!-- Contatos serão carregados aqui -->
+            </div>
+        </div>
+
+        <!-- Mapa simplificado -->
         <div class="map-container">
-            <div id="tripMap" class="trip-map">
-                <!-- Mapa do trajeto -->
-                <div class="map-placeholder">
-                    <p>🌍 Trajeto sendo monitorado...</p>
-                    <p>📍 Sua localização está sendo compartilhada</p>
+            <div class="map-placeholder">
+                <div style="font-size: 3em; margin-bottom: 15px;">🗺️</div>
+                <h3>Sua Localização em Tempo Real</h3>
+                <p style="margin: 15px 0; opacity: 0.9;">
+                    Sua posição será compartilhada automaticamente
+                </p>
+                <div class="coordinates" id="coordinates">
+                    Aguardando GPS...
                 </div>
+                <button onclick="updateLocation()" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 10px; margin-top: 10px; cursor: pointer;">
+                    🔄 Atualizar Localização
+                </button>
             </div>
         </div>
 
-        <!-- Controles -->
-        <div class="trip-controls">
-            <button onclick="pauseTrip()" class="btn-control">
-                ⏸️ Pausar
-            </button>
-            <button onclick="updateContacts()" class="btn-control">
-                👥 Atualizar Contatos
-            </button>
-            <button onclick="sendCheckpoint()" class="btn-control">
-                📍 Enviar Checkpoint
-            </button>
-        </div>
-
-        <!-- Lista de Checkpoints -->
-        <div class="checkpoints">
-            <h3>📝 Checkpoints Recentes</h3>
-            <ul id="checkpointList">
-                <li>
-                    <span class="time">18:30</span>
-                    <span class="location">📍 Av. Paulista, 1000</span>
-                    <span class="status">✅ Enviado</span>
-                </li>
-                <!-- Mais checkpoints serão adicionados -->
-            </ul>
-        </div>
-
-        <!-- Botão de Chegada -->
-        <div class="arrival-section">
-            <button onclick="confirmArrival()" class="btn-arrival">
-                🏁 CHEGUEI BEM
-            </button>
-            <p class="arrival-note">
-                Ao confirmar, seus contatos receberão notificação
+        <!-- Notificação de segurança -->
+        <div class="notification" id="safetyNotification" style="display: none;">
+            <div class="notification-icon">⚠️</div>
+            <h3>Verificação de Segurança</h3>
+            <p id="notificationText">
+                Se você ficar parado por muito tempo, seus contatos serão alertados.
             </p>
         </div>
-    </main>
 
-    <script src="js/trip.js"></script>
+        <!-- Histórico de atualizações -->
+        <div class="updates-log" id="updatesLog" style="display: none;">
+            <h3 style="margin-bottom: 15px; color: #ff9500;">
+                📝 Histórico de Atualizações
+            </h3>
+            <div id="updatesList">
+                <!-- Atualizações serão adicionadas aqui -->
+            </div>
+        </div>
+
+        <!-- Instruções -->
+        <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; margin-top: 30px;">
+            <h3 style="color: #4cd964; margin-bottom: 15px;">💡 Como Funciona</h3>
+            <ol style="padding-left: 20px; opacity: 0.9;">
+                <li><strong>Inicie</strong> o acompanhamento quando for sair</li>
+                <li><strong>Seus contatos</strong> recebem notificação imediata</li>
+                <li><strong>Sua localização</strong> é compartilhada automaticamente</li>
+                <li><strong>Chegou bem?</strong> Clique em "Cheguei no Destino"</li>
+                <li><strong>Seus contatos</strong> recebem confirmação automática</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Modal de configuração -->
+    <div class="modal" id="configModal">
+        <div class="modal-content">
+            <h2 class="modal-title">⚙️ Configurar Acompanhamento</h2>
+            
+            <div style="margin: 20px 0;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+                        Destino (opcional)
+                    </label>
+                    <input type="text" id="destination" placeholder="Ex: Casa, Trabalho, Faculdade" 
+                           style="width: 100%; padding: 12px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+                        Tempo estimado (minutos)
+                    </label>
+                    <select id="estimatedTime" style="width: 100%; padding: 12px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white;">
+                        <option value="15">15 minutos</option>
+                        <option value="30" selected>30 minutos</option>
+                        <option value="45">45 minutos</option>
+                        <option value="60">1 hora</option>
+                        <option value="90">1 hora e 30 minutos</option>
+                        <option value="120">2 horas</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="shareLiveLocation" checked>
+                        <span>Compartilhar localização em tempo real</span>
+                    </label>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="notifyStopped" checked>
+                        <span>Alertar contatos se parar por mais de 10 minutos</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn btn-confirm" onclick="confirmTripConfig()">
+                    ✅ Iniciar Acompanhamento
+                </button>
+                <button class="modal-btn btn-cancel" onclick="closeModal()">
+                    ❌ Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Lógica da página de trajeto
-        let tripActive = true;
-        let startTime = new Date();
+        // =========== SISTEMA DE ACOMPANHAMENTO REAL ===========
         
-        function updateTripTimer() {
-            if (!tripActive) return;
-            
-            const now = new Date();
-            const diff = now - startTime;
-            const minutes = Math.floor(diff / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-            
-            document.getElementById('tripDuration').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
+        // Estado do trajeto
+        const tripState = {
+            active: false,
+            startTime: null,
+            destination: '',
+            estimatedTime: 30,
+            locations: [],
+            updates: [],
+            contactsNotified: [],
+            watchId: null,
+            timerInterval: null,
+            safetyInterval: null
+        };
         
-        function pauseTrip() {
-            tripActive = !tripActive;
-            const btn = document.querySelector('.btn-control');
-            btn.textContent = tripActive ? '⏸️ Pausar' : '▶️ Retomar';
-        }
-        
-        function sendCheckpoint() {
-            const list = document.getElementById('checkpointList');
-            const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+        // =========== INICIALIZAR ===========
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📍 Sistema de acompanhamento carregado');
             
-            const item = document.createElement('li');
-            item.innerHTML = `
-                <span class="time">${time}</span>
-                <span class="location">📍 Checkpoint enviado</span>
-                <span class="status">✅</span>
-            `;
+            // Verificar se há um trajeto ativo salvo
+            checkActiveTrip();
             
-            list.prepend(item);
-            alert('📍 Checkpoint enviado para seus contatos!');
-        }
+            // Carregar contatos disponíveis
+            loadAvailableContacts();
+        });
         
-        function confirmArrival() {
-            if (confirm('Confirmar que chegou em segurança?')) {
-                alert('✅ Seus contatos foram notificados!');
-                location.href = 'index.html';
+        // =========== VERIFICAR TRAJETO ATIVO ===========
+        function checkActiveTrip() {
+            const savedTrip = localStorage.getItem('chega_active_trip');
+            
+            if (savedTrip) {
+                const trip = JSON.parse(savedTrip);
+                
+                // Se o trajeto foi iniciado há menos de 6 horas, restaurar
+                const startTime = new Date(trip.startTime);
+                const hoursElapsed = (new Date() - startTime) / (1000 * 60 * 60);
+                
+                if (hoursElapsed < 6) {
+                    Object.assign(tripState, trip);
+                    tripState.active = true;
+                    
+                    // Restaurar interface
+                    restoreTripInterface();
+                    startTracking();
+                    
+                    console.log('🔄 Trajeto ativo restaurado');
+                } else {
+                    // Trajeto muito antigo, limpar
+                    localStorage.removeItem('chega_active_trip');
+                    localStorage.removeItem('chega_trip_locations');
+                }
             }
         }
         
-        // Atualizar timer a cada segundo
-        setInterval(updateTripTimer, 1000);
-        updateTripTimer();
-    </script>
-</body>
-</html>
+        // =========== RESTAURAR INTERFACE ===========
+        function restoreTripInterface() {
+            // Atualizar status
+            document.getElementById('statusText').textContent = 'EM ANDAMENTO';
+            document.getElementById('statusText').className = 'status-text status-active';
+            document.getElementById('statusDescription').textContent = 
+                `Destino: ${tripState.destination || 'Não especificado'}`;
+            document.getElementById('statusIndicator').textContent = '🚶‍♀️';
+            
+            // Habilitar/desabilitar botões
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('arriveBtn').disabled = false;
+            document.getElementById('cancelBtn').disabled = false;
+            
+            // Mostrar informações
+            document.getElementById('tripInfo').style.display = 'block';
+            document.getElementById('sharedContacts').style.display = 'block';
+            document.getElementById('safetyNotification').style.display = 'block';
+            document.getElementById('updatesLog').style.display = 'block';
+            
+            // Atualizar contadores
+            updateTripInfo();
+            
+            // Carregar contatos notificados
+            loadNotifiedContacts();
+            
+            // Carregar histórico
+            loadUpdatesHistory();
+        }
+        
+        // =========== INICIAR TRAJETO ===========
+        function startTrip() {
+            // Abrir modal de configuração
+            document.getElementById('configModal').style.display = 'flex';
+        }
+        
+        function confirmTripConfig() {
+            const destination = document.getElementById('destination').value.trim();
+            const estimatedTime = parseInt(document.getElementById('estimatedTime').value);
+            const shareLive = document.getElementById('shareLiveLocation').checked;
+            const notifyStopped = document.getElementById('notifyStopped').checked;
+            
+            // Configurar estado
+            tripState.active = true;
+            tripState.startTime = new Date();
+            tripState.destination = destination;
+            tripState.estimatedTime = estimatedTime;
+            tripState.shareLiveLocation = shareLive;
+            tripState.notifyStopped = notifyStopped;
+            tripState.locations = [];
+            tripState.updates = [];
+            
+            // Fechar modal
+            closeModal();
+            
+            // Obter localização inicial
+            getCurrentLocation().then(location => {
+                if (location) {
+                    tripState.locations.push({
+                        ...location,
+                        timestamp: new Date().toISOString(),
+                        type: 'start'
+                    });
+                    
+                    // Salvar estado
+                    saveTripState();
+                    
+                    // Iniciar tracking
+                    startTracking();
+                    
+                    // Atualizar interface
+                    updateInterface();
+                    
+                    // Notificar contatos
+                    notifyContactsTripStarted();
+                    
+                    // Adicionar ao histórico
+                    addUpdate('Trajeto iniciado');
+                    
+                    alert('🚀 Acompanhamento iniciado! Seus contatos foram notificados.');
+                } else {
+                    alert('❌ Não foi possível obter sua localização. Verifique as permissões do navegador.');
+                    tripState.active = false;
+                }
+            });
+        }
+        
+        // =========== OBTER LOCALIZAÇÃO ATUAL ===========
+        function getCurrentLocation() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve(null);
+                    return;
+                }
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                            accuracy: position.coords.accuracy,
+                            speed: position.coords.speed || 0
+                        });
+                    },
+                    () => {
+                        resolve(null);
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            });
+        }
+        
+        // =========== INICIAR RASTREAMENTO ===========
+        function startTracking() {
+            if (!tripState.active) return;
+            
+            // Parar tracking anterior se existir
+            if (tripState.watchId) {
+                navigator.geolocation.clearWatch(tripState.watchId);
+            }
+            
+            // Iniciar novo tracking
+            tripState.watchId = navigator.geolocation.watchPosition(
+                (position) => onLocationUpdate(position),
+                (error) => onLocationError(error),
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 0,
+                    distanceFilter: 10 // Atualizar a cada 10 metros
+                }
+            );
+            
+            // Iniciar timer
+            startTripTimer();
+            
+            // Iniciar verificações de segurança
+            startSafetyChecks();
+        }
+        
+        // =========== ATUALIZAÇÃO DE LOCALIZAÇÃO ===========
+        function onLocationUpdate(position) {
+            if (!tripState.active) return;
+            
+            const location = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                accuracy: position.coords.accuracy,
+                speed: position.coords.speed || 0,
+                timestamp: new Date().toISOString(),
+                type: 'update'
+            };
+            
+            // Adicionar à lista
+            tripState.locations.push(location);
+            
+            // Atualizar coordenadas na tela
+            updateCoordinates(location);
+            
+            // Atualizar informações
+            updateTripInfo();
+            
+            // Verificar se deve compartilhar
+            if (tripState.shareLiveLocation) {
+                shareLocationWithContacts(location);
+            }
+            
+            // Salvar estado periodicamente
+            if (tripState.locations.length % 5 === 0) {
+                saveTripState();
+            }
+            
+            // Adicionar ao histórico
+            addUpdate('Localização atualizada');
+        }
+        
+        function onLocationError(error) {
+            console.log('Erro de localização:', error);
+            addUpdate('⚠️ Erro ao obter localização');
+        }
+        
+        // =========== ATUALIZAR COORDENADAS NA TELA ===========
+        function updateCoordinates(location) {
+            const coordsElement = document.getElementById('coordinates');
+            const mapsUrl = `https://maps.google.com/?q=${location.lat},${location.lng}`;
+            
+            coordsElement.innerHTML = `
+                📍 <strong>SUA POSIÇÃO:</strong><br>
+                ${location.lat.toFixed(6)}, ${location.lng.toFixed(6)}<br>
+                <small>Precisão: ${Math.round(location.accuracy)}m</small><br>
+                <button onclick="window.open('${mapsUrl}', '_blank')" 
+                        style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 5px; cursor: pointer; font-size: 0.8em;">
+                    🗺️ Ver no mapa
+                </button>
+            `;
+        }
+        
+        // =========== ATUALIZAR LOCALIZAÇÃO MANUAL ===========
+        function updateLocation() {
+            getCurrentLocation().then(location => {
+                if (location) {
+                    updateCoordinates(location);
+                    addUpdate('📍 Localização atualizada manualmente');
+                    alert('📍 Localização atualizada!');
+                } else {
+                    alert('❌ Não foi possível obter localização.');
+                }
+            });
+        }
+        
+        // =========== TIMER DO TRAJETO ===========
+        function startTripTimer() {
+            if (tripState.timerInterval) {
+                clearInterval(tripState.timerInterval);
+            }
+            
+            tripState.timerInterval = setInterval(() => {
+                if (!tripState.active) {
+                    clearInterval(tripState.timerInterval);
+                    return;
+                }
+                
+                updateTripInfo();
+                
+                // Verificar se ultrapassou o tempo estimado
+                checkEstimatedTime();
+                
+            }, 1000); // Atualizar a cada segundo
+        }
+        
+        // =========== ATUALIZAR INFORMAÇÕES DO TRAJETO ===========
+        function updateTripInfo() {
+            if (!tripState.active || !tripState.startTime) return;
+            
+            // Calcular duração
+            const now = new Date();
+            const durationMs = now - tripState.startTime;
+            const durationSec = Math.floor(durationMs / 1000);
+            const minutes = Math.floor(durationSec / 60);
+            const seconds = durationSec % 60;
+            
+            document.getElementById('tripDuration').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Calcular distância (simplificado)
+            let totalDistance = 0;
+            for (let i = 1; i < tripState.locations.length; i++) {
+                const dist = calculateDistance(
+                    tripState.locations[i-1],
+                    tripState.locations[i]
+                );
+                totalDistance += dist;
+            }
+            
+            if (totalDistance < 1000) {
+                document.getElementById('tripDistance').textContent = 
+                    `${Math.round(totalDistance)} m`;
+            } else {
+                document.getElementById('tripDistance').textContent = 
+                    `${(totalDistance / 1000).toFixed(1)} km`;
+            }
+            
+            // Atualizar contadores
+            document.getElementById('updatesCount').textContent = tripState.updates.length;
+            document.getElementById('sharedCount').textContent = tripState.contactsNotified.length;
+        }
+        
+        function calculateDistance(point1, point2) {
+            const R = 6371e3; // metros
+            const φ1 = point1.lat * Math.PI / 180;
+            const φ2 = point2.lat * Math.PI / 180;
+            const Δφ = (point2.lat - point1.lat) * Math.PI / 180;
+            const Δλ = (point2.lng - point1.lng) * Math.PI / 180;
+            
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                      Math.cos(φ1) * Math.cos(φ2) *
+                      Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            
+            return R * c;
+        }
+        
+        // =========== VERIFICAÇÕES DE SEGURANÇA ===========
+        function startSafetyChecks() {
+            if (tripState.safetyInterval) {
+                clearInterval(tripState.safetyInterval);
+            }
+            
+            tripState.safetyInterval = setInterval(() => {
+                if (!tripState.active) {
+                    clearInterval(tripState.safetyInterval);
+                    return;
+                }
+                
+                // Verificar se está parado há muito tempo
+                checkIfStopped();
+                
+                // Verificar velocidade (se em movimento muito rápido)
+                checkSpeed();
+                
+            }, 60000); // Verificar a cada minuto
+        }
+        
+        function checkIfStopped() {
+            if (tripState.locations.length < 2) return;
+            
+            const lastLocation = tripState.locations[tripState.locations.length - 1];
+            const prevLocation = tripState.locations[tripState.locations.length - 2];
+            
+            const timeDiff = (new Date(lastLocation.timestamp) - new Date(prevLocation.timestamp)) / 1000;
+            const distance = calculateDistance(prevLocation, lastLocation);
+            
+            // Se não se moveu mais de 20 metros em 10 minutos
+            if (timeDiff > 600 && distance < 20) {
+                addUpdate('⚠️ Você está parado há algum tempo');
+                
+                document.getElementById('notificationText').textContent = 
+                    'Você está parado há algum tempo. Está tudo bem?';
+                
+                // Se configurado, notificar contatos após 15 minutos parado
+                if (tripState.notifyStopped && timeDiff > 900) {
+                    notifyContactsStopped(lastLocation);
+                }
+            }
+        }
+        
+        function checkSpeed() {
+            if (tripState.locations.length < 2) return;
+            
+            const lastLocation = tripState.locations[tripState.locations.length - 1];
+            
+            // Velocidade em km/h
+            const speedKmh = lastLocation.speed * 3.6;
+            
+            if (speedKmh > 120) { // Muito rápido (possível em veículo)
+                addUpdate('🚗 Movendo-se rapidamente');
+            }
+        }
+        
+        function checkEstimatedTime() {
+            if (!tripState.estimatedTime) return;
+            
+            const now = new Date();
+            const durationMinutes = (now - tripState.startTime) / (1000 * 60);
+            
+            if (durationMinutes > tripState.estimatedTime) {
+                addUpdate('⏰ Tempo estimado ultrapassado');
+                
+                document.getElementById('notificationText').textContent = 
+                    `Tempo estimado ultrapassado (${Math.round(durationMinutes)} minutos). Está tudo bem?`;
+            }
+        }
+        
+        // =========== CHEGAR NO DESTINO ===========
+        function arriveAtDestination() {
+            if (!tripState.active) return;
+            
+            if (confirm('Confirmar que chegou no destino?\n\nIsso irá:\n• Encerrar o acompanhamento\n• Notificar seus contatos\n• Salvar o histórico')) {
+                
+                // Obter localização final
+                getCurrentLocation().then(location => {
+                    if (location) {
+                        location.timestamp = new Date().toISOString();
+                        location.type = 'arrival';
+                        tripState.locations.push(location);
+                    }
+                    
+                    // Marcar como concluído
+                    tripState.active = false;
+                    tripState.endTime = new Date();
+                    
+                    // Parar tracking
+                    if (tripState.watchId) {
+                        navigator.geolocation.clearWatch(tripState.watchId);
+                    }
+                    if (tripState.timerInterval) {
+                        clearInterval(tripState.timerInterval);
+                    }
+                    if (tripState.safetyInterval) {
+                        clearInterval(tripState.safetyInterval);
+                    }
+                    
+                    // Notificar contatos
+                    notifyContactsArrived();
+                    
+                    // Salvar histórico
+                    saveTripHistory();
+                    
+                    // Limpar estado atual
+                    localStorage.removeItem('chega_active_trip');
+                    localStorage.removeItem('chega_trip_locations');
+                    
+                    // Atualizar interface
+                    document.getElementById('statusText').textContent = 'CONCLUÍDO';
+                    document.getElementById('statusText').className = 'status-text status-finished';
+                    document.getElementById('statusDescription').textContent = 
+                        'Você chegou em segurança! Seus contatos foram notificados.';
+                    
+                    document.getElementById('startBtn').disabled = false;
+                    document.getElementById('arriveBtn').disabled = true;
+                    document.getElementById('cancelBtn').disabled = true;
+                    
+                    // Adicionar ao histórico
+                    addUpdate('✅ Chegou no destino');
+                    
+                    alert('🏁 Trajeto concluído! Seus contatos foram notificados da sua chegada.');
+                    
+                    // Redirecionar após 5 segundos
+                    setTimeout(() => {
+                        window.location.href = 'index.html?trip_completed=true';
+                    }, 5000);
+                });
+            }
+        }
+        
+        // =========== CANCELAR TRAJETO ===========
+        function cancelTrip() {
+            if (!tripState.active) return;
+            
+            if (confirm('Cancelar o acompanhamento?\n\nIsso irá:\n• Parar de compartilhar localização\n• Notificar seus contatos do cancelamento')) {
+                
+                tripState.active = false;
+                
+                // Parar tracking
+                if (tripState.watchId) {
+                    navigator.geolocation.clearWatch(tripState.watchId);
+                }
+                if (tripState.timerInterval) {
+                    clearInterval(tripState.timerInterval);
+                }
+                if (tripState.safetyInterval) {
+                    clearInterval(tripState.safetyInterval);
+                }
+                
+                // Notificar contatos
+                notifyContactsCancelled();
+                
+                // Limpar estado
+                localStorage.removeItem('chega_active_trip');
+                localStorage.removeItem('chega_trip_locations');
+                
+                // Resetar interface
+                resetInterface();
+                
+                alert('❌ Acompanhamento cancelado. Seus contatos foram notificados.');
+            }
+        }
+        
+        // =========== NOTIFICAR
