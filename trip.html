@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📍 Acompanhamento - CHEGA!</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
+        <h1>📍 Acompanhamento</h1>
+    </nav>
+
+    <main class="container">
+        <!-- Status do Trajeto -->
+        <div class="trip-status">
+            <h2>Trajeto Ativo</h2>
+            <div class="trip-info">
+                <div class="info-item">
+                    <span class="label">⏱️ Duração:</span>
+                    <span id="tripDuration" class="value">00:15</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">📍 Distância:</span>
+                    <span id="tripDistance" class="value">1.2 km</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">👥 Compartilhado:</span>
+                    <span id="sharedWith" class="value">3 contatos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="map-container">
+            <div id="tripMap" class="trip-map">
+                <!-- Mapa do trajeto -->
+                <div class="map-placeholder">
+                    <p>🌍 Trajeto sendo monitorado...</p>
+                    <p>📍 Sua localização está sendo compartilhada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="trip-controls">
+            <button onclick="pauseTrip()" class="btn-control">
+                ⏸️ Pausar
+            </button>
+            <button onclick="updateContacts()" class="btn-control">
+                👥 Atualizar Contatos
+            </button>
+            <button onclick="sendCheckpoint()" class="btn-control">
+                📍 Enviar Checkpoint
+            </button>
+        </div>
+
+        <!-- Lista de Checkpoints -->
+        <div class="checkpoints">
+            <h3>📝 Checkpoints Recentes</h3>
+            <ul id="checkpointList">
+                <li>
+                    <span class="time">18:30</span>
+                    <span class="location">📍 Av. Paulista, 1000</span>
+                    <span class="status">✅ Enviado</span>
+                </li>
+                <!-- Mais checkpoints serão adicionados -->
+            </ul>
+        </div>
+
+        <!-- Botão de Chegada -->
+        <div class="arrival-section">
+            <button onclick="confirmArrival()" class="btn-arrival">
+                🏁 CHEGUEI BEM
+            </button>
+            <p class="arrival-note">
+                Ao confirmar, seus contatos receberão notificação
+            </p>
+        </div>
+    </main>
+
+    <script src="js/trip.js"></script>
+    <script>
+        // Lógica da página de trajeto
+        let tripActive = true;
+        let startTime = new Date();
+        
+        function updateTripTimer() {
+            if (!tripActive) return;
+            
+            const now = new Date();
+            const diff = now - startTime;
+            const minutes = Math.floor(diff / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+            
+            document.getElementById('tripDuration').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function pauseTrip() {
+            tripActive = !tripActive;
+            const btn = document.querySelector('.btn-control');
+            btn.textContent = tripActive ? '⏸️ Pausar' : '▶️ Retomar';
+        }
+        
+        function sendCheckpoint() {
+            const list = document.getElementById('checkpointList');
+            const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+            
+            const item = document.createElement('li');
+            item.innerHTML = `
+                <span class="time">${time}</span>
+                <span class="location">📍 Checkpoint enviado</span>
+                <span class="status">✅</span>
+            `;
+            
+            list.prepend(item);
+            alert('📍 Checkpoint enviado para seus contatos!');
+        }
+        
+        function confirmArrival() {
+            if (confirm('Confirmar que chegou em segurança?')) {
+                alert('✅ Seus contatos foram notificados!');
+                location.href = 'index.html';
+            }
+        }
+        
+        // Atualizar timer a cada segundo
+        setInterval(updateTripTimer, 1000);
+        updateTripTimer();
+    </script>
+</body>
+</html>
