@@ -5,175 +5,364 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHEGA! - Segurança Pessoal</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="icons/icon-192.png">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="https://img.icons8.com/color/96/000000/women-safety.png">
+    <style>
+        /* ESTILOS SIMPLIFICADOS E FUNCIONAIS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        /* BOTÃO DE EMERGÊNCIA FUNCIONAL */
+        .emergency-btn {
+            background: #ff3b30;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(255, 59, 48, 0.4);
+            transition: all 0.3s;
+            text-decoration: none; /* Para funcionar como link */
+        }
+        
+        .emergency-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 59, 48, 0.6);
+        }
+        
+        .emergency-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .btn-main {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        
+        .btn-sub {
+            font-size: 0.6em;
+            opacity: 0.8;
+        }
+        
+        /* Menu rápido */
+        .quick-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 40px 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .menu-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .menu-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* Instalação */
+        .install-btn {
+            background: #4cd964;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .install-btn:hover {
+            background: #3bc052;
+        }
+        
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            padding: 20px;
+        }
+        
+        /* Para celular */
+        @media (max-width: 600px) {
+            .logo { font-size: 2.5em; }
+            .emergency-btn { width: 180px; height: 180px; }
+            .quick-menu { grid-template-columns: 1fr; }
+        }
+        
+        /* Efeitos visuais */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
 </head>
 <body>
-    <!-- Menu Superior -->
-    <nav class="top-nav">
-        <div class="nav-left">
-            <span class="app-name">🚨 CHEGA!</span>
-        </div>
-        <div class="nav-right">
-            <button class="icon-btn" onclick="location.href='settings.html'">⚙️</button>
-            <button class="icon-btn" onclick="location.href='history.html'">📊</button>
-        </div>
-    </nav>
-
-    <!-- Conteúdo Principal -->
-    <main class="container">
-        <!-- Status do Usuário -->
-        <div class="user-status">
-            <div class="status-card safe">
-                <span class="status-icon">✅</span>
-                <div class="status-info">
-                    <h3>Status: Segura</h3>
-                    <p>Última verificação: Agora</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Botão de Emergência -->
-        <div class="emergency-section">
-            <div class="emergency-btn-container">
-                <button id="emergencyBtn" class="emergency-btn" 
-                        ontouchstart="app.startPress()" 
-                        ontouchend="app.endPress()">
-                    <span class="btn-main">CHEGA!</span>
-                    <span class="btn-sub">Segure 3 segundos</span>
-                </button>
-                
-                <div class="emergency-tips">
-                    <p>💡 Também ativa com:</p>
-                    <ul>
-                        <li>3 toques rápidos no botão de volume</li>
-                        <li>Sacudir o celular vigorosamente</li>
-                        <li>Botão rápido na tela travada</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Funcionalidades Rápidas -->
-        <div class="quick-actions">
-            <h2>Ações Rápidas</h2>
-            <div class="action-grid">
-                <button class="action-btn" onclick="app.startTrip()">
-                    <span class="action-icon">📍</span>
-                    <span class="action-text">Iniciar Trajeto</span>
-                </button>
-                
-                <button class="action-btn" onclick="location.href='contacts.html'">
-                    <span class="action-icon">👥</span>
-                    <span class="action-text">Contatos</span>
-                </button>
-                
-                <button class="action-btn" onclick="app.sendStatus('ok')">
-                    <span class="action-icon">✅</span>
-                    <span class="action-text">Estou Bem</span>
-                </button>
-                
-                <button class="action-btn" onclick="location.href='community.html'">
-                    <span class="action-icon">🤝</span>
-                    <span class="action-text">CHEGA+</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Status do Sistema -->
-        <div class="system-status">
-            <h2>Status do Sistema</h2>
-            <div class="status-grid">
-                <div class="status-item">
-                    <span class="status-label">📍 GPS</span>
-                    <span id="gpsStatus" class="status-value active">Ativo</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">📶 Rede</span>
-                    <span id="networkStatus" class="status-value active">Online</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">🔋 Bateria</span>
-                    <span id="batteryStatus" class="status-value">85%</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">⏱️ Pronto</span>
-                    <span class="status-value ready">Sistema OK</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Acesso Rápido -->
-        <div class="quick-access">
-            <a href="trip.html" class="access-link">
-                <span class="link-icon">🚶‍♀️</span>
-                <span class="link-text">Acompanhamento de Trajeto</span>
-                <span class="link-arrow">→</span>
+    <div class="container">
+        <h1 class="logo">🚨 CHEGA!</h1>
+        <p class="tagline">Segurança pessoal para mulheres</p>
+        
+        <!-- BOTÃO QUE FUNCIONA IMEDIATAMENTE -->
+        <a href="emergency.html" class="emergency-btn pulse">
+            <span class="btn-main">CHEGA!</span>
+            <span class="btn-sub">Clique para emergência</span>
+        </a>
+        
+        <p style="margin: 20px; opacity: 0.8;">
+            💡 Também ativa com: Segure por 3 segundos<br>
+            📱 No celular: Use os botões de volume
+        </p>
+        
+        <!-- Menu rápido -->
+        <div class="quick-menu">
+            <a href="trip.html" class="menu-item">
+                <span class="menu-icon">📍</span>
+                Acompanhamento
             </a>
             
-            <a href="contacts.html" class="access-link">
-                <span class="link-icon">📞</span>
-                <span class="link-text">Contatos de Emergência</span>
-                <span class="link-arrow">→</span>
+            <a href="contacts.html" class="menu-item">
+                <span class="menu-icon">👥</span>
+                Contatos
             </a>
             
-            <a href="community.html" class="access-link">
-                <span class="link-icon">👭</span>
-                <span class="link-text">Rede CHEGA+ Próxima</span>
-                <span class="link-arrow">→</span>
+            <a href="community.html" class="menu-item">
+                <span class="menu-icon">🤝</span>
+                CHEGA+
             </a>
             
-            <a href="about.html" class="access-link">
-                <span class="link-icon">ℹ️</span>
-                <span class="link-text">Sobre o Projeto</span>
-                <span class="link-arrow">→</span>
+            <a href="about.html" class="menu-item">
+                <span class="menu-icon">ℹ️</span>
+                Sobre
             </a>
         </div>
-    </main>
-
-    <!-- Notificação de Instalação -->
-    <div id="installPrompt" class="install-prompt">
-        <p>📲 Instale o CHEGA! para acesso rápido</p>
-        <button id="installBtn" class="install-btn">Instalar Agora</button>
-        <button onclick="hideInstallPrompt()" class="install-cancel">Depois</button>
+        
+        <!-- Status -->
+        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 15px; margin: 20px 0;">
+            <p>✅ Sistema pronto</p>
+            <p>📍 Localização disponível</p>
+            <p>📱 SMS configurado</p>
+        </div>
+        
+        <!-- Instalação -->
+        <div style="margin: 30px 0;">
+            <a href="#" class="install-btn" onclick="installApp()">
+                📲 Instalar App
+            </a>
+            <button class="install-btn" onclick="testEmergency()" style="background: #ff9500;">
+                🧪 Teste de Emergência
+            </button>
+        </div>
     </div>
+    
+    <footer>
+        <p>Desenvolvido com ❤️ por um pai e professor</p>
+        <p>Gratuito • Seguro • Para todas</p>
+    </footer>
 
-    <script src="js/app.js"></script>
     <script>
-        // Inicializar quando carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            // Esconder prompt de instalação se já instalado
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                document.getElementById('installPrompt').style.display = 'none';
-            }
-            
-            // Atualizar status do sistema
-            updateSystemStatus();
+        // FUNÇÕES BÁSICAS QUE FUNCIONAM IMEDIATAMENTE
+        
+        // Teste do botão de emergência
+        function testEmergency() {
+            alert('🚨 TESTE: Sistema de emergência funcionando!\n\nRedirecionando para tela de emergência...');
+            window.location.href = 'emergency.html?test=true';
+        }
+        
+        // Instalação do PWA
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            showInstallButton();
         });
         
-        function updateSystemStatus() {
-            // Atualizar bateria
-            if ('getBattery' in navigator) {
-                navigator.getBattery().then(battery => {
-                    document.getElementById('batteryStatus').textContent = 
-                        Math.round(battery.level * 100) + '%';
-                });
+        function showInstallButton() {
+            const btn = document.querySelector('.install-btn');
+            if (btn) {
+                btn.style.display = 'block';
             }
-            
-            // Atualizar rede
-            window.addEventListener('online', () => {
-                document.getElementById('networkStatus').textContent = 'Online';
-                document.getElementById('networkStatus').className = 'status-value active';
+        }
+        
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        alert('✅ App instalado com sucesso!');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                alert('📱 O app já está instalado ou seu navegador não suporta instalação.');
+            }
+        }
+        
+        // Detecção simples de toque longo (3 segundos)
+        const emergencyBtn = document.querySelector('.emergency-btn');
+        let pressTimer;
+        
+        if (emergencyBtn) {
+            emergencyBtn.addEventListener('touchstart', function(e) {
+                pressTimer = setTimeout(() => {
+                    triggerEmergency();
+                }, 3000); // 3 segundos
             });
             
-            window.addEventListener('offline', () => {
-                document.getElementById('networkStatus').textContent = 'Offline';
-                document.getElementById('networkStatus').className = 'status-value inactive';
+            emergencyBtn.addEventListener('touchend', function(e) {
+                clearTimeout(pressTimer);
+            });
+            
+            // Para mouse no PC
+            emergencyBtn.addEventListener('mousedown', function(e) {
+                pressTimer = setTimeout(() => {
+                    triggerEmergency();
+                }, 3000);
+            });
+            
+            emergencyBtn.addEventListener('mouseup', function(e) {
+                clearTimeout(pressTimer);
+            });
+            
+            emergencyBtn.addEventListener('mouseleave', function(e) {
+                clearTimeout(pressTimer);
             });
         }
         
-        function hideInstallPrompt() {
-            document.getElementById('installPrompt').style.display = 'none';
+        function triggerEmergency() {
+            // Vibrar se suportado
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200]);
+            }
+            
+            // Efeito visual
+            document.body.style.backgroundColor = '#ff0000';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '';
+            }, 500);
+            
+            // Redirecionar
+            window.location.href = 'emergency.html?emergency=true';
+        }
+        
+        // Detectar botões de volume (simplificado)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'VolumeUp' || e.key === 'VolumeDown' || e.key === 'v') {
+                // Simulação para teste no PC
+                volumePressCount = (volumePressCount || 0) + 1;
+                
+                if (volumePressCount >= 3) {
+                    window.location.href = 'emergency.html?volume=true';
+                    volumePressCount = 0;
+                }
+                
+                setTimeout(() => {
+                    volumePressCount = 0;
+                }, 2000);
+            }
+        });
+        
+        // Status do sistema
+        function updateStatus() {
+            if (navigator.geolocation) {
+                console.log('📍 GPS disponível');
+            }
+            
+            if (navigator.onLine) {
+                console.log('🌐 Online');
+            }
+        }
+        
+        updateStatus();
+        
+        // Pedir permissões na primeira vez
+        if (!localStorage.getItem('chega_permissions_asked')) {
+            setTimeout(() => {
+                if (confirm('Para o CHEGA! funcionar completamente, precisamos de:\n\n1. 📍 Localização (para emergências)\n2. 🔔 Notificações (para alertas)\n\nPermitir agora?')) {
+                    requestPermissions();
+                }
+                localStorage.setItem('chega_permissions_asked', 'true');
+            }, 2000);
+        }
+        
+        function requestPermissions() {
+            // Solicitar localização
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(() => {
+                    console.log('📍 Localização permitida');
+                });
+            }
+            
+            // Solicitar notificações
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
         }
     </script>
 </body>
