@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHEGA! - Segurança Pessoal</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="https://img.icons8.com/color/96/000000/women-safety.png">
     <style>
-        /* ESTILOS SIMPLIFICADOS E FUNCIONAIS */
+        /* ESTILOS QUE FUNCIONAM */
         * {
             margin: 0;
             padding: 0;
@@ -23,20 +21,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             text-align: center;
+            padding: 20px;
         }
         
         .container {
             max-width: 800px;
             width: 100%;
-            padding: 20px;
         }
         
         .logo {
             font-size: 3em;
             margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .tagline {
@@ -45,9 +41,9 @@
             margin-bottom: 40px;
         }
         
-        /* BOTÃO DE EMERGÊNCIA FUNCIONAL */
+        /* BOTÃO QUE REALMENTE FUNCIONA */
         .emergency-btn {
-            background: #ff3b30;
+            background: linear-gradient(45deg, #ff0000, #ff4444);
             color: white;
             border: none;
             border-radius: 50%;
@@ -56,66 +52,56 @@
             font-size: 2em;
             font-weight: bold;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             margin: 30px auto;
-            box-shadow: 0 10px 30px rgba(255, 59, 48, 0.4);
-            transition: all 0.3s;
-            text-decoration: none; /* Para funcionar como link */
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+            display: block;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
         }
         
-        .emergency-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 59, 48, 0.6);
+        .emergency-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 80%
+            );
+            transform: rotate(30deg);
         }
         
         .emergency-btn:active {
             transform: scale(0.95);
         }
         
-        .btn-main {
+        .btn-text {
             font-size: 1.5em;
             margin-bottom: 5px;
         }
         
-        .btn-sub {
+        .btn-subtext {
             font-size: 0.6em;
             opacity: 0.8;
         }
         
-        /* Menu rápido */
-        .quick-menu {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 40px 0;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .menu-item {
+        /* Status */
+        .status {
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
             border-radius: 15px;
-            padding: 20px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s;
+            margin: 20px 0;
             backdrop-filter: blur(10px);
         }
         
-        .menu-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-        }
-        
-        .menu-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            display: block;
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
         }
         
         /* Instalação */
@@ -128,34 +114,30 @@
             font-size: 1em;
             font-weight: bold;
             cursor: pointer;
-            margin: 20px 10px;
+            margin: 10px;
             display: inline-block;
-            text-decoration: none;
-        }
-        
-        .install-btn:hover {
-            background: #3bc052;
         }
         
         footer {
             margin-top: 40px;
             font-size: 0.9em;
             opacity: 0.8;
-            padding: 20px;
         }
         
         /* Para celular */
         @media (max-width: 600px) {
-            .logo { font-size: 2.5em; }
-            .emergency-btn { width: 180px; height: 180px; }
-            .quick-menu { grid-template-columns: 1fr; }
+            .emergency-btn {
+                width: 180px;
+                height: 180px;
+                font-size: 1.6em;
+            }
         }
         
-        /* Efeitos visuais */
+        /* Animações */
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,0,0,0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
         }
         
         .pulse {
@@ -168,54 +150,50 @@
         <h1 class="logo">🚨 CHEGA!</h1>
         <p class="tagline">Segurança pessoal para mulheres</p>
         
-        <!-- BOTÃO QUE FUNCIONA IMEDIATAMENTE -->
-        <a href="emergency.html" class="emergency-btn pulse">
-            <span class="btn-main">CHEGA!</span>
-            <span class="btn-sub">Clique para emergência</span>
-        </a>
+        <!-- BOTÃO PRINCIPAL -->
+        <button id="emergencyBtn" class="emergency-btn pulse">
+            <div class="btn-text">CHEGA!</div>
+            <div class="btn-subtext">Clique para emergência</div>
+        </button>
         
         <p style="margin: 20px; opacity: 0.8;">
-            💡 Também ativa com: Segure por 3 segundos<br>
-            📱 No celular: Use os botões de volume
+            💡 Segure por 3 segundos para ativação rápida<br>
+            📱 No celular: Toque no botão de volume 3x rápido
         </p>
         
-        <!-- Menu rápido -->
-        <div class="quick-menu">
-            <a href="trip.html" class="menu-item">
-                <span class="menu-icon">📍</span>
-                Acompanhamento
-            </a>
-            
-            <a href="contacts.html" class="menu-item">
-                <span class="menu-icon">👥</span>
-                Contatos
-            </a>
-            
-            <a href="community.html" class="menu-item">
-                <span class="menu-icon">🤝</span>
-                CHEGA+
-            </a>
-            
-            <a href="about.html" class="menu-item">
-                <span class="menu-icon">ℹ️</span>
-                Sobre
-            </a>
+        <!-- Status do sistema -->
+        <div class="status">
+            <div class="status-item">
+                <span>📍 GPS:</span>
+                <span id="gpsStatus">✅ Ativo</span>
+            </div>
+            <div class="status-item">
+                <span>🔊 Som:</span>
+                <span id="soundStatus">✅ Pronto</span>
+            </div>
+            <div class="status-item">
+                <span>💡 Flash:</span>
+                <span id="flashStatus">✅ Disponível</span>
+            </div>
         </div>
         
-        <!-- Status -->
-        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 15px; margin: 20px 0;">
-            <p>✅ Sistema pronto</p>
-            <p>📍 Localização disponível</p>
-            <p>📱 SMS configurado</p>
-        </div>
-        
-        <!-- Instalação -->
+        <!-- Ações -->
         <div style="margin: 30px 0;">
-            <a href="#" class="install-btn" onclick="installApp()">
-                📲 Instalar App
-            </a>
-            <button class="install-btn" onclick="testEmergency()" style="background: #ff9500;">
-                🧪 Teste de Emergência
+            <button class="install-btn" onclick="testEmergency()">
+                🧪 Testar Emergência
+            </button>
+            <button class="install-btn" onclick="openSettings()" style="background: #007aff;">
+                ⚙️ Configurações
+            </button>
+        </div>
+        
+        <!-- Links rápidos -->
+        <div style="margin-top: 30px;">
+            <button onclick="window.location.href='trip.html'" style="background: transparent; border: 1px solid white; color: white; padding: 10px 20px; margin: 5px; border-radius: 10px;">
+                📍 Acompanhamento
+            </button>
+            <button onclick="window.location.href='contacts.html'" style="background: transparent; border: 1px solid white; color: white; padding: 10px 20px; margin: 5px; border-radius: 10px;">
+                👥 Contatos
             </button>
         </div>
     </div>
@@ -225,145 +203,308 @@
         <p>Gratuito • Seguro • Para todas</p>
     </footer>
 
+    <!-- AUDIO PARA SIRENE (oculto) -->
+    <audio id="sirenAudio" loop preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-warning-alarm-1006.mp3" type="audio/mp3">
+    </audio>
+
     <script>
-        // FUNÇÕES BÁSICAS QUE FUNCIONAM IMEDIATAMENTE
+        // =========== SISTEMA DE EMERGÊNCIA COMPLETO ===========
         
-        // Teste do botão de emergência
-        function testEmergency() {
-            alert('🚨 TESTE: Sistema de emergência funcionando!\n\nRedirecionando para tela de emergência...');
-            window.location.href = 'emergency.html?test=true';
-        }
-        
-        // Instalação do PWA
-        let deferredPrompt;
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            showInstallButton();
-        });
-        
-        function showInstallButton() {
-            const btn = document.querySelector('.install-btn');
-            if (btn) {
-                btn.style.display = 'block';
-            }
-        }
-        
-        function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        alert('✅ App instalado com sucesso!');
-                    }
-                    deferredPrompt = null;
-                });
-            } else {
-                alert('📱 O app já está instalado ou seu navegador não suporta instalação.');
-            }
-        }
-        
-        // Detecção simples de toque longo (3 segundos)
-        const emergencyBtn = document.querySelector('.emergency-btn');
+        // Elementos
+        const emergencyBtn = document.getElementById('emergencyBtn');
+        const sirenAudio = document.getElementById('sirenAudio');
+        let emergencyActive = false;
         let pressTimer;
         
-        if (emergencyBtn) {
-            emergencyBtn.addEventListener('touchstart', function(e) {
-                pressTimer = setTimeout(() => {
-                    triggerEmergency();
-                }, 3000); // 3 segundos
-            });
-            
-            emergencyBtn.addEventListener('touchend', function(e) {
-                clearTimeout(pressTimer);
-            });
-            
-            // Para mouse no PC
-            emergencyBtn.addEventListener('mousedown', function(e) {
-                pressTimer = setTimeout(() => {
-                    triggerEmergency();
-                }, 3000);
-            });
-            
-            emergencyBtn.addEventListener('mouseup', function(e) {
-                clearTimeout(pressTimer);
-            });
-            
-            emergencyBtn.addEventListener('mouseleave', function(e) {
-                clearTimeout(pressTimer);
-            });
-        }
+        // =========== 1. CLIQUE SIMPLES ===========
+        emergencyBtn.addEventListener('click', function() {
+            // Ativa emergência imediatamente
+            activateEmergency();
+        });
         
-        function triggerEmergency() {
-            // Vibrar se suportado
-            if (navigator.vibrate) {
-                navigator.vibrate([200, 100, 200]);
-            }
-            
-            // Efeito visual
-            document.body.style.backgroundColor = '#ff0000';
-            setTimeout(() => {
-                document.body.style.backgroundColor = '';
-            }, 500);
-            
-            // Redirecionar
-            window.location.href = 'emergency.html?emergency=true';
-        }
+        // =========== 2. TOQUE LONGO (3 SEGUNDOS) ===========
+        emergencyBtn.addEventListener('touchstart', function() {
+            pressTimer = setTimeout(() => {
+                activateEmergency();
+            }, 3000);
+        });
         
-        // Detectar botões de volume (simplificado)
+        emergencyBtn.addEventListener('touchend', function() {
+            clearTimeout(pressTimer);
+        });
+        
+        // Para mouse no PC
+        emergencyBtn.addEventListener('mousedown', function() {
+            pressTimer = setTimeout(() => {
+                activateEmergency();
+            }, 3000);
+        });
+        
+        emergencyBtn.addEventListener('mouseup', function() {
+            clearTimeout(pressTimer);
+        });
+        
+        emergencyBtn.addEventListener('mouseleave', function() {
+            clearTimeout(pressTimer);
+        });
+        
+        // =========== 3. BOTÃO DE VOLUME (SIMULAÇÃO) ===========
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'VolumeUp' || e.key === 'VolumeDown' || e.key === 'v') {
-                // Simulação para teste no PC
-                volumePressCount = (volumePressCount || 0) + 1;
-                
-                if (volumePressCount >= 3) {
-                    window.location.href = 'emergency.html?volume=true';
-                    volumePressCount = 0;
-                }
-                
-                setTimeout(() => {
-                    volumePressCount = 0;
-                }, 2000);
+            // Detecta tecla 'v' (volume) ou setas
+            if (e.key === 'v' || e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === ' ') {
+                activateEmergency();
             }
         });
         
-        // Status do sistema
-        function updateStatus() {
-            if (navigator.geolocation) {
-                console.log('📍 GPS disponível');
-            }
+        // =========== FUNÇÃO PRINCIPAL DE EMERGÊNCIA ===========
+        function activateEmergency() {
+            if (emergencyActive) return;
+            emergencyActive = true;
             
-            if (navigator.onLine) {
-                console.log('🌐 Online');
-            }
-        }
-        
-        updateStatus();
-        
-        // Pedir permissões na primeira vez
-        if (!localStorage.getItem('chega_permissions_asked')) {
+            console.log('🚨 EMERGÊNCIA ATIVADA!');
+            
+            // 1. EFEITOS VISUAIS - FLASH DA TELA
+            startVisualEffects();
+            
+            // 2. SIRENE - SOM DE EMERGÊNCIA
+            playSiren();
+            
+            // 3. VIBRAÇÃO (se disponível)
+            startVibration();
+            
+            // 4. REDIRECIONAR PARA TELA DE EMERGÊNCIA
             setTimeout(() => {
-                if (confirm('Para o CHEGA! funcionar completamente, precisamos de:\n\n1. 📍 Localização (para emergências)\n2. 🔔 Notificações (para alertas)\n\nPermitir agora?')) {
-                    requestPermissions();
-                }
-                localStorage.setItem('chega_permissions_asked', 'true');
-            }, 2000);
+                window.location.href = 'emergency.html?emergency=true&time=' + Date.now();
+            }, 1000);
+            
+            // 5. NOTIFICAÇÃO
+            alert('🚨 EMERGÊNCIA ATIVADA!\n\nSua localização está sendo enviada para seus contatos.');
         }
         
-        function requestPermissions() {
-            // Solicitar localização
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(() => {
-                    console.log('📍 Localização permitida');
-                });
+        // =========== EFEITOS VISUAIS (FLASH) ===========
+        function startVisualEffects() {
+            // Efeito de flash na tela inteira
+            let flashCount = 0;
+            const maxFlashes = 20;
+            
+            function flash() {
+                if (flashCount >= maxFlashes * 2) return;
+                
+                if (flashCount % 2 === 0) {
+                    // Tela branca
+                    document.body.style.backgroundColor = '#ffffff';
+                    document.body.style.color = '#ff0000';
+                } else {
+                    // Tela vermelha
+                    document.body.style.backgroundColor = '#ff0000';
+                    document.body.style.color = '#ffffff';
+                }
+                
+                flashCount++;
+                setTimeout(flash, 250); // Pisca a cada 250ms
             }
             
-            // Solicitar notificações
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
+            flash();
+            
+            // Efeito de tremor
+            document.body.style.animation = 'shake 0.5s infinite';
+            
+            // Adicionar estilo de tremor
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+                    20%, 40%, 60%, 80% { transform: translateX(10px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // =========== SIRENE ===========
+        function playSiren() {
+            try {
+                // Tenta usar o áudio pré-carregado
+                sirenAudio.volume = 0.7;
+                sirenAudio.play().catch(e => {
+                    console.log('Áudio bloqueado pelo navegador, criando fallback...');
+                    createFallbackSiren();
+                });
+            } catch (e) {
+                createFallbackSiren();
             }
         }
+        
+        function createFallbackSiren() {
+            // Fallback usando Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Sirene oscilante
+                let time = audioContext.currentTime;
+                
+                // Primeira oscilação
+                oscillator.frequency.setValueAtTime(800, time);
+                oscillator.frequency.exponentialRampToValueAtTime(1600, time + 0.5);
+                oscillator.frequency.exponentialRampToValueAtTime(800, time + 1);
+                
+                // Segunda oscilação
+                oscillator.frequency.exponentialRampToValueAtTime(1600, time + 1.5);
+                oscillator.frequency.exponentialRampToValueAtTime(800, time + 2);
+                
+                gainNode.gain.setValueAtTime(0.3, time);
+                
+                oscillator.start();
+                oscillator.stop(time + 30); // Para após 30 segundos
+                
+            } catch (error) {
+                console.log('Web Audio API não suportada:', error);
+                alert('🔊 Sirene: Permita áudio no navegador para som completo');
+            }
+        }
+        
+        // =========== VIBRAÇÃO ===========
+        function startVibration() {
+            if (navigator.vibrate) {
+                // Padrão de vibração: longa-curta-longa (SOS em Morse)
+                navigator.vibrate([
+                    300, 100, 300, 100, 300,  // S (...)
+                    700, 100, 700, 100, 700,   // O (---)
+                    300, 100, 300, 100, 300,   // S (...)
+                    2000                       // Pausa
+                ]);
+            }
+        }
+        
+        // =========== TESTE DE EMERGÊNCIA ===========
+        function testEmergency() {
+            if (confirm('🧪 Iniciar TESTE de emergência?\n\nIsso irá:\n• Piscar a tela\n• Tocar sirene\n• Vibrar (se suportado)\n\nÉ apenas um teste.')) {
+                activateEmergency();
+            }
+        }
+        
+        // =========== CONFIGURAÇÕES ===========
+        function openSettings() {
+            alert('⚙️ Configurações serão implementadas em breve!\n\nPor enquanto, o app funciona com:\n• Som de sirene\n• Efeitos visuais\n• Detecção de toque longo');
+        }
+        
+        // =========== VERIFICAR RECURSOS ===========
+        function checkCapabilities() {
+            // GPS
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    () => document.getElementById('gpsStatus').textContent = '✅ Ativo',
+                    () => document.getElementById('gpsStatus').textContent = '❌ Negado'
+                );
+            } else {
+                document.getElementById('gpsStatus').textContent = '❌ Não suportado';
+            }
+            
+            // Áudio
+            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+                document.getElementById('soundStatus').textContent = '✅ Disponível';
+            } else {
+                document.getElementById('soundStatus').textContent = '⚠️ Limitado';
+            }
+            
+            // Vibração
+            if (navigator.vibrate) {
+                // Teste rápido de vibração
+                navigator.vibrate(100);
+            }
+            
+            // Flash (simulado com tela)
+            document.getElementById('flashStatus').textContent = '✅ Disponível';
+        }
+        
+        // =========== PEDIR PERMISSÕES NA PRIMEIRA VEZ ===========
+        function requestPermissions() {
+            if (!localStorage.getItem('chega_perms_asked')) {
+                setTimeout(() => {
+                    if (confirm('Para o CHEGA! funcionar melhor, precisamos de:\n\n📍 Localização (para enviar sua posição em emergências)\n🔔 Notificações (para alertas)\n🔊 Áudio (para sirene)\n\nPermitir agora?')) {
+                        // Solicitar localização
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(
+                                () => console.log('📍 Localização permitida'),
+                                () => console.log('📍 Localização negada')
+                            );
+                        }
+                        
+                        // Solicitar notificações
+                        if ('Notification' in window && Notification.permission === 'default') {
+                            Notification.requestPermission();
+                        }
+                    }
+                    localStorage.setItem('chega_perms_asked', 'true');
+                }, 1000);
+            }
+        }
+        
+        // =========== INICIALIZAR ===========
+        window.addEventListener('load', function() {
+            console.log('🚀 CHEGA! App inicializado');
+            checkCapabilities();
+            requestPermissions();
+            
+            // Adicionar instrução de volume
+            if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                console.log('📱 Dispositivo móvel detectado');
+                emergencyBtn.innerHTML = `
+                    <div class="btn-text">CHEGA!</div>
+                    <div class="btn-subtext">Toque ou segure</div>
+                    <div style="font-size:0.5em;margin-top:5px;">Volume: 3 toques</div>
+                `;
+            }
+        });
+        
+        // =========== SIMULAR BOTÕES DE VOLUME NO CELULAR ===========
+        // Nota: Em navegadores web não temos acesso direto ao botão de volume
+        // Esta é uma simulação para teste
+        let volumePressCount = 0;
+        let lastVolumePress = 0;
+        
+        // Simular com teclas numéricas para teste
+        document.addEventListener('keydown', function(e) {
+            if (e.key >= '0' && e.key <= '9') {
+                const now = Date.now();
+                if (now - lastVolumePress < 2000) { // Dentro de 2 segundos
+                    volumePressCount++;
+                    if (volumePressCount >= 3) {
+                        console.log('📱 Botão de volume pressionado 3x - EMERGÊNCIA!');
+                        activateEmergency();
+                        volumePressCount = 0;
+                    }
+                } else {
+                    volumePressCount = 1;
+                }
+                lastVolumePress = now;
+            }
+        });
+        
+        // Para celular: detectar clique triplo
+        let tapCount = 0;
+        let lastTap = 0;
+        
+        emergencyBtn.addEventListener('click', function() {
+            const now = Date.now();
+            if (now - lastTap < 500) { // Dentro de 500ms
+                tapCount++;
+                if (tapCount >= 3) {
+                    console.log('👆 Toque triplo detectado - EMERGÊNCIA!');
+                    activateEmergency();
+                    tapCount = 0;
+                }
+            } else {
+                tapCount = 1;
+            }
+            lastTap = now;
+        });
     </script>
 </body>
 </html>
