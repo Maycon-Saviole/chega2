@@ -4,222 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚨 EMERGÊNCIA - CHEGA!</title>
-    <link rel="stylesheet" href="css/emergency.css">
-    <script src="js/emergency.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #ff0000;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            animation: pulse 0.5s infinite, shake 0.5s infinite;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        @keyframes pulse {
+            0% { background-color: #ff0000; }
+            50% { background-color: #ffffff; }
+            100% { background-color: #ff0000; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+        
+        .sos {
+            font-size: 120px;
+            margin: 20px;
+            animation: flash 0.3s infinite;
+        }
+        
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin: 10px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            margin: 10px;
+        }
+        
+        .info {
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px;
+            max-width: 90%;
+        }
+        
+        .info p {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .safe-btn {
+            background: #4cd964;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+        
+        .timer {
+            margin-top: 20px;
+            font-size: 1.2em;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Overlay de SOS -->
-    <div id="sosOverlay" class="sos-overlay">
-        <div class="sos-text">S O S</div>
-        <div class="sos-icon">🚨</div>
+    <div class="sos">🚨</div>
+    <h1>CHEGA!</h1>
+    <h2>PRECISO DE AJUDA!</h2>
+    
+    <div class="info">
+        <p>🔊 SOM ALTO ATIVADO</p>
+        <p>📍 LOCALIZAÇÃO ENVIADA</p>
+        <p>📱 CONTATOS ALERTADOS</p>
+        <p id="address">Obtendo endereço...</p>
     </div>
-
-    <!-- Conteúdo Principal -->
-    <main class="emergency-container">
-        <!-- Cabeçalho -->
-        <header class="emergency-header">
-            <h1>🚨 EMERGÊNCIA ATIVADA</h1>
-            <p class="subtitle">Seus contatos foram alertados</p>
-        </header>
-
-        <!-- Painel de Status -->
-        <div class="status-panel">
-            <div class="status-item">
-                <span class="status-icon">📍</span>
-                <div class="status-details">
-                    <h3>Localização</h3>
-                    <p id="locationText">Enviando localização precisa...</p>
-                </div>
-            </div>
-            
-            <div class="status-item">
-                <span class="status-icon">📱</span>
-                <div class="status-details">
-                    <h3>Alertas Enviados</h3>
-                    <p id="alertsCount">3 contatos notificados</p>
-                </div>
-            </div>
-            
-            <div class="status-item">
-                <span class="status-icon">⏱️</span>
-                <div class="status-details">
-                    <h3>Tempo de Emergência</h3>
-                    <p id="emergencyTimer">00:00</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mapa de Localização -->
-        <div class="map-container">
-            <h3>Sua Localização Atual</h3>
-            <div id="mapDisplay" class="map-display">
-                <!-- Mapa será gerado por JavaScript -->
-                <div class="map-placeholder">
-                    <p>🌍 Carregando mapa...</p>
-                    <p id="coordinates">Obtendo coordenadas...</p>
-                </div>
-            </div>
-            <button onclick="updateLocation()" class="btn-secondary">
-                🔄 Atualizar Localização
-            </button>
-        </div>
-
-        <!-- Ações de Emergência -->
-        <div class="emergency-actions">
-            <h3>Ações Disponíveis</h3>
-            
-            <button onclick="sendAdditionalAlert()" class="btn-alert">
-                📢 Enviar Alerta Extra
-            </button>
-            
-            <button onclick="callEmergency()" class="btn-call">
-                📞 Ligar para 190
-            </button>
-            
-            <button onclick="shareLocation()" class="btn-share">
-                📍 Compartilhar Localização
-            </button>
-        </div>
-
-        <!-- Instruções -->
-        <div class="instructions">
-            <h3>📋 O QUE FAZER AGORA:</h3>
-            <ol>
-                <li>👉 <strong>Vá para um local público</strong> se possível</li>
-                <li>👉 <strong>Mantenha o celular com você</strong></li>
-                <li>👉 <strong>Seus contatos receberam</strong> sua localização</li>
-                <li>👉 <strong>Autoridades podem ser acionadas</strong></li>
-                <li>👉 <strong>Toque em "ESTOU SEGURA"</strong> quando for seguro</li>
-            </ol>
-        </div>
-
-        <!-- Botão de Cancelamento -->
-        <div class="cancel-section">
-            <button onclick="confirmCancel()" class="btn-safe">
-                ✅ ESTOU SEGURA - CANCELAR EMERGÊNCIA
-            </button>
-            <p class="cancel-warning">
-                ⚠️ Esta ação será registrada e seus contatos serão avisados
-            </p>
-        </div>
-
-        <!-- Log de Atividades -->
-        <div class="activity-log">
-            <h3>📝 Atividades Recentes</h3>
-            <ul id="activityList">
-                <li>🕒 00:00 - Emergência ativada</li>
-                <li>📍 00:00 - Localização obtida</li>
-                <li>📱 00:00 - Alertas enviados</li>
-            </ul>
-        </div>
-    </main>
-
-    <!-- Modal de Confirmação -->
-    <div id="confirmModal" class="modal">
-        <div class="modal-content">
-            <h2>Confirmar Cancelamento</h2>
-            <p>Tem certeza que está segura? Esta ação:</p>
-            <ul>
-                <li>✅ Notificará seus contatos</li>
-                <li>📝 Será registrada no histórico</li>
-                <li>🚨 Encerrará todos os alertas</li>
-            </ul>
-            <div class="modal-actions">
-                <button onclick="cancelEmergency()" class="btn-confirm">
-                    SIM, ESTOU SEGURA
-                </button>
-                <button onclick="closeModal()" class="btn-cancel">
-                    NÃO, CONTINUAR EMERGÊNCIA
-                </button>
-            </div>
-        </div>
+    
+    <button class="safe-btn" onclick="cancelEmergency()">
+        ✅ ESTOU SEGURA
+    </button>
+    
+    <div class="timer">
+        Alertas enviados há: <span id="timer">0</span>s
     </div>
 
     <script>
-        // Script específico da página de emergência
-        let emergencySeconds = 0;
-        let timerInterval;
+        // Efeitos imediatos
+        document.documentElement.requestFullscreen?.catch(() => {});
         
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                emergencySeconds++;
-                const minutes = Math.floor(emergencySeconds / 60);
-                const seconds = emergencySeconds % 60;
-                document.getElementById('emergencyTimer').textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
+        // Contador
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            document.getElementById('timer').textContent = seconds;
+        }, 1000);
+        
+        // Obter localização
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const mapLink = `https://maps.google.com/?q=${lat},${lng}`;
+                    document.getElementById('address').innerHTML = 
+                        `📍 <a href="${mapLink}" style="color: white;">Ver no mapa</a><br>
+                         📍 Coordenadas: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                },
+                () => {
+                    document.getElementById('address').textContent = 
+                        '📍 Localização não disponível';
+                }
+            );
         }
         
-        function updateLocation() {
-            // Simulação - na prática usa Geolocation API
-            document.getElementById('coordinates').textContent = 
-                `📍 -23.5505°, -46.6333° (São Paulo)`;
+        // Vibrar se suportado
+        if (navigator.vibrate) {
+            navigator.vibrate([200, 100, 200, 100, 200]);
         }
         
-        function sendAdditionalAlert() {
-            alert('📢 Alerta extra enviado para seus contatos!');
-            // Adiciona ao log
-            const list = document.getElementById('activityList');
-            const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
-            list.innerHTML = `<li>📢 ${time} - Alerta extra enviado</li>` + list.innerHTML;
-        }
-        
-        function callEmergency() {
-            window.open('tel:190', '_blank');
-        }
-        
-        function shareLocation() {
-            const coords = "-23.5505,-46.6333";
-            const mapUrl = `https://maps.google.com/?q=${coords}`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Minha Localização - EMERGÊNCIA',
-                    text: `Estou aqui: ${mapUrl}`,
-                    url: mapUrl
-                });
-            } else {
-                // Fallback
-                navigator.clipboard.writeText(mapUrl);
-                alert('📍 Link da localização copiado! Cole em qualquer app.');
+        // Tentar tocar som
+        function playSiren() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(1600, audioContext.currentTime + 0.5);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 2);
+            } catch (e) {
+                console.log('Áudio não suportado');
             }
         }
         
-        function confirmCancel() {
-            document.getElementById('confirmModal').style.display = 'block';
-        }
-        
-        function closeModal() {
-            document.getElementById('confirmModal').style.display = 'none';
-        }
+        // Tocar sirene a cada 2 segundos
+        playSiren();
+        setInterval(playSiren, 2000);
         
         function cancelEmergency() {
-            // Para timer
-            clearInterval(timerInterval);
+            // Parar vibração
+            if (navigator.vibrate) navigator.vibrate(0);
             
-            // Redireciona para dashboard
-            window.location.href = 'index.html?emergency_cancelled=true';
+            // Voltar para página principal
+            window.location.href = 'index.html?canceled=true';
         }
         
-        // Iniciar quando carregar
-        document.addEventListener('DOMContentLoaded', () => {
-            startTimer();
-            updateLocation();
-            
-            // Tentar tela cheia
-            document.documentElement.requestFullscreen?.catch(() => {});
-            
-            // Vibrar (se permitido)
-            if (navigator.vibrate) {
-                navigator.vibrate([200, 100, 200, 100, 200]);
-            }
-        });
+        // Enviar alerta simulado
+        setTimeout(() => {
+            alert('📱 Alerta: SMS enviado para seus contatos de emergência!');
+        }, 1000);
         
-        // Bloquear saída acidental
+        // Prevenir saída acidental
         window.onbeforeunload = function(e) {
-            e.preventDefault();
-            e.returnValue = 'A emergência ainda está ativa! Tem certeza que deseja sair?';
-            return e.returnValue;
+            return 'A emergência ainda está ativa!';
         };
     </script>
 </body>
