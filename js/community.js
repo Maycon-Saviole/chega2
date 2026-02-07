@@ -1,0 +1,1 @@
+// community.js - Sistema CHEGA+ (Rede próxima)
