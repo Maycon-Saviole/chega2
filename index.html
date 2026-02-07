@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHEGA! - Segurança Pessoal</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Menu Superior -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <span class="app-name">🚨 CHEGA!</span>
+        </div>
+        <div class="nav-right">
+            <button class="icon-btn" onclick="location.href='settings.html'">⚙️</button>
+            <button class="icon-btn" onclick="location.href='history.html'">📊</button>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <!-- Status do Usuário -->
+        <div class="user-status">
+            <div class="status-card safe">
+                <span class="status-icon">✅</span>
+                <div class="status-info">
+                    <h3>Status: Segura</h3>
+                    <p>Última verificação: Agora</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Emergência -->
+        <div class="emergency-section">
+            <div class="emergency-btn-container">
+                <button id="emergencyBtn" class="emergency-btn" 
+                        ontouchstart="app.startPress()" 
+                        ontouchend="app.endPress()">
+                    <span class="btn-main">CHEGA!</span>
+                    <span class="btn-sub">Segure 3 segundos</span>
+                </button>
+                
+                <div class="emergency-tips">
+                    <p>💡 Também ativa com:</p>
+                    <ul>
+                        <li>3 toques rápidos no botão de volume</li>
+                        <li>Sacudir o celular vigorosamente</li>
+                        <li>Botão rápido na tela travada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades Rápidas -->
+        <div class="quick-actions">
+            <h2>Ações Rápidas</h2>
+            <div class="action-grid">
+                <button class="action-btn" onclick="app.startTrip()">
+                    <span class="action-icon">📍</span>
+                    <span class="action-text">Iniciar Trajeto</span>
+                </button>
+                
+                <button class="action-btn" onclick="location.href='contacts.html'">
+                    <span class="action-icon">👥</span>
+                    <span class="action-text">Contatos</span>
+                </button>
+                
+                <button class="action-btn" onclick="app.sendStatus('ok')">
+                    <span class="action-icon">✅</span>
+                    <span class="action-text">Estou Bem</span>
+                </button>
+                
+                <button class="action-btn" onclick="location.href='community.html'">
+                    <span class="action-icon">🤝</span>
+                    <span class="action-text">CHEGA+</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Status do Sistema -->
+        <div class="system-status">
+            <h2>Status do Sistema</h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <span class="status-label">📍 GPS</span>
+                    <span id="gpsStatus" class="status-value active">Ativo</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">📶 Rede</span>
+                    <span id="networkStatus" class="status-value active">Online</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">🔋 Bateria</span>
+                    <span id="batteryStatus" class="status-value">85%</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">⏱️ Pronto</span>
+                    <span class="status-value ready">Sistema OK</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acesso Rápido -->
+        <div class="quick-access">
+            <a href="trip.html" class="access-link">
+                <span class="link-icon">🚶‍♀️</span>
+                <span class="link-text">Acompanhamento de Trajeto</span>
+                <span class="link-arrow">→</span>
+            </a>
+            
+            <a href="contacts.html" class="access-link">
+                <span class="link-icon">📞</span>
+                <span class="link-text">Contatos de Emergência</span>
+                <span class="link-arrow">→</span>
+            </a>
+            
+            <a href="community.html" class="access-link">
+                <span class="link-icon">👭</span>
+                <span class="link-text">Rede CHEGA+ Próxima</span>
+                <span class="link-arrow">→</span>
+            </a>
+            
+            <a href="about.html" class="access-link">
+                <span class="link-icon">ℹ️</span>
+                <span class="link-text">Sobre o Projeto</span>
+                <span class="link-arrow">→</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Notificação de Instalação -->
+    <div id="installPrompt" class="install-prompt">
+        <p>📲 Instale o CHEGA! para acesso rápido</p>
+        <button id="installBtn" class="install-btn">Instalar Agora</button>
+        <button onclick="hideInstallPrompt()" class="install-cancel">Depois</button>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Inicializar quando carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esconder prompt de instalação se já instalado
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                document.getElementById('installPrompt').style.display = 'none';
+            }
+            
+            // Atualizar status do sistema
+            updateSystemStatus();
+        });
+        
+        function updateSystemStatus() {
+            // Atualizar bateria
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(battery => {
+                    document.getElementById('batteryStatus').textContent = 
+                        Math.round(battery.level * 100) + '%';
+                });
+            }
+            
+            // Atualizar rede
+            window.addEventListener('online', () => {
+                document.getElementById('networkStatus').textContent = 'Online';
+                document.getElementById('networkStatus').className = 'status-value active';
+            });
+            
+            window.addEventListener('offline', () => {
+                document.getElementById('networkStatus').textContent = 'Offline';
+                document.getElementById('networkStatus').className = 'status-value inactive';
+            });
+        }
+        
+        function hideInstallPrompt() {
+            document.getElementById('installPrompt').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
