@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤝 CHEGA+ - Comunidade</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
+        <h1>🤝 CHEGA+</h1>
+        <span class="community-badge">🌐 Rede Ativa</span>
+    </nav>
+
+    <main class="container">
+        <!-- Introdução -->
+        <div class="community-intro">
+            <h2>Rede de Apoio Próxima</h2>
+            <p>Conecte-se com outras usuárias do CHEGA! próximas a você.</p>
+            <p class="note">🔒 Todas as comunicações são criptografadas e anônimas.</p>
+        </div>
+
+        <!-- Status da Rede -->
+        <div class="network-status">
+            <div class="status-card">
+                <div class="status-icon">👥</div>
+                <div class="status-info">
+                    <h3>Usuárias Próximas</h3>
+                    <p id="nearbyCount">3 na sua área</p>
+                </div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-icon">📡</div>
+                <div class="status-info">
+                    <h3>Rede</h3>
+                    <p id="networkStatus">Conectada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Usuárias Próximas -->
+        <div class="users-list">
+            <h3>👭 Pessoas Próximas</h3>
+            
+            <div class="user-card">
+                <div class="user-avatar">👩</div>
+                <div class="user-info">
+                    <h4>Ana (você)</h4>
+                    <p class="user-distance">📍 Você está aqui</p>
+                    <div class="user-status">
+                        <span class="status-badge safe">✅ Segura</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="user-card">
+                <div class="user-avatar">👱‍♀️</div>
+                <div class="user-info">
+                    <h4>Maria</h4>
+                    <p class="user-distance">📍 250m de você</p>
+                    <div class="user-status">
+                        <span class="status-badge safe">✅ Segura</span>
+                        <span class="status-badge online">🌐 Online</span>
+                    </div>
+                </div>
+                <button onclick="sendNudge(1)" class="user-action">👋 Cutucar</button>
+            </div>
+            
+            <div class="user-card">
+                <div class="user-avatar">👵</div>
+                <div class="user-info">
+                    <h4>Dona Marta</h4>
+                    <p class="user-distance">📍 800m de você</p>
+                    <div class="user-status">
+                        <span class="status-badge traveling">🚶‍♀️ Em trânsito</span>
+                    </div>
+                </div>
+                <button onclick="sendNudge(2)" class="user-action">👋 Cutucar</button>
+            </div>
+            
+            <div class="user-card">
+                <div class="user-avatar">👩‍🎓</div>
+                <div class="user-info">
+                    <h4>Julia</h4>
+                    <p class="user-distance">📍 1.2km de você</p>
+                    <div class="user-status">
+                        <span class="status-badge safe">✅ Segura</span>
+                        <span class="status-badge chega-plus">🤝 CHEGA+ Ativa</span>
+                    </div>
+                </div>
+                <button onclick="sendNudge(3)" class="user-action">👋 Cutucar</button>
+            </div>
+        </div>
+
+        <!-- Ações da Comunidade -->
+        <div class="community-actions">
+            <h3>🤲 Como Ajudar</h3>
+            
+            <button onclick="toggleHelpMode()" class="action-btn">
+                <span class="action-icon">🛡️</span>
+                <span class="action-text">Modo Vigilante</span>
+                <span id="helpModeStatus" class="action-status">OFF</span>
+            </button>
+            
+            <button onclick="broadcastSafeZone()" class="action-btn">
+                <span class="action-icon">📍</span>
+                <span class="action-text">Sinalizar Zona Segura</span>
+            </button>
+            
+            <button onclick="openCommunityChat()" class="action-btn">
+                <span class="action-icon">💬</span>
+                <span class="action-text">Chat da Comunidade</span>
+            </button>
+            
+            <button onclick="reportIncident()" class="action-btn">
+                <span class="action-icon">⚠️</span>
+                <span class="action-text">Reportar Incidente</span>
+            </button>
+        </div>
+
+        <!-- Alertas Recentes -->
+        <div class="community-alerts">
+            <h3>⚠️ Alertas da Comunidade</h3>
+            
+            <div class="alert-card">
+                <div class="alert-icon">🚨</div>
+                <div class="alert-info">
+                    <h4>Alerta de Emergência</h4>
+                    <p class="alert-time">Há 15 minutos - 500m</p>
+                    <p class="alert-desc">Usuária ativou emergência. Situação resolvida.</p>
+                </div>
+            </div>
+            
+            <div class="alert-card">
+                <div class="alert-icon">📍</div>
+                <div class="alert-info">
+                    <h4>Zona Segura</h4>
+                    <p class="alert-time">Farmácia 24h - 300m</p>
+                    <p class="alert-desc">Local seguro identificado pela comunidade.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="community-stats">
+            <h3>📊 Estatísticas</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Alertas enviados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Situações evitadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Usuárias na cidade</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let helpModeActive = false;
+        let nearbyUsers = 3;
+        
+        function sendNudge(userId) {
+            alert(`👋 Cutucada enviada para a usuária!`);
+            // Na prática, enviaria via WebSocket/WebRTC
+        }
+        
+        function toggleHelpMode() {
+            helpModeActive = !helpModeActive;
+            const status = document.getElementById('helpModeStatus');
+            status.textContent = helpModeActive ? 'ON' : 'OFF';
+            status.className = helpModeActive ? 'action-status active' : 'action-status';
+            
+            alert(helpModeActive ? 
+                '🛡️ Modo Vigilante Ativado: Você será notificada de emergências próximas.' :
+                'Modo Vigilante Desativado.');
+        }
+        
+        function broadcastSafeZone() {
+            const location = prompt('Nome do local seguro:', 'Farmácia 24h - Av. Paulista');
+            if (location) {
+                alert(`📍 Zona Segura "${location}" compartilhada com a comunidade!`);
+            }
+        }
+        
+        function openCommunityChat() {
+            alert('💬 Chat da comunidade será implementado em breve!');
+            // window.location.href = 'chat.html';
+        }
+        
+        function reportIncident() {
+            const incident = prompt('Descreva o incidente (local, hora, descrição):');
+            if (incident) {
+                alert('⚠️ Incidente reportado à comunidade. Obrigada!');
+            }
+        }
+        
+        // Simular atualização de usuários próximos
+        setInterval(() => {
+            nearbyUsers = Math.max(1, nearbyUsers + Math.floor(Math.random() * 3) - 1);
+            document.getElementById('nearbyCount').textContent = 
+                `${nearbyUsers} na sua área`;
+        }, 30000);
+    </script>
+</body>
+</html>
