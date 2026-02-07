@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙️ Configurações - CHEGA!</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
+        <h1>⚙️ Configurações</h1>
+    </nav>
+
+    <main class="container">
+        <!-- Perfil do Usuário -->
+        <section class="profile-section">
+            <h2>👤 Seu Perfil</h2>
+            <div class="profile-card">
+                <div class="profile-avatar">👩</div>
+                <div class="profile-info">
+                    <input type="text" id="userName" value="Ana Silva" class="profile-input">
+                    <input type="tel" id="userPhone" value="(11) 99999-9999" class="profile-input">
+                    <input type="email" id="userEmail" value="ana@email.com" placeholder="E-mail (opcional)" class="profile-input">
+                </div>
+                <button onclick="saveProfile()" class="profile-save">💾 Salvar</button>
+            </div>
+        </section>
+
+        <!-- Configurações de Emergência -->
+        <section class="emergency-settings">
+            <h2>🚨 Configurações de Emergência</h2>
+            
+            <div class="settings-group">
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="vibrateSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <h3>📳 Vibrar em emergência</h3>
+                        <p>O celular vibra quando o alerta é ativado</p>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="soundSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <h3>🔊 Som de sirene</h3>
+                        <p>Toca som alto durante emergência</p>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="flashSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <h3>🔦 Piscar tela/lanterna</h3>
+                        <p>Efeito visual para chamar atenção</p>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="autoSMSSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <h3>📱 SMS automático</h3>
+                        <p>Envia SMS automaticamente para contatos</p>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="locationSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <h3>📍 Compartilhar localização</h3>
+                        <p>Inclui sua localização nos alertas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Configurações de Ativação -->
+        <section class="activation-settings">
+            <h2>🔘 Como Ativar a Emergência</h2>
+            
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="volumeButtonSetting" checked>
+                    Botão de volume (3 toques rápidos)
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="shakeSetting" checked>
+                    Sacudir o celular
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="screenOffSetting">
+                    Tela desligada (segure botão de energia)
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <h3>⏱️ Tempo para ativação:</h3>
+                <select id="activationTime" class="select-setting">
+                    <option value="2">2 segundos (rápido)</option>
+                    <option value="3" selected>3 segundos (recomendado)</option>
+                    <option value="5">5 segundos (evita acidentes)</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Configurações de Acompanhamento -->
+        <section class="trip-settings">
+            <h2>📍 Acompanhamento de Trajeto</h2>
+            
+            <div class="setting-item">
+                <label class="switch">
+                    <input type="checkbox" id="autoTripSetting">
+                    <span class="slider"></span>
+                </label>
+                <div class="setting-info">
+                    <h3>🚗 Iniciar trajeto automaticamente</h3>
+                    <p>Quando detecta que você está se movendo</p>
+                </div>
+            </div>
+            
+            <div class="setting-item">
+                <h3>⏰ Tempo máximo de trajeto:</h3>
+                <select id="maxTripTime" class="select-setting">
+                    <option value="30">30 minutos</option>
+                    <option value="60" selected>1 hora</option>
+                    <option value="120">2 horas</option>
+                    <option value="240">4 horas</option>
+                </select>
+            </div>
+            
+            <div class="setting-item">
+                <h3>📍 Frequência de atualização:</h3>
+                <select id="locationUpdateFreq" class="select-setting">
+                    <option value="10">10 segundos</option>
+                    <option value="30" selected>30 segundos</option>
+                    <option value="60">1 minuto</option>
+                    <option value="300">5 minutos</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Configurações de Comunidade -->
+        <section class="community-settings">
+            <h2>🤝 Comunidade CHEGA+</h2>
+            
+            <div class="setting-item">
+                <label class="switch">
+                    <input type="checkbox" id="communitySetting" checked>
+                    <span class="slider"></span>
+                </label>
+                <div class="setting-info">
+                    <h3>🌐 Participar da rede</h3>
+                    <p>Conectar com outras usuárias próximas</p>
+                </div>
+            </div>
+            
+            <div class="setting-item">
+                <label class="switch">
+                    <input type="checkbox" id="receiveAlertsSetting" checked>
+                    <span class="slider"></span>
+                </label>
+                <div class="setting-info">
+                    <h3>⚠️ Receber alertas da comunidade</h3>
+                    <p>Notificações de emergências próximas</p>
+                </div>
+            </div>
+            
+            <div class="setting-item">
+                <h3>📍 Raio de conexão:</h3>
+                <select id="communityRadius" class="select-setting">
+                    <option value="500">500 metros</option>
+                    <option value="1000" selected>1 quilômetro</option>
+                    <option value="2000">2 quilômetros</option>
+                    <option value="5000">5 quilômetros</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Configurações de Privacidade -->
+        <section class="privacy-settings">
+            <h2>🔒 Privacidade</h2>
+            
+            <div class="setting-item">
+                <label class="switch">
+                    <input type="checkbox" id="analyticsSetting" checked>
+                    <span class="slider"></span>
+                </label>
+                <div class="setting-info">
+                    <h3>📊 Enviar dados anônimos</h3>
+                    <p>Ajuda a melhorar o aplicativo (dados anonimizados)</p>
+                </div>
+            </div>
+            
+            <div class="setting-item">
+                <label class="switch">
+                    <input type="checkbox" id="crashReportsSetting">
+                    <span class="slider"></span>
+                </label>
+                <div class="setting-info">
+                    <h3>🐛 Reportar falhas automaticamente</h3>
+                    <p>Envia relatórios de erros para correção</p>
+                </div>
+            </div>
+            
+            <div class="privacy-actions">
+                <button onclick="exportData()" class="privacy-btn">
+                    📥 Exportar meus dados
+                </button>
+                <button onclick="deleteData()" class="privacy-btn delete">
+                    🗑️ Excluir todos os dados
+                </button>
+            </div>
+        </section>
+
+        <!-- Sobre e Ajuda -->
+        <section class="help-section">
+            <h2>❓ Ajuda</h2>
+            
+            <button onclick="location.href='about.html'" class="help-btn">
+                ℹ️ Sobre o aplicativo
+            </button>
+            
+            <button onclick="showTutorial()" class="help-btn">
+                🎓 Ver tutorial novamente
+            </button>
+            
+            <button onclick="checkUpdates()" class="help-btn">
+                🔄 Verificar atualizações
+            </button>
+            
+            <button onclick="reportBug()" class="help-btn">
+                🐛 Reportar problema
+            </button>
+            
+            <button onclick="contactSupport()" class="help-btn">
+                💬 Falar com suporte
+            </button>
+        </section>
+
+        <!-- Botões de Ação -->
+        <section class="action-buttons">
+            <button onclick="saveAllSettings()" class="btn-primary">
+                💾 Salvar todas as configurações
+            </button>
+            
+            <button onclick="resetSettings()" class="btn-secondary">
+                🔄 Restaurar padrões
+            </button>
+            
+            <button onclick="location.href='index.html'" class="btn-cancel">
+                ← Voltar ao início
+            </button>
+        </section>
+    </main>
+
+    <script>
+        // Carregar configurações salvas
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('chega_settings') || '{}');
+            
+            // Aplicar configurações aos elementos
+            document.getElementById('vibrateSetting').checked = settings.vibrate !== false;
+            document.getElementById('soundSetting').checked = settings.sound !== false;
+            // ... carregar outras configurações
+        }
+        
+        function saveAllSettings() {
+            const settings = {
+                vibrate: document.getElementById('vibrateSetting').checked,
+                sound: document.getElementById('soundSetting').checked,
+                flash: document.getElementById('flashSetting').checked,
+                autoSMS: document.getElementById('autoSMSSetting').checked,
+                shareLocation: document.getElementById('locationSetting').checked,
+                volumeButton: document.getElementById('volumeButtonSetting').checked,
+                shake: document.getElementById('shakeSetting').checked,
+                activationTime: document.getElementById('activationTime').value,
+                community: document.getElementById('communitySetting').checked,
+                analytics: document.getElementById('analyticsSetting').checked
+            };
+            
+            localStorage.setItem('chega_settings', JSON.stringify(settings));
+            alert('✅ Configurações salvas com sucesso!');
+        }
+        
+        function saveProfile() {
+            const profile = {
+                name: document.getElementById('userName').value,
+                phone: document.getElementById('userPhone').value,
+                email: document.getElementById('userEmail').value
+            };
+            
+            localStorage.setItem('chega_profile', JSON.stringify(profile));
+            alert('👤 Perfil salvo!');
+        }
+        
+        function resetSettings() {
+            if (confirm('Restaurar todas as configurações para os valores padrão?')) {
+                localStorage.removeItem('chega_settings');
+                loadSettings();
+                alert('🔄 Configurações restauradas!');
+            }
+        }
+        
+        function exportData() {
+            const data = {
+                profile: JSON.parse(localStorage.getItem('chega_profile') || '{}'),
+                settings: JSON.parse(localStorage.getItem('chega_settings') || '{}'),
+                contacts: JSON.parse(localStorage.getItem('chega_contacts') || '[]'),
+                history: JSON.parse(localStorage.getItem('chega_history') || '[]')
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'chega-backup.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            alert('📥 Backup dos seus dados criado!');
+        }
+        
+        function deleteData() {
+            if (confirm('⚠️ ATENÇÃO: Isso excluirá TODOS os seus dados do aplicativo. Tem certeza?')) {
+                localStorage.clear();
+                alert('🗑️ Todos os dados foram excluídos. O app será recarregado.');
+                location.reload();
+            }
+        }
+        
+        function showTutorial() {
+            alert('🎓 O tutorial será mostrado na próxima vez que você abrir o app.');
+            localStorage.removeItem('chega_tutorial_seen');
+        }
+        
+        function checkUpdates() {
+            alert('🔍 Verificando atualizações...');
+            // Na prática, verificar versão atual vs versão no servidor
+        }
+        
+        function reportBug() {
+            const bug = prompt('Descreva o problema que encontrou:');
+            if (bug) {
+                alert('🐛 Problema reportado! Obrigado pela contribuição.');
+                // Enviar para servidor/email
+            }
+        }
+        
+        function contactSupport() {
+            window.open('mailto:suporte@chegaapp.org', '_blank');
+        }
+        
+        // Carregar configurações quando a página carrega
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    </script>
+</body>
+</html>
