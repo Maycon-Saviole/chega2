@@ -689,6 +689,8 @@ class ChegaApp {
         });
     }
 }
-
+// Inicializar Ionic PWA Elements
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+defineCustomElements(window);
 // Inicializar app globalmente
 window.app = new ChegaApp();
