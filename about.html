@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ℹ️ Sobre - CHEGA!</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
+        <h1>ℹ️ Sobre o Projeto</h1>
+    </nav>
+
+    <main class="container">
+        <!-- Cabeçalho -->
+        <header class="about-header">
+            <div class="logo-large">🚨</div>
+            <h1>CHEGA!</h1>
+            <p class="tagline">Segurança pessoal para mulheres</p>
+        </header>
+
+        <!-- Mensagem do Idealizador -->
+        <section class="founder-message">
+            <h2>👨‍🏫 Uma Mensagem do Idealizador</h2>
+            <div class="message-card">
+                <p>"Como pai de uma filha e professor, sempre me preocupei com a segurança das mulheres em nossa sociedade.</p>
+                <p>Este aplicativo nasceu do desejo de oferecer uma ferramenta simples, mas poderosa, para que todas possam se sentir mais seguras ao caminhar pela cidade.</p>
+                <p>A segurança é um direito fundamental, não um privilégio. O CHEGA! é minha contribuição para uma sociedade mais justa e segura para todas."</p>
+                <div class="signature">
+                    <p><strong>[Seu Nome]</strong></p>
+                    <p>Pai, Professor e Desenvolvedor</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre o App -->
+        <section class="app-info">
+            <h2>📱 Sobre o Aplicativo</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">🎯</div>
+                    <h3>Missão</h3>
+                    <p>Prover uma solução de segurança acessível e eficiente para mulheres através da tecnologia.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">💝</div>
+                    <h3>Valores</h3>
+                    <p>Gratuidade, privacidade, acessibilidade e solidariedade entre mulheres.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">🔒</div>
+                    <h3>Privacidade</h3>
+                    <p>Seus dados são seus. Não coletamos informações pessoais sem sua permissão explícita.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">🌎</div>
+                    <h3>Acessibilidade</h3>
+                    <p>Funciona em qualquer celular com navegador, sem necessidade de instalação complexa.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Doações -->
+        <section class="donations">
+            <h2>❤️ Apoie o Projeto</h2>
+            <p>O CHEGA! é e sempre será gratuito. Sua doação ajuda a:</p>
+            <ul class="donation-list">
+                <li>✅ Manter o projeto funcionando</li>
+                <li>✅ Desenvolver novas funcionalidades</li>
+                <li>✅ Criar versões em mais idiomas</li>
+                <li>✅ Investir em educação para a segurança</li>
+            </ul>
+            
+            <div class="donation-options">
+                <h3>Formas de Apoiar:</h3>
+                
+                <button onclick="donateViaPix()" class="donation-btn">
+                    <span class="donation-icon">🏦</span>
+                    <span class="donation-text">PIX</span>
+                </button>
+                
+                <button onclick="donateViaCard()" class="donation-btn">
+                    <span class="donation-icon">💳</span>
+                    <span class="donation-text">Cartão</span>
+                </button>
+                
+                <button onclick="donateViaPaypal()" class="donation-btn">
+                    <span class="donation-icon">🌐</span>
+                    <span class="donation-text">PayPal</span>
+                </button>
+                
+                <button onclick="showBankTransfer()" class="donation-btn">
+                    <span class="donation-icon">🏛️</span>
+                    <span class="donation-text">Transferência</span>
+                </button>
+            </div>
+            
+            <div class="donation-note">
+                <p>💡 Todas as doações são direcionadas para:</p>
+                <ul>
+                    <li>Melhorias no aplicativo</li>
+                    <li>Servidores e hospedagem</li>
+                    <li>Projetos educacionais sobre segurança</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contato -->
+        <section class="contact">
+            <h2>📞 Contato</h2>
+            <div class="contact-options">
+                <button onclick="sendEmail()" class="contact-btn">
+                    ✉️ E-mail
+                </button>
+                <button onclick="openWhatsApp()" class="contact-btn">
+                    💬 WhatsApp
+                </button>
+                <button onclick="openGitHub()" class="contact-btn">
+                    💻 GitHub
+                </button>
+            </div>
+            
+            <div class="contact-info">
+                <p><strong>Para suporte técnico:</strong> suporte@chegaapp.org</p>
+                <p><strong>Para parcerias:</strong> parcerias@chegaapp.org</p>
+                <p><strong>Para imprensa:</strong> imprensa@chegaapp.org</p>
+            </div>
+        </section>
+
+        <!-- Versão e Licença -->
+        <section class="version-info">
+            <h2>📄 Informações Técnicas</h2>
+            <div class="version-details">
+                <p><strong>Versão:</strong> 1.0.0 (Beta)</p>
+                <p><strong>Última atualização:</strong> Janeiro 2024</p>
+                <p><strong>Licença:</strong> GPL v3 + Cláusulas Éticas</p>
+                <p><strong>Código-fonte:</strong> Disponível no GitHub</p>
+            </div>
+            
+            <div class="license-info">
+                <h3>📜 Licença</h3>
+                <p>Este software é gratuito e de código aberto. Você pode:</p>
+                <ul>
+                    <li>✅ Usar gratuitamente</li>
+                    <li>✅ Modificar e distribuir</li>
+                    <li>✅ Incorporar em outros projetos (com atribuição)</li>
+                </ul>
+                <p><strong>Não pode:</strong> Cobrar pela função de emergência, remover créditos ou usar para vigilância abusiva.</p>
+            </div>
+        </section>
+
+        <!-- Agradecimento -->
+        <footer class="about-footer">
+            <p>Obrigado por usar o CHEGA! Juntos, podemos tornar nossas cidades mais seguras para todas.</p>
+            <p class="footer-quote">"A segurança de uma mulher não deve depender da hora do dia ou do caminho que ela escolhe."</p>
+        </footer>
+    </main>
+
+    <script>
+        function donateViaPix() {
+            const pixKey = 'chegaapp@email.com'; // Chave PIX fictícia
+            navigator.clipboard.writeText(pixKey);
+            alert(`Chave PIX "${pixKey}" copiada! Cole no seu app de banco.`);
+        }
+        
+        function donateViaCard() {
+            alert('🔒 Doação por cartão será processada de forma segura em breve.');
+            // Integrar com gateway de pagamento
+        }
+        
+        function donateViaPaypal() {
+            window.open('https://paypal.me/chegaapp', '_blank');
+        }
+        
+        function showBankTransfer() {
+            const bankInfo = `
+Banco: Banco do Brasil
+Agência: 0000
+Conta: 00000-0
+CNPJ: 00.000.000/0000-00
+Nome: Projeto CHEGA!
+            `;
+            navigator.clipboard.writeText(bankInfo);
+            alert('Dados bancários copiados!');
+        }
+        
+        function sendEmail() {
+            window.open('mailto:contato@chegaapp.org', '_blank');
+        }
+        
+        function openWhatsApp() {
+            window.open('https://wa.me/5511999999999', '_blank');
+        }
+        
+        function openGitHub() {
+            window.open('https://github.com/seunome/chega-app', '_blank');
+        }
+    </script>
+</body>
+</html>
