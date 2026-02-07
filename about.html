@@ -4,147 +4,455 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ℹ️ Sobre - CHEGA!</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* ESTILOS DA PÁGINA SOBRE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Cabeçalho */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        /* Seções */
+        .section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4cd964;
+        }
+        
+        .section h2 {
+            margin-bottom: 20px;
+            color: #4cd964;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            font-size: 1.5em;
+        }
+        
+        /* Mensagem do idealizador */
+        .founder-message {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .founder-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .signature {
+            text-align: right;
+            font-style: italic;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+        
+        /* Cards de valores */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .value-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .value-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .value-title {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #4cd964;
+        }
+        
+        /* Doações */
+        .donation-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .donation-btn {
+            background: rgba(76, 217, 100, 0.2);
+            border: 2px solid #4cd964;
+            color: white;
+            padding: 20px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .donation-btn:hover {
+            background: #4cd964;
+            transform: scale(1.05);
+        }
+        
+        .donation-icon {
+            font-size: 2em;
+        }
+        
+        .donation-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .donation-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Contato */
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        
+        .contact-btn {
+            background: rgba(0, 122, 255, 0.2);
+            border: 2px solid #007aff;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .contact-btn:hover {
+            background: #007aff;
+        }
+        
+        /* Informações técnicas */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #4cd964;
+            margin-bottom: 5px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .footer-quote {
+            font-style: italic;
+            margin-top: 15px;
+            color: #4cd964;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 2em;
+            }
+            
+            .donation-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="top-nav">
-        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
-        <h1>ℹ️ Sobre o Projeto</h1>
-    </nav>
-
-    <main class="container">
+    <div class="container">
+        <!-- Botão voltar -->
+        <a href="index.html" class="back-btn">
+            ← Voltar para Início
+        </a>
+        
         <!-- Cabeçalho -->
-        <header class="about-header">
-            <div class="logo-large">🚨</div>
-            <h1>CHEGA!</h1>
-            <p class="tagline">Segurança pessoal para mulheres</p>
+        <header class="header">
+            <div class="logo">🚨</div>
+            <h1 class="title">CHEGA!</h1>
+            <p class="subtitle">Segurança pessoal para mulheres</p>
         </header>
-
+        
         <!-- Mensagem do Idealizador -->
         <section class="founder-message">
             <h2>👨‍🏫 Uma Mensagem do Idealizador</h2>
-            <div class="message-card">
-                <p>"Como pai de uma filha e professor, sempre me preocupei com a segurança das mulheres em nossa sociedade.</p>
-                <p>Este aplicativo nasceu do desejo de oferecer uma ferramenta simples, mas poderosa, para que todas possam se sentir mais seguras ao caminhar pela cidade.</p>
-                <p>A segurança é um direito fundamental, não um privilégio. O CHEGA! é minha contribuição para uma sociedade mais justa e segura para todas."</p>
-                <div class="signature">
-                    <p><strong>[Seu Nome]</strong></p>
-                    <p>Pai, Professor e Desenvolvedor</p>
-                </div>
+            <div class="founder-text">
+                <p>"Como pai de uma filha e professor, sempre me preocupei com a segurança das mulheres em nossa sociedade. Este aplicativo nasceu do desejo de oferecer uma ferramenta simples, mas poderosa, para que todas possam se sentir mais seguras ao caminhar pela cidade."</p>
+                
+                <p>"A segurança é um direito fundamental, não um privilégio. O CHEGA! é minha contribuição para uma sociedade mais justa e segura para todas. Cada alerta enviado, cada trajeto acompanhado, representa uma mulher que pode chegar em casa com mais tranquilidade."</p>
+                
+                <p>"Este projeto é e sempre será gratuito. Acredito que a tecnologia deve servir para proteger, não para lucrar com o medo das pessoas."</p>
+            </div>
+            <div class="signature">
+                <p><strong>[Seu Nome]</strong></p>
+                <p>Pai, Professor e Desenvolvedor</p>
             </div>
         </section>
-
+        
         <!-- Sobre o App -->
-        <section class="app-info">
-            <h2>📱 Sobre o Aplicativo</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <div class="info-icon">🎯</div>
-                    <h3>Missão</h3>
+        <section class="section">
+            <h2><span class="section-icon">📱</span> Sobre o Aplicativo</h2>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3 class="value-title">Missão</h3>
                     <p>Prover uma solução de segurança acessível e eficiente para mulheres através da tecnologia.</p>
                 </div>
                 
-                <div class="info-card">
-                    <div class="info-icon">💝</div>
-                    <h3>Valores</h3>
+                <div class="value-card">
+                    <div class="value-icon">💝</div>
+                    <h3 class="value-title">Valores</h3>
                     <p>Gratuidade, privacidade, acessibilidade e solidariedade entre mulheres.</p>
                 </div>
                 
-                <div class="info-card">
-                    <div class="info-icon">🔒</div>
-                    <h3>Privacidade</h3>
+                <div class="value-card">
+                    <div class="value-icon">🔒</div>
+                    <h3 class="value-title">Privacidade</h3>
                     <p>Seus dados são seus. Não coletamos informações pessoais sem sua permissão explícita.</p>
                 </div>
                 
-                <div class="info-card">
-                    <div class="info-icon">🌎</div>
-                    <h3>Acessibilidade</h3>
+                <div class="value-card">
+                    <div class="value-icon">🌎</div>
+                    <h3 class="value-title">Acessibilidade</h3>
                     <p>Funciona em qualquer celular com navegador, sem necessidade de instalação complexa.</p>
                 </div>
             </div>
         </section>
-
+        
         <!-- Doações -->
-        <section class="donations">
-            <h2>❤️ Apoie o Projeto</h2>
+        <section class="section">
+            <h2><span class="section-icon">❤️</span> Apoie o Projeto</h2>
+            
             <p>O CHEGA! é e sempre será gratuito. Sua doação ajuda a:</p>
+            
             <ul class="donation-list">
                 <li>✅ Manter o projeto funcionando</li>
                 <li>✅ Desenvolver novas funcionalidades</li>
                 <li>✅ Criar versões em mais idiomas</li>
                 <li>✅ Investir em educação para a segurança</li>
+                <li>✅ Apoiar ONGs de proteção à mulher</li>
             </ul>
             
+            <h3 style="margin: 25px 0 15px 0;">Formas de Apoiar:</h3>
+            
             <div class="donation-options">
-                <h3>Formas de Apoiar:</h3>
-                
-                <button onclick="donateViaPix()" class="donation-btn">
+                <button class="donation-btn" onclick="donatePix()">
                     <span class="donation-icon">🏦</span>
-                    <span class="donation-text">PIX</span>
+                    <span>PIX</span>
                 </button>
                 
-                <button onclick="donateViaCard()" class="donation-btn">
+                <button class="donation-btn" onclick="donateCard()">
                     <span class="donation-icon">💳</span>
-                    <span class="donation-text">Cartão</span>
+                    <span>Cartão</span>
                 </button>
                 
-                <button onclick="donateViaPaypal()" class="donation-btn">
+                <button class="donation-btn" onclick="donatePayPal()">
                     <span class="donation-icon">🌐</span>
-                    <span class="donation-text">PayPal</span>
+                    <span>PayPal</span>
                 </button>
                 
-                <button onclick="showBankTransfer()" class="donation-btn">
+                <button class="donation-btn" onclick="donateTransfer()">
                     <span class="donation-icon">🏛️</span>
-                    <span class="donation-text">Transferência</span>
+                    <span>Transferência</span>
                 </button>
             </div>
             
-            <div class="donation-note">
-                <p>💡 Todas as doações são direcionadas para:</p>
-                <ul>
-                    <li>Melhorias no aplicativo</li>
-                    <li>Servidores e hospedagem</li>
-                    <li>Projetos educacionais sobre segurança</li>
-                </ul>
+            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-top: 20px;">
+                <p style="font-size: 0.9em; opacity: 0.9;">
+                    💡 <strong>Transparência:</strong> Todas as doações são direcionadas para melhorias no app e projetos educacionais. 
+                    Relatórios financeiros são publicados trimestralmente.
+                </p>
             </div>
         </section>
-
+        
         <!-- Contato -->
-        <section class="contact">
-            <h2>📞 Contato</h2>
-            <div class="contact-options">
-                <button onclick="sendEmail()" class="contact-btn">
+        <section class="section">
+            <h2><span class="section-icon">📞</span> Contato</h2>
+            
+            <p>Entre em contato conosco:</p>
+            
+            <div class="contact-buttons">
+                <button class="contact-btn" onclick="sendEmail()">
                     ✉️ E-mail
                 </button>
-                <button onclick="openWhatsApp()" class="contact-btn">
+                
+                <button class="contact-btn" onclick="openWhatsApp()">
                     💬 WhatsApp
                 </button>
-                <button onclick="openGitHub()" class="contact-btn">
+                
+                <button class="contact-btn" onclick="openGitHub()">
                     💻 GitHub
                 </button>
             </div>
             
-            <div class="contact-info">
-                <p><strong>Para suporte técnico:</strong> suporte@chegaapp.org</p>
-                <p><strong>Para parcerias:</strong> parcerias@chegaapp.org</p>
-                <p><strong>Para imprensa:</strong> imprensa@chegaapp.org</p>
+            <div style="margin-top: 20px;">
+                <div class="info-item" style="margin-bottom: 10px;">
+                    <div class="info-label">Para suporte técnico:</div>
+                    <div>suporte@chegaapp.org</div>
+                </div>
+                
+                <div class="info-item" style="margin-bottom: 10px;">
+                    <div class="info-label">Para parcerias:</div>
+                    <div>parcerias@chegaapp.org</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Para imprensa:</div>
+                    <div>imprensa@chegaapp.org</div>
+                </div>
             </div>
         </section>
-
-        <!-- Versão e Licença -->
-        <section class="version-info">
-            <h2>📄 Informações Técnicas</h2>
-            <div class="version-details">
-                <p><strong>Versão:</strong> 1.0.0 (Beta)</p>
-                <p><strong>Última atualização:</strong> Janeiro 2024</p>
-                <p><strong>Licença:</strong> GPL v3 + Cláusulas Éticas</p>
-                <p><strong>Código-fonte:</strong> Disponível no GitHub</p>
+        
+        <!-- Informações Técnicas -->
+        <section class="section">
+            <h2><span class="section-icon">📄</span> Informações Técnicas</h2>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Versão</div>
+                    <div>1.0.0 (Beta)</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Última atualização</div>
+                    <div>Janeiro 2024</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Licença</div>
+                    <div>GPL v3 + Cláusulas Éticas</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Código-fonte</div>
+                    <div>Disponível no GitHub</div>
+                </div>
             </div>
             
-            <div class="license-info">
-                <h3>📜 Licença</h3>
-                <p>Este software é gratuito e de código aberto. Você pode:</p>
-                <ul>
+            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-top: 20px;">
+                <h3 style="margin-bottom: 10px; color: #4cd964;">📜 Licença</h3>
+                <p style="margin-bottom: 10px;">Este software é gratuito e de código aberto. Você pode:</p>
+                <ul style="padding-left: 20px; margin-bottom: 10px;">
                     <li>✅ Usar gratuitamente</li>
                     <li>✅ Modificar e distribuir</li>
                     <li>✅ Incorporar em outros projetos (com atribuição)</li>
@@ -152,53 +460,152 @@
                 <p><strong>Não pode:</strong> Cobrar pela função de emergência, remover créditos ou usar para vigilância abusiva.</p>
             </div>
         </section>
-
-        <!-- Agradecimento -->
-        <footer class="about-footer">
+        
+        <!-- Rodapé -->
+        <footer class="footer">
             <p>Obrigado por usar o CHEGA! Juntos, podemos tornar nossas cidades mais seguras para todas.</p>
             <p class="footer-quote">"A segurança de uma mulher não deve depender da hora do dia ou do caminho que ela escolhe."</p>
+            <p style="margin-top: 20px;">❤️ Desenvolvido com amor e preocupação</p>
         </footer>
-    </main>
+    </div>
 
     <script>
-        function donateViaPix() {
-            const pixKey = 'chegaapp@email.com'; // Chave PIX fictícia
-            navigator.clipboard.writeText(pixKey);
-            alert(`Chave PIX "${pixKey}" copiada! Cole no seu app de banco.`);
+        // =========== FUNÇÕES DE DOAÇÃO ===========
+        
+        function donatePix() {
+            const pixKey = 'chegaapp@email.com'; // Substitua pela sua chave PIX real
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(pixKey)
+                    .then(() => {
+                        alert('✅ Chave PIX copiada!\n\n' + pixKey + '\n\nCole no seu app de banco para doar.');
+                        showThankYouMessage();
+                    })
+                    .catch(() => {
+                        showPixModal(pixKey);
+                    });
+            } else {
+                showPixModal(pixKey);
+            }
         }
         
-        function donateViaCard() {
-            alert('🔒 Doação por cartão será processada de forma segura em breve.');
-            // Integrar com gateway de pagamento
+        function showPixModal(pixKey) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                          padding: 30px; border-radius: 20px; max-width: 400px; text-align: center;">
+                    <h2 style="margin-bottom: 20px;">🏦 Doação via PIX</h2>
+                    <p style="margin-bottom: 20px;">Chave PIX (copie e cole):</p>
+                    <div style="background: white; color: black; padding: 15px; 
+                              border-radius: 10px; margin: 20px 0; font-weight: bold;">
+                        ${pixKey}
+                    </div>
+                    <button onclick="copyText('${pixKey}')" 
+                            style="background: #4cd964; color: white; border: none; 
+                                   padding: 15px 30px; border-radius: 10px; cursor: pointer; 
+                                   font-size: 1em; margin: 10px;">
+                        📋 Copiar Chave
+                    </button>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="background: transparent; color: white; border: 1px solid white; 
+                                   padding: 15px 30px; border-radius: 10px; cursor: pointer; 
+                                   font-size: 1em; margin: 10px;">
+                        Fechar
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
         
-        function donateViaPaypal() {
-            window.open('https://paypal.me/chegaapp', '_blank');
+        function copyText(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert('✅ Chave PIX copiada!'))
+                .catch(() => alert('❌ Não foi possível copiar. Anote: ' + text));
         }
         
-        function showBankTransfer() {
+        function donateCard() {
+            alert('💳 Doação por cartão será processada de forma segura em breve.\n\nEnquanto isso, você pode doar via PIX.');
+            // Integração com gateway de pagamento pode ser adicionada aqui
+        }
+        
+        function donatePayPal() {
+            // Link do PayPal
+            window.open('https://www.paypal.com/donate?hosted_button_id=SEU_CODIGO', '_blank');
+            showThankYouMessage();
+        }
+        
+        function donateTransfer() {
             const bankInfo = `
 Banco: Banco do Brasil
 Agência: 0000
 Conta: 00000-0
 CNPJ: 00.000.000/0000-00
-Nome: Projeto CHEGA!
+Favorecido: Projeto CHEGA!
             `;
-            navigator.clipboard.writeText(bankInfo);
-            alert('Dados bancários copiados!');
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(bankInfo)
+                    .then(() => {
+                        alert('🏛️ Dados bancários copiados!\n\nCole no seu app de banco para transferência.');
+                        showThankYouMessage();
+                    })
+                    .catch(() => {
+                        alert('🏛️ Dados para transferência:\n\n' + bankInfo);
+                    });
+            } else {
+                alert('🏛️ Dados para transferência:\n\n' + bankInfo);
+            }
         }
         
+        function showThankYouMessage() {
+            setTimeout(() => {
+                alert('🙏 MUITO OBRIGADO!\n\nSua doação faz toda a diferença para manter este projeto gratuito e salvar vidas.');
+            }, 500);
+        }
+        
+        // =========== FUNÇÕES DE CONTATO ===========
+        
         function sendEmail() {
-            window.open('mailto:contato@chegaapp.org', '_blank');
+            window.open('mailto:contato@chegaapp.org?subject=Contato%20CHEGA!&body=Olá,%20gostaria%20de%20falar%20sobre...', '_blank');
         }
         
         function openWhatsApp() {
-            window.open('https://wa.me/5511999999999', '_blank');
+            // Número do WhatsApp (substitua pelo seu)
+            const phone = '5511999999999';
+            const message = 'Olá! Gostaria de saber mais sobre o projeto CHEGA!';
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
         }
         
         function openGitHub() {
-            window.open('https://github.com/seunome/chega-app', '_blank');
+            // Link do repositório GitHub
+            window.open('https://github.com/seu-usuario/chega-app', '_blank');
         }
+        
+        // =========== FUNÇÃO PARA VOLTAR AO TOPO ===========
+        window.addEventListener('scroll', function() {
+            const backBtn = document.querySelector('.back-btn');
+            if (window.scrollY > 100) {
+                backBtn.style.position = 'fixed';
+                backBtn.style.top = '20px';
+                backBtn.style.left = '20px';
+                backBtn.style.zIndex = '1000';
+            } else {
+                backBtn.style.position = 'static';
+            }
+        });
     </script>
 </body>
 </html>
