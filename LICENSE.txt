@@ -1,0 +1,50 @@
+
+### **20. LICENSE.md**
+```markdown
+# LICENÇA CHEGA! v1.0
+
+## 📋 CONDIÇÕES PRINCIPAIS
+
+### 1. GRATUIDADE PERPÉTUA
+- Este software e seus derivados NUNCA poderão ser vendidos
+- A função de alerta de emergência deve SEMPRE ser gratuita
+
+### 2. CRÉDITOS OBRIGATÓRIOS
+- Todas as versões devem manter:
+  - "Baseado no projeto CHEGA! original"
+  - Link para repositório original
+  - Menção ao idealizador como pai e professor
+
+### 3. PROIBIÇÕES ÉTICAS
+- Não pode ser usado para vigilância ou controle abusivo
+- Não pode coletar dados além do necessário para a segurança
+- Não pode exibir propagandas durante emergências
+
+### 4. FUNÇÃO DE EMERGÊNCIA
+Licenciada sob GNU GPL v3 com "Cláusula de Gratuidade":
+- A função de alerta de emergência deve permanecer gratuita para sempre
+
+### 5. FUNÇÕES ADICIONAIS
+Licenciadas sob MIT License
+
+## 🔄 DISTRIBUIÇÃO
+
+Você pode:
+- Copiar, modificar e distribuir
+- Usar comercialmente (exceto função de emergência)
+- Incorporar em outros projetos (com atribuição)
+
+Você NÃO pode:
+- Cobrar pela função de emergência
+- Remover os créditos originais
+- Usar para fins de vigilância massiva
+
+## ⚖️ VIOLAÇÕES
+Violações resultam em perda automática da licença e obrigação de remover o software.
+
+---
+
+Copyright (C) 2024 [Seu Nome] - Idealizador e Desenvolvedor
+
+Para licenciamento especial (incorporação em sistemas operacionais),
+entre em contato: licenciamento@chegaapp.org
