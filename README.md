@@ -1,9 +1,9 @@
-# 🚨 CHEGA! - App de Segurança Pessoal
+# 🚨 CHEGA! - App de Segurança Pessoal e Alerta de Riscos
 
-Aplicativo web gratuito para proteção pessoal de mulheres, com sistema de alerta de emergência via web.
+Aplicativo web gratuito para proteção pessoal de todos, sobretudo mulheres, com sistema de alerta de emergência via web.
 
 ## 🌐 Demo Online
-https://[seu-usuario].github.io/chega-app/
+https://maycon-saviole.github.io/chega2/index.html
 
 ## 📱 Funcionalidades
 
@@ -20,7 +20,7 @@ https://[seu-usuario].github.io/chega-app/
 - "Cheguei bem" automático
 
 ### 🤝 Rede CHEGA+
-- Conexão com outras usuárias próximas
+- Conexão com outros(as) usuários(as) próximos(as)
 - Sistema de ajuda mútua
 - Alertas comunitários
 - Zonas seguras identificadas
