@@ -1,0 +1,20 @@
+{
+  "appId": "com.chega.app",
+  "appName": "CHEGA!",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "VolumeButtonsPlugin": {
+      "emergencyPattern": "TRIPLE_PRESS",
+      "pressInterval": 2000,
+      "requiredPresses": 3
+    }
+  },
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true
+  },
+  "ios": {
+    "contentInset": "always"
+  }
+}
