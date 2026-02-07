@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHEGA! - Segurança Pessoal</title>
     <style>
-        /* ESTILOS QUE FUNCIONAM */
+        /* RESET COMPLETO - SEM ANIMAÇÕES AUTOMÁTICAS */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
         }
         
         body {
+            font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             min-height: 100vh;
@@ -23,6 +23,7 @@
             justify-content: center;
             text-align: center;
             padding: 20px;
+            transition: background-color 0.5s; /* Transição suave apenas */
         }
         
         .container {
@@ -38,44 +39,32 @@
         .tagline {
             font-size: 1.2em;
             opacity: 0.9;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         
-        /* BOTÃO QUE REALMENTE FUNCIONA */
-        .emergency-btn {
-            background: linear-gradient(45deg, #ff0000, #ff4444);
+        /* BOTÃO SIMPLES E FUNCIONAL */
+        #emergencyBtn {
+            background: #ff0000;
             color: white;
             border: none;
             border-radius: 50%;
             width: 200px;
             height: 200px;
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: bold;
             cursor: pointer;
             margin: 30px auto;
-            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
             display: block;
             transition: transform 0.2s;
             position: relative;
             overflow: hidden;
         }
         
-        .emergency-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0.3) 0%,
-                rgba(255, 255, 255, 0) 80%
-            );
-            transform: rotate(30deg);
+        #emergencyBtn:hover {
+            transform: scale(1.05);
         }
         
-        .emergency-btn:active {
+        #emergencyBtn:active {
             transform: scale(0.95);
         }
         
@@ -95,17 +84,10 @@
             padding: 15px;
             border-radius: 15px;
             margin: 20px 0;
-            backdrop-filter: blur(10px);
         }
         
-        .status-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-        }
-        
-        /* Instalação */
-        .install-btn {
+        /* Botões de ação */
+        .action-btn {
             background: #4cd964;
             color: white;
             border: none;
@@ -118,6 +100,10 @@
             display: inline-block;
         }
         
+        .test-btn {
+            background: #ff9500;
+        }
+        
         footer {
             margin-top: 40px;
             font-size: 0.9em;
@@ -126,22 +112,11 @@
         
         /* Para celular */
         @media (max-width: 600px) {
-            .emergency-btn {
+            #emergencyBtn {
                 width: 180px;
                 height: 180px;
                 font-size: 1.6em;
             }
-        }
-        
-        /* Animações */
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,0,0,0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 20px rgba(255,0,0,0.4); }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
         }
     </style>
 </head>
@@ -150,28 +125,23 @@
         <h1 class="logo">🚨 CHEGA!</h1>
         <p class="tagline">Segurança pessoal para mulheres</p>
         
-        <!-- BOTÃO PRINCIPAL -->
-        <button id="emergencyBtn" class="emergency-btn pulse">
+        <!-- BOTÃO PRINCIPAL - SIMPLES -->
+        <button id="emergencyBtn">
             <div class="btn-text">CHEGA!</div>
             <div class="btn-subtext">Clique para emergência</div>
         </button>
         
         <p style="margin: 20px; opacity: 0.8;">
-            💡 Segure por 3 segundos para ativação rápida<br>
-            📱 No celular: Toque no botão de volume 3x rápido
+            💡 Segure por 3 segundos para ativação rápida
         </p>
         
         <!-- Status do sistema -->
         <div class="status">
-            <div class="status-item">
-                <span>📍 GPS:</span>
-                <span id="gpsStatus">✅ Ativo</span>
-            </div>
-            <div class="status-item">
+            <div style="margin: 10px 0;">
                 <span>🔊 Som:</span>
                 <span id="soundStatus">✅ Pronto</span>
             </div>
-            <div class="status-item">
+            <div style="margin: 10px 0;">
                 <span>💡 Flash:</span>
                 <span id="flashStatus">✅ Disponível</span>
             </div>
@@ -179,20 +149,10 @@
         
         <!-- Ações -->
         <div style="margin: 30px 0;">
-            <button class="install-btn" onclick="testEmergency()">
+            <button class="action-btn test-btn" onclick="testEmergency()">
                 🧪 Testar Emergência
             </button>
-            <button class="install-btn" onclick="openSettings()" style="background: #007aff;">
-                ⚙️ Configurações
-            </button>
-        </div>
-        
-        <!-- Links rápidos -->
-        <div style="margin-top: 30px;">
-            <button onclick="window.location.href='trip.html'" style="background: transparent; border: 1px solid white; color: white; padding: 10px 20px; margin: 5px; border-radius: 10px;">
-                📍 Acompanhamento
-            </button>
-            <button onclick="window.location.href='contacts.html'" style="background: transparent; border: 1px solid white; color: white; padding: 10px 20px; margin: 5px; border-radius: 10px;">
+            <button class="action-btn" onclick="window.location.href='contacts.html'">
                 👥 Contatos
             </button>
         </div>
@@ -203,307 +163,188 @@
         <p>Gratuito • Seguro • Para todas</p>
     </footer>
 
-    <!-- AUDIO PARA SIRENE (oculto) -->
-    <audio id="sirenAudio" loop preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-warning-alarm-1006.mp3" type="audio/mp3">
-    </audio>
-
     <script>
-        // =========== SISTEMA DE EMERGÊNCIA COMPLETO ===========
+        // =========== SISTEMA CONTROLADO ===========
         
-        // Elementos
-        const emergencyBtn = document.getElementById('emergencyBtn');
-        const sirenAudio = document.getElementById('sirenAudio');
-        let emergencyActive = false;
-        let pressTimer;
+        // Estado global para controlar tudo
+        window.chegaApp = {
+            emergencyActive: false,
+            audioContext: null,
+            oscillator: null,
+            flashInterval: null,
+            vibrationInterval: null
+        };
         
-        // =========== 1. CLIQUE SIMPLES ===========
-        emergencyBtn.addEventListener('click', function() {
-            // Ativa emergência imediatamente
-            activateEmergency();
-        });
-        
-        // =========== 2. TOQUE LONGO (3 SEGUNDOS) ===========
-        emergencyBtn.addEventListener('touchstart', function() {
-            pressTimer = setTimeout(() => {
-                activateEmergency();
-            }, 3000);
-        });
-        
-        emergencyBtn.addEventListener('touchend', function() {
-            clearTimeout(pressTimer);
-        });
-        
-        // Para mouse no PC
-        emergencyBtn.addEventListener('mousedown', function() {
-            pressTimer = setTimeout(() => {
-                activateEmergency();
-            }, 3000);
-        });
-        
-        emergencyBtn.addEventListener('mouseup', function() {
-            clearTimeout(pressTimer);
-        });
-        
-        emergencyBtn.addEventListener('mouseleave', function() {
-            clearTimeout(pressTimer);
-        });
-        
-        // =========== 3. BOTÃO DE VOLUME (SIMULAÇÃO) ===========
-        document.addEventListener('keydown', function(e) {
-            // Detecta tecla 'v' (volume) ou setas
-            if (e.key === 'v' || e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === ' ') {
+        // =========== BOTÃO DE EMERGÊNCIA ===========
+        document.getElementById('emergencyBtn').addEventListener('click', function() {
+            if (!window.chegaApp.emergencyActive) {
                 activateEmergency();
             }
         });
         
-        // =========== FUNÇÃO PRINCIPAL DE EMERGÊNCIA ===========
+        // =========== FUNÇÃO PRINCIPAL ===========
         function activateEmergency() {
-            if (emergencyActive) return;
-            emergencyActive = true;
+            if (window.chegaApp.emergencyActive) return;
             
-            console.log('🚨 EMERGÊNCIA ATIVADA!');
+            // Marcar como ativa
+            window.chegaApp.emergencyActive = true;
+            console.log('🚨 EMERGÊNCIA ATIVADA');
             
-            // 1. EFEITOS VISUAIS - FLASH DA TELA
-            startVisualEffects();
+            // 1. EFEITO VISUAL RÁPIDO (flash uma vez)
+            flashScreen();
             
-            // 2. SIRENE - SOM DE EMERGÊNCIA
+            // 2. TOCAR SIRENE (controlada)
             playSiren();
             
-            // 3. VIBRAÇÃO (se disponível)
-            startVibration();
+            // 3. VIBRAR (se disponível)
+            vibrate();
             
             // 4. REDIRECIONAR PARA TELA DE EMERGÊNCIA
             setTimeout(() => {
-                window.location.href = 'emergency.html?emergency=true&time=' + Date.now();
+                // PARAR TUDO antes de redirecionar
+                stopAllEffects();
+                
+                // Ir para tela de emergência
+                window.location.href = 'emergency.html?t=' + Date.now();
             }, 1000);
-            
-            // 5. NOTIFICAÇÃO
-            alert('🚨 EMERGÊNCIA ATIVADA!\n\nSua localização está sendo enviada para seus contatos.');
         }
         
-        // =========== EFEITOS VISUAIS (FLASH) ===========
-        function startVisualEffects() {
-            // Efeito de flash na tela inteira
+        // =========== FLASH DA TELA (UMA VEZ SÓ) ===========
+        function flashScreen() {
+            // Flash rápido (vermelho → branco → vermelho)
             let flashCount = 0;
-            const maxFlashes = 20;
+            const maxFlash = 3; // Apenas 3 flashes
             
             function flash() {
-                if (flashCount >= maxFlashes * 2) return;
+                if (flashCount >= maxFlash) {
+                    document.body.style.backgroundColor = '';
+                    return;
+                }
                 
                 if (flashCount % 2 === 0) {
-                    // Tela branca
                     document.body.style.backgroundColor = '#ffffff';
-                    document.body.style.color = '#ff0000';
                 } else {
-                    // Tela vermelha
                     document.body.style.backgroundColor = '#ff0000';
-                    document.body.style.color = '#ffffff';
                 }
                 
                 flashCount++;
-                setTimeout(flash, 250); // Pisca a cada 250ms
+                setTimeout(flash, 200);
             }
             
             flash();
-            
-            // Efeito de tremor
-            document.body.style.animation = 'shake 0.5s infinite';
-            
-            // Adicionar estilo de tremor
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-                    20%, 40%, 60%, 80% { transform: translateX(10px); }
-                }
-            `;
-            document.head.appendChild(style);
         }
         
-        // =========== SIRENE ===========
+        // =========== SIRENE REAL E CONTROLADA ===========
         function playSiren() {
             try {
-                // Tenta usar o áudio pré-carregado
-                sirenAudio.volume = 0.7;
-                sirenAudio.play().catch(e => {
-                    console.log('Áudio bloqueado pelo navegador, criando fallback...');
-                    createFallbackSiren();
-                });
-            } catch (e) {
-                createFallbackSiren();
-            }
-        }
-        
-        function createFallbackSiren() {
-            // Fallback usando Web Audio API
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
+                // Criar contexto de áudio
+                window.chegaApp.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                window.chegaApp.oscillator = window.chegaApp.audioContext.createOscillator();
+                const gainNode = window.chegaApp.audioContext.createGain();
                 
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
+                // Conectar
+                window.chegaApp.oscillator.connect(gainNode);
+                gainNode.connect(window.chegaApp.audioContext.destination);
                 
-                // Sirene oscilante
-                let time = audioContext.currentTime;
+                // Configurar sirene
+                window.chegaApp.oscillator.type = 'sawtooth';
+                gainNode.gain.value = 0.2; // Volume baixo para teste
                 
-                // Primeira oscilação
-                oscillator.frequency.setValueAtTime(800, time);
-                oscillator.frequency.exponentialRampToValueAtTime(1600, time + 0.5);
-                oscillator.frequency.exponentialRampToValueAtTime(800, time + 1);
+                // Frequência oscilante
+                let time = window.chegaApp.audioContext.currentTime;
+                window.chegaApp.oscillator.frequency.setValueAtTime(800, time);
+                window.chegaApp.oscillator.frequency.exponentialRampToValueAtTime(1600, time + 0.5);
+                window.chegaApp.oscillator.frequency.exponentialRampToValueAtTime(800, time + 1);
                 
-                // Segunda oscilação
-                oscillator.frequency.exponentialRampToValueAtTime(1600, time + 1.5);
-                oscillator.frequency.exponentialRampToValueAtTime(800, time + 2);
+                // Iniciar sirene
+                window.chegaApp.oscillator.start();
                 
-                gainNode.gain.setValueAtTime(0.3, time);
+                // Parar automaticamente após 3 segundos
+                window.chegaApp.oscillator.stop(time + 3);
                 
-                oscillator.start();
-                oscillator.stop(time + 30); // Para após 30 segundos
+                console.log('🔊 Sirene ativada por 3 segundos');
                 
             } catch (error) {
-                console.log('Web Audio API não suportada:', error);
-                alert('🔊 Sirene: Permita áudio no navegador para som completo');
+                console.log('Áudio não disponível:', error);
+                // Fallback: alerta sonoro do navegador
+                try {
+                    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
+                    audio.volume = 0.1;
+                    audio.play();
+                } catch (e) {
+                    console.log('Fallback de áudio também falhou');
+                }
             }
         }
         
-        // =========== VIBRAÇÃO ===========
-        function startVibration() {
+        // =========== VIBRAÇÃO CONTROLADA ===========
+        function vibrate() {
             if (navigator.vibrate) {
-                // Padrão de vibração: longa-curta-longa (SOS em Morse)
-                navigator.vibrate([
-                    300, 100, 300, 100, 300,  // S (...)
-                    700, 100, 700, 100, 700,   // O (---)
-                    300, 100, 300, 100, 300,   // S (...)
-                    2000                       // Pausa
-                ]);
+                // Vibrar apenas por 2 segundos
+                navigator.vibrate(2000);
+                console.log('📳 Vibração ativada por 2 segundos');
             }
         }
         
-        // =========== TESTE DE EMERGÊNCIA ===========
+        // =========== PARAR TODOS OS EFEITOS ===========
+        function stopAllEffects() {
+            console.log('🛑 Parando todos os efeitos...');
+            
+            // Parar sirene
+            if (window.chegaApp.oscillator) {
+                try {
+                    window.chegaApp.oscillator.stop();
+                } catch (e) {}
+            }
+            
+            if (window.chegaApp.audioContext) {
+                try {
+                    window.chegaApp.audioContext.close();
+                } catch (e) {}
+            }
+            
+            // Parar vibração
+            if (navigator.vibrate) {
+                navigator.vibrate(0);
+            }
+            
+            // Parar flashes
+            if (window.chegaApp.flashInterval) {
+                clearInterval(window.chegaApp.flashInterval);
+            }
+            
+            // Restaurar fundo
+            document.body.style.backgroundColor = '';
+            
+            // Resetar estado
+            window.chegaApp.emergencyActive = false;
+        }
+        
+        // =========== TESTE SEGURO ===========
         function testEmergency() {
-            if (confirm('🧪 Iniciar TESTE de emergência?\n\nIsso irá:\n• Piscar a tela\n• Tocar sirene\n• Vibrar (se suportado)\n\nÉ apenas um teste.')) {
+            if (confirm('🧪 Testar sistema de emergência?\n\nIsto irá:\n• Piscar a tela 3x\n• Tocar sirene por 3 segundos\n• Vibrar (se suportado)\n\nÉ apenas um teste.')) {
                 activateEmergency();
             }
         }
         
-        // =========== CONFIGURAÇÕES ===========
-        function openSettings() {
-            alert('⚙️ Configurações serão implementadas em breve!\n\nPor enquanto, o app funciona com:\n• Som de sirene\n• Efeitos visuais\n• Detecção de toque longo');
-        }
-        
-        // =========== VERIFICAR RECURSOS ===========
-        function checkCapabilities() {
-            // GPS
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    () => document.getElementById('gpsStatus').textContent = '✅ Ativo',
-                    () => document.getElementById('gpsStatus').textContent = '❌ Negado'
-                );
-            } else {
-                document.getElementById('gpsStatus').textContent = '❌ Não suportado';
-            }
-            
-            // Áudio
-            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
-                document.getElementById('soundStatus').textContent = '✅ Disponível';
-            } else {
-                document.getElementById('soundStatus').textContent = '⚠️ Limitado';
-            }
-            
-            // Vibração
-            if (navigator.vibrate) {
-                // Teste rápido de vibração
-                navigator.vibrate(100);
-            }
-            
-            // Flash (simulado com tela)
-            document.getElementById('flashStatus').textContent = '✅ Disponível';
-        }
-        
-        // =========== PEDIR PERMISSÕES NA PRIMEIRA VEZ ===========
-        function requestPermissions() {
-            if (!localStorage.getItem('chega_perms_asked')) {
-                setTimeout(() => {
-                    if (confirm('Para o CHEGA! funcionar melhor, precisamos de:\n\n📍 Localização (para enviar sua posição em emergências)\n🔔 Notificações (para alertas)\n🔊 Áudio (para sirene)\n\nPermitir agora?')) {
-                        // Solicitar localização
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(
-                                () => console.log('📍 Localização permitida'),
-                                () => console.log('📍 Localização negada')
-                            );
-                        }
-                        
-                        // Solicitar notificações
-                        if ('Notification' in window && Notification.permission === 'default') {
-                            Notification.requestPermission();
-                        }
-                    }
-                    localStorage.setItem('chega_perms_asked', 'true');
-                }, 1000);
-            }
-        }
-        
-        // =========== INICIALIZAR ===========
+        // =========== VERIFICAR SE VOLTOU DE EMERGÊNCIA ===========
         window.addEventListener('load', function() {
-            console.log('🚀 CHEGA! App inicializado');
-            checkCapabilities();
-            requestPermissions();
+            // Verificar URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('cancelled') === 'true') {
+                alert('✅ Emergência cancelada com sucesso!');
+                
+                // Remover parâmetro da URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
             
-            // Adicionar instrução de volume
-            if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                console.log('📱 Dispositivo móvel detectado');
-                emergencyBtn.innerHTML = `
-                    <div class="btn-text">CHEGA!</div>
-                    <div class="btn-subtext">Toque ou segure</div>
-                    <div style="font-size:0.5em;margin-top:5px;">Volume: 3 toques</div>
-                `;
-            }
+            // Garantir que não há efeitos ativos
+            stopAllEffects();
         });
         
-        // =========== SIMULAR BOTÕES DE VOLUME NO CELULAR ===========
-        // Nota: Em navegadores web não temos acesso direto ao botão de volume
-        // Esta é uma simulação para teste
-        let volumePressCount = 0;
-        let lastVolumePress = 0;
-        
-        // Simular com teclas numéricas para teste
-        document.addEventListener('keydown', function(e) {
-            if (e.key >= '0' && e.key <= '9') {
-                const now = Date.now();
-                if (now - lastVolumePress < 2000) { // Dentro de 2 segundos
-                    volumePressCount++;
-                    if (volumePressCount >= 3) {
-                        console.log('📱 Botão de volume pressionado 3x - EMERGÊNCIA!');
-                        activateEmergency();
-                        volumePressCount = 0;
-                    }
-                } else {
-                    volumePressCount = 1;
-                }
-                lastVolumePress = now;
-            }
-        });
-        
-        // Para celular: detectar clique triplo
-        let tapCount = 0;
-        let lastTap = 0;
-        
-        emergencyBtn.addEventListener('click', function() {
-            const now = Date.now();
-            if (now - lastTap < 500) { // Dentro de 500ms
-                tapCount++;
-                if (tapCount >= 3) {
-                    console.log('👆 Toque triplo detectado - EMERGÊNCIA!');
-                    activateEmergency();
-                    tapCount = 0;
-                }
-            } else {
-                tapCount = 1;
-            }
-            lastTap = now;
+        // =========== DETECTAR SAÍDA DA PÁGINA ===========
+        window.addEventListener('beforeunload', function() {
+            stopAllEffects();
         });
     </script>
 </body>
