@@ -1,0 +1,1 @@
+// contacts.js - Gerenciamento de Contatos de Emergência
