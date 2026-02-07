@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👥 Contatos - CHEGA!</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
+        <h1>👥 Contatos de Emergência</h1>
+    </nav>
+
+    <main class="container">
+        <!-- Introdução -->
+        <div class="contacts-intro">
+            <p>Estas pessoas serão alertadas automaticamente em caso de emergência.</p>
+            <p class="note">💡 Recomendamos pelo menos 3 contatos de confiança.</p>
+        </div>
+
+        <!-- Lista de Contatos -->
+        <div class="contacts-list">
+            <h2>Seus Contatos</h2>
+            
+            <div class="contact-card">
+                <div class="contact-avatar">👨</div>
+                <div class="contact-info">
+                    <h3>João Silva (Pai)</h3>
+                    <p class="contact-phone">📞 (11) 99999-9999</p>
+                    <div class="contact-tags">
+                        <span class="tag primary">Primário</span>
+                        <span class="tag active">Ativo</span>
+                    </div>
+                </div>
+                <button class="contact-edit" onclick="editContact(1)">✏️</button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-avatar">👩</div>
+                <div class="contact-info">
+                    <h3>Maria Santos (Amiga)</h3>
+                    <p class="contact-phone">📞 (11) 98888-8888</p>
+                    <div class="contact-tags">
+                        <span class="tag active">Ativo</span>
+                        <span class="tag trip">Acompanha trajetos</span>
+                    </div>
+                </div>
+                <button class="contact-edit" onclick="editContact(2)">✏️</button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-avatar">👮</div>
+                <div class="contact-info">
+                    <h3>Polícia Militar</h3>
+                    <p class="contact-phone">📞 190</p>
+                    <div class="contact-tags">
+                        <span class="tag emergency">Emergência</span>
+                    </div>
+                </div>
+                <button class="contact-edit" onclick="editContact(3)">✏️</button>
+            </div>
+            
+            <!-- Contato vazio para adicionar -->
+            <div class="contact-card add-contact" onclick="addContact()">
+                <div class="contact-avatar">➕</div>
+                <div class="contact-info">
+                    <h3>Adicionar Contato</h3>
+                    <p class="contact-phone">Toque para adicionar novo contato</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configurações de Notificação -->
+        <div class="notification-settings">
+            <h2>🔔 Configurações de Alerta</h2>
+            
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" checked>
+                    Enviar SMS automaticamente
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" checked>
+                    Incluir localização no mapa
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox">
+                    Ligar automaticamente para contatos
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" checked>
+                    Compartilhar trajetos com contatos primários
+                </label>
+            </div>
+        </div>
+
+        <!-- Mensagem Personalizada -->
+        <div class="message-settings">
+            <h2>💬 Mensagem de Emergência</h2>
+            <textarea id="emergencyMessage" class="message-input" rows="4">
+🚨 EMERGÊNCIA CHEGA!
+
+Preciso de ajuda imediata!
+
+📍 Minha localização atual: {LOCATION}
+🕒 Hora: {TIME}
+📱 Meu telefone: {MY_PHONE}
+
+Por favor, envie ajuda ou entre em contato com as autoridades.
+
+Este alerta foi enviado automaticamente pelo App CHEGA!
+            </textarea>
+            <p class="message-help">
+                Use {LOCATION}, {TIME}, {MY_PHONE} para informações automáticas
+            </p>
+            <button onclick="saveMessage()" class="btn-save">💾 Salvar Mensagem</button>
+        </div>
+    </main>
+
+    <!-- Modal de Edição -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Editar Contato</h2>
+            <input type="text" id="contactName" placeholder="Nome" class="modal-input">
+            <input type="tel" id="contactPhone" placeholder="Telefone" class="modal-input">
+            <div class="modal-actions">
+                <button onclick="saveContact()" class="btn-confirm">💾 Salvar</button>
+                <button onclick="closeModal()" class="btn-cancel">❌ Cancelar</button>
+                <button onclick="deleteContact()" class="btn-delete">🗑️ Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let editingContactId = null;
+        
+        function addContact() {
+            editingContactId = null;
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactPhone').value = '';
+            document.getElementById('editModal').style.display = 'block';
+        }
+        
+        function editContact(id) {
+            editingContactId = id;
+            // Na prática, carregaria dados do contato
+            document.getElementById('contactName').value = 'Novo Contato';
+            document.getElementById('contactPhone').value = '(11) 97777-7777';
+            document.getElementById('editModal').style.display = 'block';
+        }
+        
+        function saveContact() {
+            const name = document.getElementById('contactName').value;
+            const phone = document.getElementById('contactPhone').value;
+            
+            if (name && phone) {
+                alert(`Contato ${name} salvo!`);
+                closeModal();
+                // Recarregar lista
+            } else {
+                alert('Preencha nome e telefone!');
+            }
+        }
+        
+        function deleteContact() {
+            if (confirm('Excluir este contato?')) {
+                alert('Contato excluído!');
+                closeModal();
+            }
+        }
+        
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+        
+        function saveMessage() {
+            const message = document.getElementById('emergencyMessage').value;
+            localStorage.setItem('chega_emergency_message', message);
+            alert('Mensagem salva com sucesso!');
+        }
+        
+        // Carregar mensagem salva
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('chega_emergency_message');
+            if (saved) {
+                document.getElementById('emergencyMessage').value = saved;
+            }
+        });
+    </script>
+</body>
+</html>
