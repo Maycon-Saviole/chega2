@@ -3,197 +3,902 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👥 Contatos - CHEGA!</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>👥 Meus Contatos - CHEGA!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Cabeçalho */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .title {
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* Contador */
+        .contact-count {
+            background: rgba(76, 217, 100, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        /* Lista de contatos */
+        .contact-list {
+            margin: 30px 0;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-left: 5px solid #4cd964;
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .contact-card:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .contact-avatar {
+            font-size: 2.5em;
+            min-width: 60px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 5px;
+            color: #4cd964;
+            font-size: 1.3em;
+        }
+        
+        .contact-phone {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: rgba(0, 122, 255, 0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .tag.primary {
+            background: rgba(255, 59, 48, 0.3);
+        }
+        
+        .tag.inactive {
+            background: rgba(142, 142, 147, 0.3);
+            opacity: 0.7;
+        }
+        
+        /* Botões de ação */
+        .contact-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: background 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .edit-btn:hover {
+            background: rgba(0, 122, 255, 0.5);
+        }
+        
+        .delete-btn:hover {
+            background: rgba(255, 59, 48, 0.5);
+        }
+        
+        /* Card de adicionar */
+        .add-contact-card {
+            background: rgba(76, 217, 100, 0.2);
+            border: 2px dashed #4cd964;
+            cursor: pointer;
+            text-align: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            height: 150px;
+        }
+        
+        .add-contact-card:hover {
+            background: rgba(76, 217, 100, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .add-icon {
+            font-size: 2.5em;
+        }
+        
+        /* Mensagem vazia */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            opacity: 0.8;
+        }
+        
+        .empty-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        /* Modal de edição */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-title {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4cd964;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .modal-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .save-btn {
+            background: #4cd964;
+            color: white;
+        }
+        
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .delete-btn-modal {
+            background: rgba(255, 59, 48, 0.8);
+            color: white;
+        }
+        
+        /* Dicas */
+        .tips {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .tips h3 {
+            margin-bottom: 15px;
+            color: #4cd964;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tips ul {
+            padding-left: 20px;
+        }
+        
+        .tips li {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .contact-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .contact-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="top-nav">
-        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
-        <h1>👥 Contatos de Emergência</h1>
-    </nav>
-
-    <main class="container">
-        <!-- Introdução -->
-        <div class="contacts-intro">
-            <p>Estas pessoas serão alertadas automaticamente em caso de emergência.</p>
-            <p class="note">💡 Recomendamos pelo menos 3 contatos de confiança.</p>
-        </div>
-
-        <!-- Lista de Contatos -->
-        <div class="contacts-list">
-            <h2>Seus Contatos</h2>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <div class="header">
+            <a href="index.html" class="back-btn">
+                ← Voltar
+            </a>
             
-            <div class="contact-card">
-                <div class="contact-avatar">👨</div>
-                <div class="contact-info">
-                    <h3>João Silva (Pai)</h3>
-                    <p class="contact-phone">📞 (11) 99999-9999</p>
-                    <div class="contact-tags">
-                        <span class="tag primary">Primário</span>
-                        <span class="tag active">Ativo</span>
-                    </div>
-                </div>
-                <button class="contact-edit" onclick="editContact(1)">✏️</button>
-            </div>
+            <h1 class="title">
+                <span>👥</span>
+                <span>Meus Contatos</span>
+            </h1>
             
-            <div class="contact-card">
-                <div class="contact-avatar">👩</div>
-                <div class="contact-info">
-                    <h3>Maria Santos (Amiga)</h3>
-                    <p class="contact-phone">📞 (11) 98888-8888</p>
-                    <div class="contact-tags">
-                        <span class="tag active">Ativo</span>
-                        <span class="tag trip">Acompanha trajetos</span>
-                    </div>
-                </div>
-                <button class="contact-edit" onclick="editContact(2)">✏️</button>
-            </div>
-            
-            <div class="contact-card">
-                <div class="contact-avatar">👮</div>
-                <div class="contact-info">
-                    <h3>Polícia Militar</h3>
-                    <p class="contact-phone">📞 190</p>
-                    <div class="contact-tags">
-                        <span class="tag emergency">Emergência</span>
-                    </div>
-                </div>
-                <button class="contact-edit" onclick="editContact(3)">✏️</button>
-            </div>
-            
-            <!-- Contato vazio para adicionar -->
-            <div class="contact-card add-contact" onclick="addContact()">
-                <div class="contact-avatar">➕</div>
-                <div class="contact-info">
-                    <h3>Adicionar Contato</h3>
-                    <p class="contact-phone">Toque para adicionar novo contato</p>
-                </div>
+            <div class="contact-count">
+                <span id="contactCount">0 contatos</span>
             </div>
         </div>
-
-        <!-- Configurações de Notificação -->
-        <div class="notification-settings">
-            <h2>🔔 Configurações de Alerta</h2>
-            
-            <div class="setting-item">
-                <label>
-                    <input type="checkbox" checked>
-                    Enviar SMS automaticamente
-                </label>
-            </div>
-            
-            <div class="setting-item">
-                <label>
-                    <input type="checkbox" checked>
-                    Incluir localização no mapa
-                </label>
-            </div>
-            
-            <div class="setting-item">
-                <label>
-                    <input type="checkbox">
-                    Ligar automaticamente para contatos
-                </label>
-            </div>
-            
-            <div class="setting-item">
-                <label>
-                    <input type="checkbox" checked>
-                    Compartilhar trajetos com contatos primários
-                </label>
+        
+        <!-- Lista de contatos -->
+        <div class="contact-list" id="contactList">
+            <!-- Os contatos serão carregados aqui pelo JavaScript -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">👥</div>
+                <h3>Nenhum contato cadastrado</h3>
+                <p>Adicione seus contatos de emergência para que possam ser alertados.</p>
             </div>
         </div>
-
-        <!-- Mensagem Personalizada -->
-        <div class="message-settings">
-            <h2>💬 Mensagem de Emergência</h2>
-            <textarea id="emergencyMessage" class="message-input" rows="4">
-🚨 EMERGÊNCIA CHEGA!
-
-Preciso de ajuda imediata!
-
-📍 Minha localização atual: {LOCATION}
-🕒 Hora: {TIME}
-📱 Meu telefone: {MY_PHONE}
-
-Por favor, envie ajuda ou entre em contato com as autoridades.
-
-Este alerta foi enviado automaticamente pelo App CHEGA!
-            </textarea>
-            <p class="message-help">
-                Use {LOCATION}, {TIME}, {MY_PHONE} para informações automáticas
-            </p>
-            <button onclick="saveMessage()" class="btn-save">💾 Salvar Mensagem</button>
+        
+        <!-- Card para adicionar novo contato -->
+        <div class="contact-card add-contact-card" onclick="openModal('add')">
+            <div class="add-icon">➕</div>
+            <h3>Adicionar Contato</h3>
+            <p>Toque para adicionar novo contato de emergência</p>
         </div>
-    </main>
-
-    <!-- Modal de Edição -->
-    <div id="editModal" class="modal">
+        
+        <!-- Dicas -->
+        <div class="tips">
+            <h3><span>💡</span> Dicas Importantes</h3>
+            <ul>
+                <li>✅ Adicione pelo menos <strong>3 contatos</strong> de confiança</li>
+                <li>✅ Inclua familiares e amigos próximos</li>
+                <li>✅ Mantenha os números atualizados</li>
+                <li>✅ Avise seus contatos que estão na sua lista</li>
+                <li>✅ Revise periodicamente sua lista de contatos</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Modal de edição/adição -->
+    <div class="modal" id="contactModal">
         <div class="modal-content">
-            <h2>Editar Contato</h2>
-            <input type="text" id="contactName" placeholder="Nome" class="modal-input">
-            <input type="tel" id="contactPhone" placeholder="Telefone" class="modal-input">
+            <h2 class="modal-title" id="modalTitle">Adicionar Contato</h2>
+            
+            <form id="contactForm">
+                <input type="hidden" id="contactId">
+                
+                <div class="form-group">
+                    <label class="form-label">Nome do Contato</label>
+                    <input type="text" id="contactName" class="form-input" 
+                           placeholder="Ex: João Silva" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Telefone</label>
+                    <input type="tel" id="contactPhone" class="form-input" 
+                           placeholder="Ex: (11) 99999-9999" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Relação</label>
+                    <select id="contactRelation" class="form-input">
+                        <option value="family">Família</option>
+                        <option value="friend">Amigo(a)</option>
+                        <option value="partner">Parceiro(a)</option>
+                        <option value="colleague">Colega</option>
+                        <option value="other">Outro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <h4 style="margin-bottom: 15px; color: white;">Configurações de Alerta</h4>
+                    
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="contactActive" checked>
+                            <span>Ativar alertas para este contato</span>
+                        </label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="contactSMS">
+                            <span>Enviar SMS em emergências</span>
+                        </label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="contactLocation">
+                            <span>Enviar localização</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Notas (opcional)</label>
+                    <textarea id="contactNotes" class="form-input" rows="3" 
+                              placeholder="Informações adicionais..."></textarea>
+                </div>
+            </form>
+            
             <div class="modal-actions">
-                <button onclick="saveContact()" class="btn-confirm">💾 Salvar</button>
-                <button onclick="closeModal()" class="btn-cancel">❌ Cancelar</button>
-                <button onclick="deleteContact()" class="btn-delete">🗑️ Excluir</button>
+                <button type="button" class="modal-btn save-btn" onclick="saveContact()">
+                    💾 Salvar
+                </button>
+                
+                <button type="button" class="modal-btn cancel-btn" onclick="closeModal()">
+                    ❌ Cancelar
+                </button>
+                
+                <button type="button" class="modal-btn delete-btn-modal" 
+                        id="deleteBtn" onclick="deleteContact()" style="display: none;">
+                    🗑️ Excluir
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        let editingContactId = null;
+        // =========== BANCO DE DADOS NO LOCALSTORAGE ===========
         
-        function addContact() {
-            editingContactId = null;
-            document.getElementById('contactName').value = '';
-            document.getElementById('contactPhone').value = '';
-            document.getElementById('editModal').style.display = 'block';
-        }
+        // Chave para salvar no localStorage
+        const STORAGE_KEY = 'chega_emergency_contacts';
         
-        function editContact(id) {
-            editingContactId = id;
-            // Na prática, carregaria dados do contato
-            document.getElementById('contactName').value = 'Novo Contato';
-            document.getElementById('contactPhone').value = '(11) 97777-7777';
-            document.getElementById('editModal').style.display = 'block';
-        }
-        
-        function saveContact() {
-            const name = document.getElementById('contactName').value;
-            const phone = document.getElementById('contactPhone').value;
+        // =========== CARREGAR CONTATOS DO ARMAZENAMENTO LOCAL ===========
+        function loadContacts() {
+            // Tenta carregar do localStorage
+            const savedContacts = localStorage.getItem(STORAGE_KEY);
             
-            if (name && phone) {
-                alert(`Contato ${name} salvo!`);
-                closeModal();
-                // Recarregar lista
+            if (savedContacts) {
+                return JSON.parse(savedContacts);
             } else {
-                alert('Preencha nome e telefone!');
+                // Se não existir, cria uma lista VAZIA
+                return [];
             }
         }
         
-        function deleteContact() {
-            if (confirm('Excluir este contato?')) {
-                alert('Contato excluído!');
-                closeModal();
+        // =========== SALVAR CONTATOS NO ARMAZENAMENTO LOCAL ===========
+        function saveContacts(contacts) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
+            console.log('💾 Contatos salvos:', contacts.length, 'contatos');
+        }
+        
+        // =========== RENDERIZAR LISTA DE CONTATOS ===========
+        function renderContacts() {
+            const contacts = loadContacts();
+            const container = document.getElementById('contactList');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Atualizar contador
+            document.getElementById('contactCount').textContent = 
+                contacts.length + ' contato' + (contacts.length !== 1 ? 's' : '');
+            
+            // Se não há contatos, mostrar estado vazio
+            if (contacts.length === 0) {
+                emptyState.style.display = 'block';
+                return;
             }
+            
+            // Esconder estado vazio
+            emptyState.style.display = 'none';
+            
+            // Limpar container
+            container.innerHTML = '';
+            
+            // Adicionar cada contato
+            contacts.forEach((contact, index) => {
+                const card = document.createElement('div');
+                card.className = 'contact-card';
+                
+                // Cor do avatar baseado na relação
+                const avatarColors = {
+                    'family': '#FF6B6B',
+                    'friend': '#4ECDC4',
+                    'partner': '#FFD166',
+                    'colleague': '#06D6A0',
+                    'other': '#118AB2'
+                };
+                
+                const avatarColor = avatarColors[contact.relation] || '#667eea';
+                
+                card.innerHTML = `
+                    <div class="contact-avatar" style="background: ${avatarColor}">
+                        ${contact.name.charAt(0).toUpperCase()}
+                    </div>
+                    
+                    <div class="contact-info">
+                        <h3>${contact.name}</h3>
+                        
+                        <div class="contact-phone">
+                            <span>📞</span>
+                            <span>${contact.phone}</span>
+                        </div>
+                        
+                        <div class="contact-tags">
+                            <span class="tag ${contact.active ? '' : 'inactive'}">
+                                ${contact.active ? '✅ Ativo' : '⏸️ Inativo'}
+                            </span>
+                            
+                            <span class="tag">
+                                ${getRelationIcon(contact.relation)} ${formatRelation(contact.relation)}
+                            </span>
+                            
+                            ${contact.sms ? '<span class="tag">📱 SMS</span>' : ''}
+                            ${contact.location ? '<span class="tag">📍 Localização</span>' : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="contact-actions">
+                        <button class="action-btn edit-btn" onclick="editContact(${index})" title="Editar">
+                            ✏️
+                        </button>
+                        <button class="action-btn delete-btn" onclick="confirmDelete(${index})" title="Excluir">
+                            🗑️
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // =========== FUNÇÕES AUXILIARES ===========
+        function getRelationIcon(relation) {
+            const icons = {
+                'family': '👨‍👩‍👧‍👦',
+                'friend': '👥',
+                'partner': '💑',
+                'colleague': '💼',
+                'other': '👤'
+            };
+            return icons[relation] || '👤';
+        }
+        
+        function formatRelation(relation) {
+            const names = {
+                'family': 'Família',
+                'friend': 'Amigo(a)',
+                'partner': 'Parceiro(a)',
+                'colleague': 'Colega',
+                'other': 'Outro'
+            };
+            return names[relation] || relation;
+        }
+        
+        // =========== MODAL ===========
+        let editingIndex = -1; // -1 = novo contato, ≥0 = editar contato
+        
+        function openModal(action, index = -1) {
+            editingIndex = index;
+            const modal = document.getElementById('contactModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const deleteBtn = document.getElementById('deleteBtn');
+            
+            // Limpar formulário
+            document.getElementById('contactForm').reset();
+            document.getElementById('contactId').value = '';
+            
+            if (action === 'add') {
+                modalTitle.textContent = 'Adicionar Contato';
+                deleteBtn.style.display = 'none';
+                
+                // Valores padrão para novo contato
+                document.getElementById('contactActive').checked = true;
+                document.getElementById('contactSMS').checked = true;
+                document.getElementById('contactLocation').checked = true;
+            } else if (action === 'edit') {
+                modalTitle.textContent = 'Editar Contato';
+                deleteBtn.style.display = 'block';
+                
+                // Carregar dados do contato
+                const contacts = loadContacts();
+                const contact = contacts[index];
+                
+                document.getElementById('contactId').value = index;
+                document.getElementById('contactName').value = contact.name;
+                document.getElementById('contactPhone').value = contact.phone;
+                document.getElementById('contactRelation').value = contact.relation;
+                document.getElementById('contactActive').checked = contact.active;
+                document.getElementById('contactSMS').checked = contact.sms;
+                document.getElementById('contactLocation').checked = contact.location;
+                document.getElementById('contactNotes').value = contact.notes || '';
+            }
+            
+            modal.style.display = 'flex';
         }
         
         function closeModal() {
-            document.getElementById('editModal').style.display = 'none';
+            document.getElementById('contactModal').style.display = 'none';
+            editingIndex = -1;
         }
         
-        function saveMessage() {
-            const message = document.getElementById('emergencyMessage').value;
-            localStorage.setItem('chega_emergency_message', message);
-            alert('Mensagem salva com sucesso!');
+        // =========== SALVAR CONTATO ===========
+        function saveContact() {
+            // Validar formulário
+            const name = document.getElementById('contactName').value.trim();
+            const phone = document.getElementById('contactPhone').value.trim();
+            
+            if (!name || !phone) {
+                alert('Por favor, preencha o nome e telefone do contato.');
+                return;
+            }
+            
+            // Carregar contatos existentes
+            const contacts = loadContacts();
+            const contactId = document.getElementById('contactId').value;
+            
+            const contactData = {
+                id: contactId || Date.now().toString(),
+                name: name,
+                phone: phone,
+                relation: document.getElementById('contactRelation').value,
+                active: document.getElementById('contactActive').checked,
+                sms: document.getElementById('contactSMS').checked,
+                location: document.getElementById('contactLocation').checked,
+                notes: document.getElementById('contactNotes').value.trim(),
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            if (editingIndex >= 0) {
+                // Atualizar contato existente
+                contacts[editingIndex] = contactData;
+                alert('✅ Contato atualizado com sucesso!');
+            } else {
+                // Adicionar novo contato
+                contacts.push(contactData);
+                alert('✅ Contato adicionado com sucesso!');
+            }
+            
+            // Salvar no localStorage
+            saveContacts(contacts);
+            
+            // Atualizar interface
+            renderContacts();
+            
+            // Fechar modal
+            closeModal();
         }
         
-        // Carregar mensagem salva
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem('chega_emergency_message');
-            if (saved) {
-                document.getElementById('emergencyMessage').value = saved;
+        // =========== EDITAR CONTATO ===========
+        function editContact(index) {
+            openModal('edit', index);
+        }
+        
+        // =========== CONFIRMAR EXCLUSÃO ===========
+        function confirmDelete(index) {
+            const contacts = loadContacts();
+            const contact = contacts[index];
+            
+            if (confirm(`Tem certeza que deseja excluir o contato:\n\n"${contact.name}"\n${contact.phone}\n\nEsta ação não pode ser desfeita.`)) {
+                deleteContact(index);
+            }
+        }
+        
+        // =========== EXCLUIR CONTATO ===========
+        function deleteContact() {
+            const index = editingIndex;
+            
+            if (index >= 0) {
+                const contacts = loadContacts();
+                contacts.splice(index, 1);
+                
+                // Salvar no localStorage
+                saveContacts(contacts);
+                
+                // Atualizar interface
+                renderContacts();
+                
+                alert('🗑️ Contato excluído com sucesso!');
+                
+                // Fechar modal
+                closeModal();
+            }
+        }
+        
+        // =========== EXPORTAR CONTATOS ===========
+        function exportContacts() {
+            const contacts = loadContacts();
+            
+            if (contacts.length === 0) {
+                alert('Nenhum contato para exportar.');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(contacts, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `chega-contatos-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert(`📥 ${contacts.length} contatos exportados com sucesso!`);
+        }
+        
+        // =========== IMPORTAR CONTATOS ===========
+        function importContacts() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        const importedContacts = JSON.parse(event.target.result);
+                        
+                        if (!Array.isArray(importedContacts)) {
+                            throw new Error('Formato inválido');
+                        }
+                        
+                        const currentContacts = loadContacts();
+                        const mergedContacts = [...currentContacts, ...importedContacts];
+                        
+                        // Remover duplicados (por telefone)
+                        const uniqueContacts = mergedContacts.filter(
+                            (contact, index, self) =>
+                                index === self.findIndex(c => c.phone === contact.phone)
+                        );
+                        
+                        saveContacts(uniqueContacts);
+                        renderContacts();
+                        
+                        alert(`✅ ${importedContacts.length} contatos importados com sucesso!\nTotal: ${uniqueContacts.length} contatos.`);
+                        
+                    } catch (error) {
+                        alert('❌ Erro ao importar contatos. Verifique o formato do arquivo.');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+        
+        // =========== APAGAR TODOS OS CONTATOS ===========
+        function clearAllContacts() {
+            if (confirm('⚠️ ATENÇÃO!\n\nIsso apagará TODOS os seus contatos de emergência.\n\nTem certeza que deseja continuar?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                renderContacts();
+                alert('🗑️ Todos os contatos foram removidos.');
+            }
+        }
+        
+        // =========== INICIALIZAR ===========
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📱 Página de contatos carregada');
+            
+            // Carregar e renderizar contatos
+            renderContacts();
+            
+            // Adicionar botões extras (opcional)
+            addExtraButtons();
+        });
+        
+        // =========== BOTÕES EXTRAS (OPCIONAL) ===========
+        function addExtraButtons() {
+            const header = document.querySelector('.header');
+            
+            const extraDiv = document.createElement('div');
+            extraDiv.style.display = 'flex';
+            extraDiv.style.gap = '10px';
+            
+            extraDiv.innerHTML = `
+                <button onclick="exportContacts()" style="
+                    background: rgba(0, 122, 255, 0.3);
+                    border: 1px solid rgba(0, 122, 255, 0.5);
+                    color: white;
+                    padding: 8px 15px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.9em;
+                ">
+                    📤 Exportar
+                </button>
+                
+                <button onclick="importContacts()" style="
+                    background: rgba(76, 217, 100, 0.3);
+                    border: 1px solid rgba(76, 217, 100, 0.5);
+                    color: white;
+                    padding: 8px 15px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.9em;
+                ">
+                    📥 Importar
+                </button>
+                
+                <button onclick="clearAllContacts()" style="
+                    background: rgba(255, 59, 48, 0.3);
+                    border: 1px solid rgba(255, 59, 48, 0.5);
+                    color: white;
+                    padding: 8px 15px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 0.9em;
+                ">
+                    🗑️ Limpar Tudo
+                </button>
+            `;
+            
+            header.appendChild(extraDiv);
+        }
+        
+        // =========== FECHAR MODAL COM ESC ===========
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
             }
         });
     </script>
