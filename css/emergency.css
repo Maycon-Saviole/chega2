@@ -1,0 +1,76 @@
+/* Tela de emergência */
+.emergency-container {
+    background: linear-gradient(45deg, #ff0000, #ff6b6b);
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+    animation: pulseBackground 2s infinite;
+}
+
+@keyframes pulseBackground {
+    0% { background: #ff0000; }
+    50% { background: #ff6b6b; }
+    100% { background: #ff0000; }
+}
+
+.sos-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+    font-weight: bold;
+    z-index: 9999;
+    pointer-events: none;
+    animation: flash 1s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Botões na emergência */
+.emergency-btn {
+    background: white !important;
+    color: red !important;
+    border: 3px solid red !important;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 10000;
+}
+
+.modal-content {
+    background: white;
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: 100px auto;
+}
+
+/* Animações de emergência */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
