@@ -1,76 +1,292 @@
-/* Tela de emergência */
-.emergency-container {
-    background: linear-gradient(45deg, #ff0000, #ff6b6b);
-    color: white;
+/* EMERGENCY MODE SPECIFIC STYLES */
+
+.emergency-mode {
+    animation: emergencyPulse 0.5s infinite, emergencyShake 0.8s infinite;
+    background: var(--emergency-red);
     min-height: 100vh;
-    padding: 20px;
-    animation: pulseBackground 2s infinite;
-}
-
-@keyframes pulseBackground {
-    0% { background: #ff0000; }
-    50% { background: #ff6b6b; }
-    100% { background: #ff0000; }
-}
-
-.sos-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 4em;
+    text-align: center;
+    color: var(--text-light);
     font-weight: bold;
-    z-index: 9999;
+    position: relative;
+    overflow: hidden;
+}
+
+.emergency-mode::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.1) 10px,
+        rgba(255, 255, 255, 0.1) 20px
+    );
+    animation: scanLines 0.5s linear infinite;
     pointer-events: none;
-    animation: flash 1s infinite;
 }
 
-@keyframes flash {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+.sos-display {
+    font-size: 5em;
+    margin: 20px;
+    animation: emergencyFlash 0.3s infinite;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    z-index: 1;
 }
 
-/* Botões na emergência */
+.emergency-info-panel {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 25px;
+    border-radius: var(--radius);
+    margin: 20px;
+    max-width: 90%;
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    z-index: 1;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.emergency-info-panel h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: var(--safe-green);
+}
+
+.emergency-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+.emergency-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+    width: 90%;
+    max-width: 400px;
+    z-index: 1;
+}
+
 .emergency-btn {
-    background: white !important;
-    color: red !important;
-    border: 3px solid red !important;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
-/* Modal */
-.modal {
-    display: none;
+.btn-safe {
+    background: var(--safe-green);
+    color: var(--text-dark);
+}
+
+.btn-safe:hover {
+    background: #3bc052;
+    transform: scale(1.02);
+}
+
+.btn-alert {
+    background: var(--warning-orange);
+    color: var(--text-light);
+}
+
+.btn-alert:hover {
+    background: #e68a00;
+    transform: scale(1.02);
+}
+
+.btn-call {
+    background: var(--trust-blue);
+    color: var(--text-light);
+}
+
+.btn-call:hover {
+    background: #0066cc;
+    transform: scale(1.02);
+}
+
+.emergency-timer {
+    font-size: 1.5em;
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 25px;
+    border-radius: 50px;
+    z-index: 1;
+}
+
+.timer-label {
+    font-size: 0.8em;
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.timer-value {
+    font-family: 'Courier New', monospace;
+    font-size: 1.3em;
+    letter-spacing: 2px;
+}
+
+/* EMERGENCY ANIMATIONS */
+@keyframes emergencyPulse {
+    0%, 100% {
+        background-color: var(--emergency-red);
+    }
+    50% {
+        background-color: var(--emergency-red-dark);
+    }
+}
+
+@keyframes emergencyFlash {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes emergencyShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes scanLines {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* COUNTDOWN ANIMATION */
+.countdown {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20em;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.2);
+    z-index: 0;
+    animation: countdownPulse 1s infinite;
+}
+
+@keyframes countdownPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+}
+
+/* LOCATION MAP */
+.location-map {
     width: 100%;
+    height: 200px;
+    background: #333;
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.map-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
-    background: rgba(0,0,0,0.8);
-    z-index: 10000;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1em;
 }
 
-.modal-content {
-    background: white;
-    color: #333;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 500px;
-    margin: 100px auto;
+.map-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--trust-blue);
+    text-decoration: none;
+    font-weight: 600;
 }
 
-/* Animações de emergência */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-    20%, 40%, 60%, 80% { transform: translateX(10px); }
+.map-link:hover {
+    text-decoration: underline;
 }
 
-.shake {
-    animation: shake 0.5s;
+/* RESPONSIVE EMERGENCY */
+@media (max-width: 600px) {
+    .sos-display {
+        font-size: 3.5em;
+    }
+    
+    .emergency-info-panel h2 {
+        font-size: 1.5em;
+    }
+    
+    .emergency-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .countdown {
+        font-size: 15em;
+    }
+}
+
+@media (max-width: 400px) {
+    .sos-display {
+        font-size: 2.8em;
+    }
+    
+    .emergency-btn {
+        padding: 15px;
+        font-size: 1em;
+    }
 }
