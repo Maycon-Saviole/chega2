@@ -1,0 +1,125 @@
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    min-height: 100vh;
+}
+
+/* Navegação */
+.top-nav {
+    background: #007aff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.app-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Botão de emergência */
+.emergency-btn {
+    background: linear-gradient(45deg, #ff3b30, #ff6b6b);
+    border: none;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    box-shadow: 0 10px 30px rgba(255, 59, 48, 0.4);
+    transition: transform 0.2s;
+}
+
+.emergency-btn:active {
+    transform: scale(0.95);
+}
+
+/* Cards e listas */
+.card, .history-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #e9ecef;
+}
+
+/* Botões */
+.btn-primary, .btn-secondary, .btn-safe, .btn-alert {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+    transition: opacity 0.2s;
+}
+
+.btn-primary { background: #007aff; color: white; }
+.btn-secondary { background: #5856d6; color: white; }
+.btn-safe { background: #4cd964; color: white; }
+.btn-alert { background: #ff9500; color: white; }
+
+.btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.9;
+}
+
+/* Formulários */
+.input-field, .select-setting {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    margin: 8px 0;
+}
+
+/* Status e badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.safe { background: #d4edda; color: #155724; }
+.warning { background: #fff3cd; color: #856404; }
+.danger { background: #f8d7da; color: #721c24; }
