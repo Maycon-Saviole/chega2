@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Histórico - CHEGA!</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <button class="back-btn" onclick="location.href='index.html'">← Voltar</button>
+        <h1>📊 Histórico</h1>
+        <button class="icon-btn" onclick="clearHistory()">🗑️</button>
+    </nav>
+
+    <main class="container">
+        <!-- Estatísticas Gerais -->
+        <section class="stats-summary">
+            <h2>📈 Estatísticas Gerais</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalEmergencies">0</div>
+                    <div class="stat-label">Emergências</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value" id="totalTrips">0</div>
+                    <div class="stat-label">Trajetos</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value" id="totalAlerts">0</div>
+                    <div class="stat-label">Alertas Enviados</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value" id="safeCancellations">0</div>
+                    <div class="stat-label">Cancelamentos Seguros</div>
+                </div>
+            </div>
+            
+            <div class="time-range">
+                <h3>📅 Período:</h3>
+                <select id="timeRange" onchange="loadHistory()">
+                    <option value="7">Últimos 7 dias</option>
+                    <option value="30" selected>Últimos 30 dias</option>
+                    <option value="90">Últimos 3 meses</option>
+                    <option value="365">Último ano</option>
+                    <option value="all">Todo histórico</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Histórico de Emergências -->
+        <section class="emergency-history">
+            <h2>🚨 Histórico de Emergências</h2>
+            
+            <div class="history-list" id="emergencyList">
+                <!-- Itens serão inseridos por JavaScript -->
+                <div class="empty-history">
+                    <p>📭 Nenhuma emergência registrada ainda.</p>
+                    <p>Seu histórico aparecerá aqui quando você usar o botão de emergência.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Histórico de Trajetos -->
+        <section class="trip-history">
+            <h2>📍 Histórico de Trajetos</h2>
+            
+            <div class="history-list" id="tripList">
+                <div class="empty-history">
+                    <p>🚶‍♀️ Nenhum trajeto registrado ainda.</p>
+                    <p>Use a função "Acompanhamento" para registrar seus trajetos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Histórico de Alertas -->
+        <section class="alert-history">
+            <h2>📱 Alertas Enviados</h2>
+            
+            <div class="history-list" id="alertList">
+                <div class="empty-history">
+                    <p>📨 Nenhum alerta enviado ainda.</p>
+                    <p>Os alertas enviados para seus contatos aparecerão aqui.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráficos (simplificado) -->
+        <section class="charts-section">
+            <h2>📊 Visualização</h2>
+            
+            <div class="chart-container">
+                <h3>Emergências por Hora do Dia</h3>
+                <div class="chart-bar">
+                    <div class="bar-label">Manhã (6h-12h)</div>
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 25%"></div>
+                    </div>
+                    <div class="bar-value">25%</div>
+                </div>
+                
+                <div class="chart-bar">
+                    <div class="bar-label">Tarde (12h-18h)</div>
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 40%"></div>
+                    </div>
+                    <div class="bar-value">40%</div>
+                </div>
+                
+                <div class="chart-bar">
+                    <div class="bar-label">Noite (18h-24h)</div>
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 30%"></div>
+                    </div>
+                    <div class="bar-value">30%</div>
+                </div>
+                
+                <div class="chart-bar">
+                    <div class="bar-label">Madrugada (0h-6h)</div>
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 5%"></div>
+                    </div>
+                    <div class="bar-value">5%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exportação de Dados -->
+        <section class="export-section">
+            <h2>💾 Exportar Dados</h2>
+            <p>Exporte seu histórico para análise pessoal ou backup.</p>
+            
+            <div class="export-options">
+                <button onclick="exportJSON()" class="export-btn">
+                    📄 JSON (completo)
+                </button>
+                
+                <button onclick="exportCSV()" class="export-btn">
+                    📊 CSV (planilha)
+                </button>
+                
+                <button onclick="exportPDF()" class="export-btn">
+                    📋 PDF (relatório)
+                </button>
+                
+                <button onclick="printHistory()" class="export-btn">
+                    🖨️ Imprimir
+                </button>
+            </div>
+            
+            <div class="privacy-note">
+                <p>🔒 Seus dados são mantidos apenas no seu dispositivo.</p>
+                <p>Nenhuma informação é enviada para servidores externos.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Dados de exemplo
+        const sampleData = {
+            emergencies: [
+                {
+                    id: 1,
+                    date: '2024-01-15',
+                    time: '18:30',
+                    duration: '2:15',
+                    location: 'Av. Paulista, 1000',
+                    type: 'emergency',
+                    cancelled: true,
+                    alertsSent: 3
+                },
+                {
+                    id: 2,
+                    date: '2024-01-10',
+                    time: '22:15',
+                    duration: '0:45',
+                    location: 'Metrô Sé',
+                    type: 'test',
+                    cancelled: true,
+                    alertsSent: 0
+                }
+            ],
+            trips: [
+                {
+                    id: 1,
+                    date: '2024-01-14',
+                    start: '19:00',
+                    end: '19:45',
+                    duration: '0:45',
+                    distance: '3.2 km',
+                    sharedWith: 2
+                }
+            ],
+            alerts: [
+                {
+                    id: 1,
+                    date: '2024-01-15',
+                    time: '18:30',
+                    type: 'emergency',
+                    to: 'João Silva',
+                    status: 'delivered'
+                },
+                {
+                    id: 2,
+                    date: '2024-01-15',
+                    time: '18:30',
+                    type: 'emergency',
+                    to: 'Maria Santos',
+                    status: 'delivered'
+                }
+            ]
+        };
+        
+        function loadHistory() {
+            // Carregar dados reais do localStorage
+            const emergencies = JSON.parse(localStorage.getItem('chega_emergencies') || '[]');
+            const trips = JSON.parse(localStorage.getItem('chega_trips') || '[]');
+            const alerts = JSON.parse(localStorage.getItem('chega_alerts') || '[]');
+            
+            // Usar dados de exemplo se não houver dados reais
+            const data = emergencies.length > 0 ? 
+                { emergencies, trips, alerts } : sampleData;
+            
+            // Atualizar estatísticas
+            document.getElementById('totalEmergencies').textContent = data.emergencies.length;
+            document.getElementById('totalTrips').textContent = data.trips.length;
+            document.getElementById('totalAlerts').textContent = data.alerts.length;
+            document.getElementById('safeCancellations').textContent = 
+                data.emergencies.filter(e => e.cancelled).length;
+            
+            // Renderizar listas
+            renderEmergencyList(data.emergencies);
+            renderTripList(data.trips);
+            renderAlertList(data.alerts);
+        }
+        
+        function renderEmergencyList(emergencies) {
+            const container = document.getElementById('emergencyList');
+            
+            if (emergencies.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-history">
+                        <p>📭 Nenhuma emergência registrada ainda.</p>
+                        <p>Seu histórico aparecerá aqui quando você usar o botão de emergência.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            emergencies.forEach(emergency => {
+                html += `
+                    <div class="history-item emergency">
+                        <div class="item-header">
+                            <span class="item-icon">🚨</span>
+                            <span class="item-title">${emergency.type === 'test' ? 'TESTE' : 'EMERGÊNCIA'}</span>
+                            <span class="item-date">${emergency.date} ${emergency.time}</span>
+                        </div>
+                        <div class="item-details">
+                            <p>📍 ${emergency.location}</p>
+                            <p>⏱️ Duração: ${emergency.duration}</p>
+                            <p>📱 Alertas: ${emergency.alertsSent} enviados</p>
+                            <p>${emergency.cancelled ? '✅ Cancelada com segurança' : '⚠️ Resolução desconhecida'}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function renderTripList(trips) {
+            const container = document.getElementById('tripList');
+            
+            if (trips.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-history">
+                        <p>🚶‍♀️ Nenhum trajeto registrado ainda.</p>
+                        <p>Use a função "Acompanhamento" para registrar seus trajetos.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            trips.forEach(trip => {
+                html += `
+                    <div class="history-item trip">
+                        <div class="item-header">
+                            <span class="item-icon">📍</span>
+                            <span class="item-title">TRAJETO</span>
+                            <span class="item-date">${trip.date}</span>
+                        </div>
+                        <div class="item-details">
+                            <p>🕒 ${trip.start} - ${trip.end} (${trip.duration})</p>
+                            <p>📏 Distância: ${trip.distance}</p>
+                            <p>👥 Compartilhado com: ${trip.sharedWith} contatos</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function renderAlertList(alerts) {
+            const container = document.getElementById('alertList');
+            
+            if (alerts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-history">
+                        <p>📨 Nenhum alerta enviado ainda.</p>
+                        <p>Os alertas enviados para seus contatos aparecerão aqui.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            alerts.forEach(alert => {
+                html += `
+                    <div class="history-item alert">
+                        <div class="item-header">
+                            <span class="item-icon">📱</span>
+                            <span class="item-title">${alert.type.toUpperCase()}</span>
+                            <span class="item-date">${alert.date} ${alert.time}</span>
+                        </div>
+                        <div class="item-details">
+                            <p>📞 Para: ${alert.to}</p>
+                            <p>📶 Status: ${alert.status === 'delivered' ? '✅ Entregue' : '⏳ Pendente'}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function clearHistory() {
+            if (confirm('⚠️ Limpar todo o histórico? Esta ação não pode ser desfeita.')) {
+                localStorage.removeItem('chega_emergencies');
+                localStorage.removeItem('chega_trips');
+                localStorage.removeItem('chega_alerts');
+                alert('🗑️ Histórico limpo!');
+                loadHistory();
+            }
+        }
+        
+        function exportJSON() {
+            const data = {
+                emergencies: JSON.parse(localStorage.getItem('chega_emergencies') || '[]'),
+                trips: JSON.parse(localStorage.getItem('chega_trips') || '[]'),
+                alerts: JSON.parse(localStorage.getItem('chega_alerts') || '[]'),
+                exportedAt: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `chega-history-${new Date().getTime()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            alert('📄 Histórico exportado como JSON!');
+        }
+        
+        function exportCSV() {
+            alert('📊 Exportação para CSV será implementada em breve!');
+            // Converter dados para CSV e baixar
+        }
+        
+        function exportPDF() {
+            alert('📋 Exportação para PDF será implementada em breve!');
+            // Usar biblioteca como jsPDF
+        }
+        
+        function printHistory() {
+            window.print();
+        }
+        
+        // Carregar histórico quando a página carrega
+        document.addEventListener('DOMContentLoaded', loadHistory);
+    </script>
+</body>
+</html>
